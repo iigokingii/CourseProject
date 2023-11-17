@@ -20,8 +20,8 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue()
 	Long USER_PROFILE_ID;
-	String FIRSTNAME;
-	String SECONDNAME;
+	String LOGIN;
+	String AVATAR;
 	@Column(unique = true)
 	String EMAIL;
 	String PASSWORD;

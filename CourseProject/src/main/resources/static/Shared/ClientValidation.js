@@ -1,56 +1,33 @@
-document.querySelector('login').addEventListener('submit',async function(e){
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    if(ValidateFirstName(firstName)&&ValidateEmail(email)&&ValidateLastName(lastName)&&ValidatePassword(password)){
-        const SignUpRequest = {
-            firstName:firstName,
-            lastName:lastName,
-            email:email,
-            password:password
-        }
-        const response = await fetch("",{
+function ValidatePasswordMatch(password,repetedPassword){
+    return password===repetedPassword;
+};
 
-        })
-
-
-    }
-
-});
-
-function ValidateFirstName(firstname){
-    if (firstname !== '')
+function ValidateLogin(login){
+    if (login !== '')
         return true;
     else {
-        HandleError('Name is empty')
+        HandleError('Login field is empty')
         return false;
     }
-}
-function ValidateLastName(lastName){
-    if (lastName !== '')
-        return true;
-    else {
-        HandleError('Name is empty')
-        return false;
-    }
-}
+};
+
 function ValidateEmail(email){
     if(email===''){
-        HandleError('Email is empty');
+        HandleError('Email field is empty');
         return false;
     }
     const pattern = /^[\w.-]+@[\w.-]+\.\w+$/;
     if(pattern.test(email))
-        return true
+        return true;
     else{
         HandleError('Email format is invalid. ')
         return false;
     }
-}
-function ValidatePassword(password){
+};
+
+function ValidateRepetedPassword(password){
     if(password===''){
-        HandleError('Email is empty');
+        HandleError('Repeat password field is empty');
         return false;
     }
     /*
@@ -67,12 +44,26 @@ function ValidatePassword(password){
         HandleError('Password format is invalid. It have to contain at least one digit, one upper case, one lower case and 8 symbols from mentioned characters');
         return false;
     }
-}
+};
+
+function ValidatePassword(password){
+    if(password===''){
+        HandleError('Password field is empty');
+        return false;
+    }
+    const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+    if(pattern.test(password))
+        return true
+    else{
+        HandleError('Password format is invalid. It have to contain at least one digit, one upper case, one lower case and 8 symbols from mentioned characters');
+        return false;
+    }
+};
 
 
 function HandleError (ErrorMsg){
     document.getElementById('ErrorMsg').innerHTML = ErrorMsg;
-}
+};
 function ClearError(){
     document.getElementById('ErrorMsg').innerHTML ='';
-}
+};

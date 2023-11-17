@@ -11,5 +11,55 @@
     <h1>Main Page</h1>
     <a th:href="@{/SignIn}">Sign in</a>
     <a th:href="@{/SignUp}">Sign up</a>
+    <button id="anon">goto anon</button>
+    <button id="user">goto user</button>
+    <button id="admin">goto admin</button>
+    <button id="logout">log out</button>
+    <script>
+        document.getElementById("user").addEventListener('click',async ()=>{
+            let jwtToken = getCookie('jwt');
+            console.log(`jwt: ${jwtToken}`)
+            fetch('/api/v1/test/users',{
+                method:"GET",
+                headers:{
+                    "Content-type":"application/json",
+                    "Accept":"application/json"
+                }
+            })
+            .then(response=>response.json())
+            .then(json=>{
+                console.log('Response: '+json);
+            })
+        })
+
+        document.getElementById("admin").addEventListener('click',async ()=>{
+            let jwtToken = getCookie('jwt');
+            console.log(`jwt: ${jwtToken}`)
+            const response = await fetch('/api/v1/test/admins',{
+                method:"GET",
+                headers:{
+                    "Content-type":"application/json",
+                    "Accept":"application/json"
+                }
+            })
+            if(response.ok){
+                window.location.href = '/api/v1/test/admins';
+            }
+        })
+        document.getElementById("anon").addEventListener('click',async ()=>{
+            fetch('/api/v1/test/anon',{
+                method:"GET",
+                headers:{
+                    "Content-type":"application/json",
+                    "Accept":"application/json"
+                }
+            })
+            .then(response=>response.text())
+            .then(json=>{
+                console.log('Response: '+json);
+            })
+        })
+    </script>
+    <script th:src="@{/Shared/JwtApi.js}"></script>
 </body>
 </html>

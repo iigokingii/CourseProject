@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -22,14 +24,16 @@ public class AuthenticationService {
 	private final JwtService jwtService;
 	private final AuthenticationManager authenticationManager;
 	
-	public JwtAuthenticationResponse signup(SignUpRequest request) {
+	public JwtAuthenticationResponse signup(SignUpRequest request) throws SQLException {
 		System.out.println("[AuthenticationService]-signup");
 		var user = User
 				.builder()
-				.FIRSTNAME(request.getFirstName())
-				.SECONDNAME(request.getLastName())
+				.LOGIN(request.getLogin())
+				//TODO добавить дефолтный автар
+				.AVATAR("")
 				.EMAIL(request.getEmail())
 				.PASSWORD(passwordEncoder.encode(request.getPassword()))
+				//TODO заменить на юзера когда будет готов admin view
 				.USER_ROLE(Role.ROLE_ADMIN)
 				.build();
 		
@@ -44,6 +48,8 @@ public class AuthenticationService {
 		System.out.println("[AuthenticationService]-signin");
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+		//TODO заменить на findbyemailandpassword;переделать хэщирование пароля
+		
 		var user = userRepository.findByEMAIL(request.getEmail());
 		var jwt = jwtService.generateToken(user);
 		return JwtAuthenticationResponse.builder().token(jwt).build();

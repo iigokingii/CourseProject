@@ -2,19 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>SignUp</title>
+    <link rel="stylesheet" th:href="@{Shared/Auth.css}">
+    <!--<link rel="stylesheet" href="../../static/Shared/Auth.css">-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <h1>Sign up Page</h1>
-    <form class="login">
-        <input type="text" id="firstName">
-        <input type="text" id="lastName">
-        <input type="text" id="email">
-        <input type="text" id="password">
-    </form>
-    <label id="ErrorMsg" style="color: red"></label>
+    <div class="wrapper" style="background-image: url('/images/BackGroundAuth.jpg')">
+        <section class="container forms">
+            <div class="form login">
+                <div class="form-content">
+                    <header>Sign Up</header>
+                    <form id="SignUp" class="login">
+                        <div class="field input-field">
+                            <input type="text" id="login" placeholder="First name" class="input">
+                        </div>
+
+                        <div class="field input-field">
+                            <input type="text" id="email" placeholder="Email" class="input">
+                        </div>
+
+                        <div class="field input-field">
+                            <input type="password" id="password" placeholder="Password" class="password">
+                            <i class='bx bxs-hide eye-icon'></i>
+                        </div>
+
+                        <div class="field input-field">
+                            <input type="password" id="repetedPassword" placeholder="Repeat password" class="password">
+                            <i class='bx bxs-hide eye-icon'></i>
+                        </div>
+                        <div class="field button-field">
+                            <input type="submit" value="Sign Up">
+                        </div>
+                        <div class="form-link">
+                            <span>
+                                Alredy have an account? <a th:href="@{/SignIn}" class="signup-link">Sign In</a>
+                            </span>
+                        </div>
+                        <label id="ErrorMsg" style="color: red"></label>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+
+    <!--<script src="../../static/Shared/pwShowHide.js"></script>-->
+    <script th:src="@{/Shared/pwShowHide.js}"></script>
+    <script th:src="@{/Shared/JwtApi.js}"></script>
+    <script th:src="@{/Shared/ClientValidation.js}"></script>
+    <script th:src="@{/SignUp/SignUp.js}"></script>
+
+
 </body>
 </html>

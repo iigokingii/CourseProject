@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -20,7 +22,7 @@ public class UserService {
 			}
 		};
 	}
-	public User save(User newUser){
+	public User save(User newUser)throws SQLException {
 		//newUser.setUSER_PROFILE_ID(5L);
 		return userRepository.save(newUser);
 	}
