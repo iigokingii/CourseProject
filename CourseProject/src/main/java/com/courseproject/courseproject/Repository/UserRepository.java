@@ -7,6 +7,7 @@ import oracle.jdbc.internal.OracleTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
@@ -30,7 +31,7 @@ public class UserRepository{
 		UserRepository.jdbcTemplate= jdbcTemplate;
 	}
 	
-	public User findByEMAIL(String email){
+	public User findByEMAIL(String email)throws UncategorizedSQLException{
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withCatalogName("UserProfileFunctions")
 				.withFunctionName("findByEMAIL")
@@ -55,9 +56,9 @@ public class UserRepository{
 		Map<String,Object>outParams;
 		List<User>users = new ArrayList<>();
 		//todo обработка искл
-			outParams = jdbcCall.execute(inParams);
-			users = (List<User>) outParams.get("V_USER_CURSOR");
-			return users.get(0);
+		outParams = jdbcCall.execute(inParams);
+		users = (List<User>) outParams.get("V_USER_CURSOR");
+		return users.get(0);
 	}
 	
 	public User findByEMAILandPASSWORD(String email,String password){
@@ -91,7 +92,7 @@ public class UserRepository{
 		return users.get(0);
 	}
 	
-	public User save(User user) throws java.sql.SQLException{
+	public User save(User user) throws UncategorizedSQLException {
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("ADDUSER")
 				.withCatalogName("UserProfileFunctions");
@@ -101,8 +102,8 @@ public class UserRepository{
 				.addValue("EMAIL",user.getEMAIL())
 				.addValue("PASSWORD",user.getPassword())
 				.addValue("USER_ROLE",user.getUSER_ROLE());
-		
 		jdbcCall.execute(inParams);
+		
 		return user;
 	};
 }

@@ -8,10 +8,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
-	@GetMapping({"/","/hello"})
+	@GetMapping("/")
 	public ModelAndView index(Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("MainPage/MainPage");
+		modelAndView.setViewName("SignUp/SignUp");
 		return modelAndView;
 	}
 	@GetMapping("/SignUp")

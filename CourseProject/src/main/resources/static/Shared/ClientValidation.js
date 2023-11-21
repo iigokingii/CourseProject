@@ -11,18 +11,21 @@ function ValidateLogin(login){
     }
 };
 
-function ValidateEmail(email){
+function ValidateEmail(email,isSignUp = true){
     if(email===''){
         HandleError('Email field is empty');
         return false;
     }
-    const pattern = /^[\w.-]+@[\w.-]+\.\w+$/;
-    if(pattern.test(email))
-        return true;
-    else{
-        HandleError('Email format is invalid. ')
-        return false;
+    if(isSignUp){
+        const pattern = /^[\w.-]+@[\w.-]+\.\w+$/;
+        if(pattern.test(email))
+            return true;
+        else{
+            HandleError('Email format is invalid. ')
+            return false;
+        }
     }
+    return true;
 };
 
 function ValidateRepetedPassword(password){
@@ -46,18 +49,21 @@ function ValidateRepetedPassword(password){
     }
 };
 
-function ValidatePassword(password){
+function ValidatePassword(password,isSignUp=true){
     if(password===''){
         HandleError('Password field is empty');
         return false;
     }
-    const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-    if(pattern.test(password))
-        return true
-    else{
-        HandleError('Password format is invalid. It have to contain at least one digit, one upper case, one lower case and 8 symbols from mentioned characters');
-        return false;
+    if(isSignUp){
+        const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+        if(pattern.test(password))
+            return true
+        else{
+            HandleError('Password format is invalid. It have to contain at least one digit, one upper case, one lower case and 8 symbols from mentioned characters');
+            return false;
+        }
     }
+    return true;
 };
 
 

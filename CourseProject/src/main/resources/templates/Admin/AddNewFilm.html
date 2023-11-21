@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Refresh" content="2" /> -->
+    <title>AddNewFilm</title>
+    <link rel="stylesheet" href="../../static/Admin/AddNewFilm/AddNewFilm.css">
+    <link rel="stylesheet" th:href="@{Admin/AddNewFilm/AddNewFilm.css}">
+    <link rel="stylesheet" href="../../static/Shared/Auth.css">
+    <link rel="stylesheet" th:href="@{Shared/Auth.css}">
+
+</head>
+<body>
+    <header class="header">
+        <div class="headerWrapper">
+            <div class="navElem">
+                <a href="#">add New Film</a>
+            </div>
+            <div class="navElem">
+                <a href="#">All Registrated Users</a>
+            </div>
+            <div class="navElem">
+                <a href="#">All Films</a>
+            </div>
+            <div class="navElem">
+                <a href="#">logout</a>
+            </div>
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="content-wrap">
+            <div class="content">
+                <div class="leftInfo">
+                    <div>
+                        <label>Add Poster</label>
+                        <div class="poster" id="poster">
+                            <div class="posterWrapper">
+                                <a class="AddPoster" id="AddPoster">
+                                    <img src="../../static/images/plus.png"></img>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="TrailerWrapper">
+                        <label>Add Trailer</label>
+                        <div class="trailer" id="trailer">
+                            <div class="posterWrapper">
+                                <a class="AddPoster" id="AddPoster">
+                                    <img src="../../static/images/plus.png"></img>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="middleInfo">
+                    <form>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Movie title:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="TITLE" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Movie original title:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="ORIGINAL_TITLE" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Year of posting:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="YEAR_OF_POSTING" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Country:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="COUNTRY" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Rating IMdB:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="RATING_IMDb" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Rating KP:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="RATING_KP" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Box office receipts:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="BOX_OFFICE_RECEIPTS" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Budget:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="BUDGET" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Age:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="AGE" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="titleOfRow">
+                                <label>Viewing tim:</label>
+                            </div>
+                            <div class="inputValue">
+                                <input id="VIEWING_TIME" type="text">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="rightInfo">
+                    <div class="rightInfoWrapper">
+                        <div class="GenForm">
+                            <div class="type">
+                                <label>Directors></label>
+                            </div>
+                            <div id="Directors">
+                                <input id="Director0" type="text">
+                            </div>
+                            <div class="addNewInput">
+                                <button id="addNewDirectorInput">Add director...</button>
+                            </div>
+                        </div>
+                        <div class="GenForm">
+                            <div class="type">
+                                <label>Actors></label>
+                            </div>
+                            <div id="Actors">
+                                <input id="Actor0" type="text">
+                            </div>
+                            <div class="addNewInput">
+                                <button id="addNewActorInput">Add actor...</button>
+                            </div>
+                        </div>
+                        <div class="GenForm">
+                            <div class="type">
+                                <label>Interesting facts></label>
+                            </div>
+                            <div id="Facts">
+                                <textarea id="Fact0" type="text"></textarea>
+                            </div>
+                            <div class="addNewInput">
+                                <button id="addNewFactInput">Add fact...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="DescriptionRow">
+                    <div class="titleOfDescriptionRow">
+                        <label>Description:</label>
+                    </div>
+                    <div class="textareaValue">
+                        <textarea id="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="sendBtn">
+                <button>Add Film</button>
+            </div>
+        </div>
+    </div>
+    
+    <script th:src="@{/Admin/AddNewFilm/AddNewFilm.js}"></script>
+    <script src="../../static/Admin/AddNewFilm/AddNewFilm.js"></script>
+
+</body>
+</html>

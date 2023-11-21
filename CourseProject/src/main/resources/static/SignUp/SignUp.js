@@ -18,9 +18,15 @@ document.getElementById('SignUp').addEventListener('submit',async function(e){
             })
         });
         if(response.ok){
-            let JWTToken = await response.json();
-            JwtCookie('jwt',JWTToken.token,2);
-            window.location.href = '/SignIn';
+            let responseJson = await response.json();
+            if(responseJson.exception===null){
+                JwtCookie('jwt',responseJson.token,2);
+                window.location.href = '/SignIn';
+            }
+            else{
+                console.log('Error');
+                HandleError(responseJson.exception);
+            }
         }
         else{
             const error = await response.json();

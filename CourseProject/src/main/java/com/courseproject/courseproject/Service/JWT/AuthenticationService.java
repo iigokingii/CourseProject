@@ -8,6 +8,7 @@ import com.courseproject.courseproject.dto.JwtAuthenticationResponse;
 import com.courseproject.courseproject.dto.SignInRequest;
 import com.courseproject.courseproject.dto.SignUpRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +25,7 @@ public class AuthenticationService {
 	private final JwtService jwtService;
 	private final AuthenticationManager authenticationManager;
 	
-	public JwtAuthenticationResponse signup(SignUpRequest request) throws SQLException {
+	public JwtAuthenticationResponse signup(SignUpRequest request) throws UncategorizedSQLException {
 		System.out.println("[AuthenticationService]-signup");
 		var user = User
 				.builder()
@@ -44,7 +45,7 @@ public class AuthenticationService {
 	}
 	
 	
-	public JwtAuthenticationResponse signin(SignInRequest request) {
+	public JwtAuthenticationResponse signin(SignInRequest request){
 		System.out.println("[AuthenticationService]-signin");
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
