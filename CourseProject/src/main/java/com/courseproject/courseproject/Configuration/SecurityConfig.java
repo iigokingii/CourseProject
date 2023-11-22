@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 	private final JwtAuthenticationFilter jwtAuthentificationFilter;
 	private final UserService userService;
@@ -39,7 +41,6 @@ public class SecurityConfig {
 		System.out.println("[SecurityConfig]-Authentucation Manager");
 		return config.getAuthenticationManager();
 	}
-	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		System.out.println("[SecurityConfig]-Secutity Filter Chain");
@@ -47,10 +48,27 @@ public class SecurityConfig {
 		http
 				.csrf(csrf->csrf.disable())
 				.authorizeHttpRequests(request->request
-						.requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/v1/test/**").permitAll()
-						//.anyRequest().authenticated()
-						.anyRequest().permitAll()
+								
+								//.requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
+								//.requestMatchers(HttpMethod.GET,"/api/v1/test/**").permitAll()
+								//.anyRequest().authenticated()
+						
+								//авторизация/регистрация
+								.requestMatchers(HttpMethod.GET,"/").permitAll()
+								.requestMatchers(HttpMethod.GET,"/SignUp").permitAll()
+								.requestMatchers(HttpMethod.GET,"/SignIn").permitAll()
+								.requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
+								.requestMatchers(HttpMethod.GET,"/api/v1/**").permitAll()
+//								//статические ресурсы
+								.requestMatchers(HttpMethod.GET,"/Admin/**").permitAll()
+								.requestMatchers(HttpMethod.GET,"/Shared/**").permitAll()
+								.requestMatchers(HttpMethod.GET,"/images/**").permitAll()
+								.requestMatchers(HttpMethod.GET,"/MainPage/**").permitAll()
+								.requestMatchers(HttpMethod.GET,"/SignInJS/**").permitAll()
+								.requestMatchers(HttpMethod.GET,"/SignUpJS/**").permitAll()
+								//на все остальное
+								.anyRequest().authenticated()
+						//.anyRequest().permitAll()
 				)
 				.sessionManagement(session->session
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

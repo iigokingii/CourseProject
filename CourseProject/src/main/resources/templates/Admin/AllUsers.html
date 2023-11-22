@@ -3,27 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Refresh" content="2" />
+    <!-- <meta http-equiv="Refresh" content="2" /> -->
+    <link rel="stylesheet" href="../../static/Admin/AllUsers/AllUsers.css">
+    <link rel="stylesheet" th:href="@{Admin/AllUsers/AllUsers.css}">
+    <link rel="stylesheet" th:href="@{Shared/Auth.css}">
     <title>AllUsers</title>
 </head>
+<header class="header">
+    <div class="headerWrapper">
+        <div class="navElem">
+            <a th:href="@{/addNewFilm}">add New Film</a>
+        </div>
+        <div class="navElem">
+            <a th:href="@{/AllUsersPage}">All Registrated Users</a>
+        </div>
+        <div class="navElem">
+            <a href="#">All Films</a>
+        </div>
+        <div class="navElem" id="logout">
+            <a href="#">logout</a>
+        </div>
+    </div>
+</header>
+
 <body>
-    <table class="list">
-        <thead>
-            <tr>
-                <th>Login</th>
-                <th>Avatar</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>User_Role</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div class="wrapper">
+        <div class="content-wrap">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Avatar</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>User role</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        
+            <div style="margin-left:20px;">
+                <a href="#"  class="open-popup">Add User...</a>
+            </div>
+        
+            <div class="popup_bg"> 
+                <form class="popup" id="PopUpForm">
+                    <img th:src="@{/images/Close.png}" class="close-popup"></img>
+                    <label>
+                        <input type="hidden" id="id" />
+                        <div class="label_text">
+        
+                        </div>
+                    </label>
+                    <label>
+                        <input type="text" id="Login" />
+                        <div class="label_text">
+                            Login:
+                        </div>
+                    </label>
+                    <label>
+                        <input type="text" id="Email" />
+                        <div class="label_text">
+                            Email:
+                        </div>
+                    </label>
+                    <label>
+                        <input type="text" id="Password"/>
+                        <div class="label_text">
+                            Password:
+                        </div>
+                    </label>
+                    <label>
+                        <select id="User_Role" class="select" name="role">
+                            <option disabled selected value="">SELECT...</option>
+                            <option value="ROLE_Admin">ROLE_Admin</option>
+                            <option value="ROLE_User">ROLE_User</option>
+                        </select>
+                        <div class="label_text">
+                            User role:
+                        </div>
+                    </label>
+                    <label>
+                        <input type="file" id="Avatar"/>
+                        <div class="label_text">
+                            Avatar:
+                        </div>
+                    </label>
+                    <label id="ErrorMsg" style="color:red"></label>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
     
     <script src="../../static/Admin/AllUsers/AllUsers.js"></script>
+    <script th:src="@{/Shared/ClientValidation.js}"></script>
+    <script th:src="@{/Shared/LogOut.js}"></script>
     <script th:src="@{/Admin/AllUsers/AllUsers.js}"></script>
+    <script>
+        // Добавление класса при активации выпадающего списка
+        document.addEventListener('DOMContentLoaded', function() {
+            var selectElement = document.querySelector('select');
+            selectElement.addEventListener('focus', function() {
+            selectElement.classList.add('custom-select');
+            });
+            selectElement.addEventListener('blur', function() {
+            selectElement.classList.remove('custom-select');
+            });
+        });
+    </script>
 </body>
 </html>

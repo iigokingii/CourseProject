@@ -8,22 +8,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
-	@GetMapping("/")
-	public ModelAndView index(Model model) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("SignUp/SignUp");
-		return modelAndView;
-	}
-	@GetMapping("/SignUp")
+//	@GetMapping("/")
+//	public ModelAndView index(Model model) {
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.setViewName("SignUpHTML/SignUpHTML");
+//		return modelAndView;
+//	}
+	@GetMapping({"/","/SignUp"})
 	public ModelAndView SignUp(Model model){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("SignUp/SignUp");
+		modelAndView.setViewName("SignUpHTML/SignUp");
 		return modelAndView;
 	}
 	@GetMapping("/SignIn")
 	public ModelAndView SignIn(Model model){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("SignIn/SignIn");
+		modelAndView.setViewName("SignInHTML/SignIn");
 		return modelAndView;
 	}
 	

@@ -10,11 +10,6 @@ function JwtCookie(cname, cvalue, exdays){
     return jwtToken;
 }
 
-//удаление jwt по завершении сессии
-document.getElementById("logout").addEventListener("click", function() {
-    deleteCookie('jwt');
-    console.log('jwt cookie deleted');
-});
 
 function deleteCookie(cookieName) {
     document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";

@@ -14,7 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -24,24 +27,89 @@ public class AuthenticationService {
 	private final PasswordEncoder passwordEncoder;
 	private final JwtService jwtService;
 	private final AuthenticationManager authenticationManager;
+	private byte[] ConvertPathToByteArr(String path){
+		File imageFile = new File(path);
+		FileInputStream fileInputStream = null;
+		try {
+			fileInputStream = new FileInputStream(imageFile);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		byte[] buffer = new byte[4096];
+		int bytesRead;
+		while (true) {
+			try {
+				if (!((bytesRead = fileInputStream.read(buffer)) != -1))
+					break;
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			byteArrayOutputStream.write(buffer, 0, bytesRead);
+		}
+		byte[] imageBytes = byteArrayOutputStream.toByteArray();
+		try {
+			fileInputStream.close();
+			byteArrayOutputStream.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return imageBytes;
+	}
 	
-	public JwtAuthenticationResponse signup(SignUpRequest request) throws UncategorizedSQLException {
+	public JwtAuthenticationResponse signup(SignUpRequest request){
 		System.out.println("[AuthenticationService]-signup");
+		byte[] imageBytes = ConvertPathToByteArr("D:\\3k1s\\KP\\CourseProject\\src\\main\\resources\\static\\images\\DefAvatar.jpg");
+		
 		var user = User
 				.builder()
 				.LOGIN(request.getLogin())
 				//TODO добавить дефолтный автар
-				.AVATAR("")
+				.AVATAR(imageBytes)
 				.EMAIL(request.getEmail())
 				.PASSWORD(passwordEncoder.encode(request.getPassword()))
 				//TODO заменить на юзера когда будет готов admin view
-				.USER_ROLE(Role.ROLE_ADMIN)
+				.USER_ROLE(Role.ROLE_Admin)
 				.build();
 		
-		user = userService.save(user);
-		var jwt = jwtService.generateToken(user);
-		System.out.println("[AuthenticationService]-JWT AT SAVING: "+ jwt);
-		return JwtAuthenticationResponse.builder().token(jwt).build();
+		JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+		try {
+			userService.save(user);
+			var jwt = jwtService.generateToken(user);
+			System.out.println("[AuthenticationService]-JWT AT SAVING: "+ jwt);
+			jwtAuthenticationResponse.setToken(jwt);
+		}
+		catch (Exception ex){
+			Pattern pattern = Pattern.compile("ORA-\\d+: [^\\r\\n]+");
+			Matcher matcher = pattern.matcher(ex.getMessage());
+			while (matcher.find()) {
+				String errorSubstring = matcher.group();
+				jwtAuthenticationResponse.setException(errorSubstring);
+				break;
+			}
+		}
+		finally {
+			return jwtAuthenticationResponse;
+		}
+//		System.out.println("[AuthenticationController]-Sign up");
+//		JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+//		try {
+//			jwtAuthenticationResponse=authenticationService.signup(request);
+//			return jwtAuthenticationResponse;
+//		}
+//		catch (Exception ex){
+//			Pattern pattern = Pattern.compile("ORA-\\d+: [^\\r\\n]+");
+//			Matcher matcher = pattern.matcher(ex.getMessage());
+//			while (matcher.find()) {
+//				String errorSubstring = matcher.group();
+//				jwtAuthenticationResponse.setException(errorSubstring);
+//				break;
+//			}
+//		}
+//		finally {
+//			return jwtAuthenticationResponse;
+//		}
+	
 	}
 	
 	

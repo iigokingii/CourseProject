@@ -22,7 +22,7 @@ public class TestController {
 	}
 	
 	@GetMapping("/users")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('User')")
 	public ModelAndView usersEndPoint(Model model) {
 		ModelAndView modelAndView = new ModelAndView();
 		model.addAttribute("Role","users");
@@ -30,11 +30,11 @@ public class TestController {
 		return new ModelAndView("User/User");
 	}
 	@GetMapping("/admins")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('Admin')")
 	public ModelAndView redirectToNewPage(Model model) {
 		ModelAndView modelAndView = new ModelAndView();
 		model.addAttribute("Role","admins");
-		modelAndView.setViewName("Admin/Admin");
+		modelAndView.setViewName("Admin/AddNewFilm");
 		return modelAndView;
 	}
 }

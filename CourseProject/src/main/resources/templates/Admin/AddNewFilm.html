@@ -6,7 +6,7 @@
     <title>AddNewFilm</title>
     <link rel="stylesheet" href="../../static/Admin/AddNewFilm/AddNewFilm.css">
     <link rel="stylesheet" th:href="@{Admin/AddNewFilm/AddNewFilm.css}">
-    <link rel="stylesheet" href="../../static/Shared/Auth.css">
+    <!-- <link rel="stylesheet" href="../../static/Shared/Auth.css"> -->
     <link rel="stylesheet" th:href="@{Shared/Auth.css}">
 
 </head>
@@ -14,15 +14,15 @@
     <header class="header">
         <div class="headerWrapper">
             <div class="navElem">
-                <a href="#">add New Film</a>
+                <a th:href="@{/addNewFilm}">add New Film</a>
             </div>
             <div class="navElem">
-                <a href="#">All Registrated Users</a>
+                <a th:href="@{/AllUsersPage}">All Registrated Users</a>
             </div>
             <div class="navElem">
                 <a href="#">All Films</a>
             </div>
-            <div class="navElem">
+            <div class="navElem" id="logout">
                 <a href="#">logout</a>
             </div>
         </div>
@@ -36,7 +36,7 @@
                         <div class="poster" id="poster">
                             <div class="posterWrapper">
                                 <a class="AddPoster" id="AddPoster">
-                                    <img src="../../static/images/plus.png"></img>
+                                    <img th:src="@{/images/plus.png}"></img>
                                 </a>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                         <div class="trailer" id="trailer">
                             <div class="posterWrapper">
                                 <a class="AddPoster" id="AddPoster">
-                                    <img src="../../static/images/plus.png"></img>
+                                    <img th:src="@{/images/plus.png}"></img>
                                 </a>
                             </div>
                         </div>
@@ -147,6 +147,7 @@
                             </div>
                             <div class="addNewInput">
                                 <button id="addNewDirectorInput">Add director...</button>
+                                <button id="deleteNewDirectorInput">delete</button>
                             </div>
                         </div>
                         <div class="GenForm">
@@ -158,6 +159,7 @@
                             </div>
                             <div class="addNewInput">
                                 <button id="addNewActorInput">Add actor...</button>
+                                <button id="deleteNewActorInput">delete</button>
                             </div>
                         </div>
                         <div class="GenForm">
@@ -169,6 +171,7 @@
                             </div>
                             <div class="addNewInput">
                                 <button id="addNewFactInput">Add fact...</button>
+                                <button id="deleteNewFactInput">delete</button>
                             </div>
                         </div>
                     </div>
@@ -189,9 +192,10 @@
             </div>
         </div>
     </div>
-    
-    <script th:src="@{/Admin/AddNewFilm/AddNewFilm.js}"></script>
-    <script src="../../static/Admin/AddNewFilm/AddNewFilm.js"></script>
 
+    <!-- <script src="../../static/Admin/AddNewFilm/AddNewFilm.js"></script> -->
+    <script th:src="@{/Admin/AddNewFilm/AddNewFilm.js}"></script>
+    <script th:src="@{/Shared/JwtApi.js}"></script>
+    <script th:src="@{/Shared/LogOut.js}"></script>
 </body>
 </html>

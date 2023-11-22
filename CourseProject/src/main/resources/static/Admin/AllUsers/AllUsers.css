@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    /* background-color: #ccc; */
+}
+a{
+    cursor: pointer;
+}
+.header{
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerWrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 64%;
+    padding-left: 3.9%;
+    padding-right: 3.1%;
+}
+.navElem{
+    display: flex;
+    align-items: center;
+}
+.headerWrapper a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin:0;
+    padding:0;
+    background-color: #f0f0f0;
+}
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content-wrap{
+    padding-top: 15px;
+    padding-bottom: 40px;
+    width: 94%;
+    background-color: #ffffff;
+}
+.list {
+    border-collapse: separate;
+    border-spacing: 20px;
+    width: 100%;
+}
+th, td {
+    text-align: center; /* Align the text to the center horizontally */
+    vertical-align: middle; /* Align the text to the middle vertically */
+  }
+
+.delete-button {
+    display: inline-block;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    background: red;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 2px;
+    margin-left:10px;
+    border:0px;
+}
+
+.open-popup {
+    display: inline-block;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    background: #2982ff;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 0px;
+}
+.popup_bg {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events:none;
+    transition:0.5s all;
+}
+.popup_bg.active{
+    opacity:1;
+    pointer-events:all;
+    transition:0.5s all;
+}
+.popup{
+    font-family: 'Poppins', sans-serif;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    background:#fff;
+    width:400px;
+    padding:25px;
+    transition:0.5s all;
+}
+.popup.active{
+    transform:translate(-50%,-50%) scale(1);
+    transition:0.5s all;
+
+}
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.popup label{
+    width:100%;
+    margin-bottom:25px;
+    display:flex;
+    flex-direction:column-reverse;
+}
+.popup label label_text{
+    font-size:14px;
+    text-transform:uppercase;
+    font-weight:500;
+    color:#cfd0d3;
+    margin-bottom:5px;
+}
+.popup input[type="text"] {
+    height: 45px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #cfd0d3;
+}
+.popup select:focus{
+    border-bottom:1px solid #2982ff;
+}
+.popup input:focus{
+    border-bottom:1px solid #2982ff;
+}
+
+.popup input:focus + .label_text{
+    color: #2982ff;
+}
+.popup button {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    border: 2px solid #2982ff;
+    background: #2982ff;
+    cursor:pointer;
+    text-transform:uppercase;
+    transition:0.5s all;
+}
+.popup button:hover {
+    color: #2982ff;
+    background: #fff;
+    transition: 0.5s all;
+}
+/*Стилизация select*/
+.select{
+    height: 30px;
+}
+.select option{
+    height: 40px;
+}
+.custom-select:focus {
+    border: 1px solid #2982ff; 
+    outline: none; 
+}
+.custom-select:focus+.label_text{
+    color: #2982ff;
+}

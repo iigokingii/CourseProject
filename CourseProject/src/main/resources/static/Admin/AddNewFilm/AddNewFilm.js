@@ -30,3 +30,7 @@ document.getElementById("addNewFactInput").addEventListener('click',(e)=>{
     
     container.append(newInput);
 });
+
+document.getElementById('logout').addEventListener('click',(e)=>{
+    e.preventDefault();
+})

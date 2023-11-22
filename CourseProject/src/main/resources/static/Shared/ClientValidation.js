@@ -11,6 +11,24 @@ function ValidateLogin(login){
     }
 };
 
+function ValidateUserRole(role){
+    if (role !== '')
+        return true;
+    else {
+        HandleError('Choose user role')
+        return false;
+    }
+}
+
+function ValidateUserAvatar(avatar){
+    if (avatar !== '')
+        return true;
+    else {
+        HandleError('Avatar dont setted')
+        return false;
+    }
+}
+
 function ValidateEmail(email,isSignUp = true){
     if(email===''){
         HandleError('Email field is empty');
@@ -66,6 +84,14 @@ function ValidatePassword(password,isSignUp=true){
     return true;
 };
 
+function IsValidId(id) {
+    if (!isNaN(id))
+        return true
+    else {
+        HandleError('Incorrect id');
+        return false;
+    }
+}
 
 function HandleError (ErrorMsg){
     document.getElementById('ErrorMsg').innerHTML = ErrorMsg;

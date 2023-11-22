@@ -2,6 +2,7 @@
 --Comparison methods use MAP MEMBER FUNCTION or ORDER MEMBER FUNCTION
 --Non-comparison member methods are declared as either MEMBER FUNCTION or MEMBER PROCEDURE.
 --SELF IN OUT NOCOPY(Режим передачи параметров NOCOPY требует, чтобы ядро PL/SQL передавало аргументы IN OUT по ссылке, а не по значению.)
+
 CREATE SEQUENCE SEQ_GENRE
  START WITH     1
  INCREMENT BY   1

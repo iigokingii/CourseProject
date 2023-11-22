@@ -21,7 +21,7 @@ public class User implements UserDetails {
 	@GeneratedValue()
 	Long USER_PROFILE_ID;
 	String LOGIN;
-	String AVATAR;
+	byte[] AVATAR;
 	@Column(unique = true)
 	String EMAIL;
 	String PASSWORD;

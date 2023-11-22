@@ -11,8 +11,8 @@
 <body>
     <header>
         <h1>Main Page</h1>
-        <a th:href="@{/SignIn}">Sign in</a>
-        <a th:href="@{/SignUp}">Sign up</a>
+        <a th:href="@{/templates/SignInHTML}">Sign in</a>
+        <a th:href="@{/templates/SignUpHTML}">Sign up</a>
         <button id="anon">goto anon</button>
         <button id="user">goto user</button>
         <button id="admin">goto admin</button>
@@ -69,5 +69,6 @@
         })
     </script>
     <script th:src="@{/Shared/JwtApi.js}"></script>
+    <script th:src="@{/Shared/LogOut.js}"></script>
 </body>
 </html>

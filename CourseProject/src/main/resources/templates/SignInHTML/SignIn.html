@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SigIn</title>
+    <!--<link rel="stylesheet" href="../../static/Shared/Auth.css">-->
+    <link rel="stylesheet" th:href="@{Shared/Auth.css}">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="wrapper" style="background-image: url('/images/test4.jpg')">
+        <section class="container forms">
+            <div class="form login">
+                <div class="form-content">
+                    <header>Sign In</header>
+                    <form id="SignIn" class="login">
+                        <div class="field input-field">
+                            <input type="text" id="email" placeholder="Email" class="input">
+                        </div>
+    
+                        <div class="field input-field">
+                            <input type="password" id="password" placeholder="Password" class="password">
+                            <i class='bx bxs-hide eye-icon'></i>
+                        </div>
+    
+                        <div class="form-link">
+                            <a href="#" class="forgot-pass">Forgot Password?</a>
+                        </div>
+    
+                        <div class="field button-field">
+                            <input type="submit" value="Sign In">
+                        </div>
+
+                        <div class="form-link">
+                            <span>
+                                Dont have an account? <a th:href="@{/SignUp}" class="signup-link">Sign Up</a>
+                            </span>
+                        </div>
+                        <label id="ErrorMsg" style="color: red"></label>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+
+    <!--<script src="../../static/Shared/pwShowHide.js"></script>-->
+    <script th:src="@{/Shared/pwShowHide.js}"></script>
+    <script th:src="@{/Shared/JwtApi.js}"></script>
+    <script th:src="@{/Shared/ClientValidation.js}"></script>
+    <script th:src="@{/SignInJS/SignIn.js}"></script>
+
+    
+
+</body>
+</html>
