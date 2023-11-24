@@ -18,7 +18,7 @@ async function GetUsers(){
         console.log('Error');
     }
 }
-//TODO если удаляешь пользователя под которым сейчас нужно удалить jwt и перейти на страницу регистрации
+//TODO если удаляешь пользователя под которым сейчас, нужно удалить jwt и перейти на страницу регистрации(ответ с удалением куки(определяется через доставание из jwt))
 async function DeleteUser(id) {
     const response = await fetch(
         `/DeleteUser?userID=${id}`, {
@@ -52,24 +52,7 @@ async function getUserById(id){
         console.log(error.message);
     }
 }
-async function BlobToImage(blobDataString, container) {
-    //const blobData = new Blob([blobDataString], { type : 'plain/text' });
-    const blobData = await fetch(`data:plain/text;base64,${blobDataString}`).then(res => res.blob());
-    var blob;
-    if (blobData instanceof Blob || blobData instanceof File) {
-      blob = blobData;
-    } else {
-      console.error('Invalid blobData: ' + blobData);
-      return;
-    }
-  
-    var imageUrl = URL.createObjectURL(blob);
-    var imgElement = document.createElement('img');
-    imgElement.src = imageUrl;
-    imgElement.classList.add("default-avatar");
 
-    container.appendChild(imgElement);
-}
 
 function CreateRow(user){
     //console.log(user);
@@ -126,10 +109,12 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
     event.preventDefault();
     const id = document.getElementById("id").value;
     const Login = document.getElementById("Login").value;
-    const Avatar = document.getElementById("Avatar").value;
+    const Avatar = document.getElementById("Avatar").files[0];
     const Email = document.getElementById("Email").value;
     const Password = document.getElementById("Password").value;
     const User_Role = document.getElementById("User_Role").value;
+    var avatarBlob = await fileToByteArray(Avatar);
+    console.log(`avatarBlob:${avatarBlob}`);
     //input name = "id" empty, so add new contact
     if (id == '') {
         if (ValidateLogin(Login)&&ValidateEmail(Email) && ValidatePassword(Password) && ValidateUserRole(User_Role) && ValidateUserAvatar(Avatar)) {
@@ -138,7 +123,7 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
                 "login":Login,
                 "email":Email,
                 "user_ROLE":User_Role,
-                "avatar":Avatar,
+                "avatar":avatarBlob,
                 "password":Password
             }
             const response = await fetch("/AddUser", {
@@ -157,6 +142,7 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
                 if(respJson.exception===""){
                     newUser.user_PROFILE_ID=respJson.id;
                     newUser.password = respJson.encodedPass;
+                    newUser.avatar = respJson.avatar;
                     let rows = document.querySelector("tbody");
                     rows.append(CreateRow(newUser));
                     AddPopUp();
@@ -181,7 +167,7 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
                 "login":Login,
                 "email":Email,
                 "user_ROLE":User_Role,
-                "avatar":Avatar,
+                "avatar":avatarBlob,
                 "password":Password
             }
             const response = await fetch("/UpdateUser", {
@@ -196,6 +182,12 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
             });
             if (response.ok === true) {
                 console.log("Updated");
+                
+                let respJson = await response.json();
+                newUser.user_PROFILE_ID=respJson.id;
+                newUser.password = respJson.encodedPass;
+                newUser.avatar = respJson.avatar;
+
                 document.querySelector(`tr[data-rowid='${newUser.user_PROFILE_ID}']`).replaceWith(CreateRow(newUser));
                 AddPopUp();
                 ClearInputs();
@@ -209,6 +201,10 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
     }
             
 })
+
+
+
+
 function ClearInputs() {
     document.getElementById("id").value = "";
     document.getElementById("Login").value = "";
@@ -253,7 +249,10 @@ function AddPopUp() {
 function FillDataToInputs(user){
     document.getElementById("id").value=user.user_PROFILE_ID;
     document.getElementById("Login").value=user.login;
-    document.getElementById("Avatar").value=user.avatar;
+
+    let inputFile=document.getElementById("Avatar");
+    BlobToInputFile(user.avatar,inputFile);
+    
     document.getElementById("Email").value=user.email;
     document.getElementById("Password").value=user.password;
     document.getElementById("User_Role").value=user.user_ROLE;

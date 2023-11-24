@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="Refresh" content="2" /> -->
-    <link rel="stylesheet" href="../../static/Admin/AllUsers/AllUsers.css">
+    <!-- <link rel="stylesheet" href="../../static/Admin/AllUsers/AllUsers.css"> -->
     <link rel="stylesheet" th:href="@{Admin/AllUsers/AllUsers.css}">
     <link rel="stylesheet" th:href="@{Shared/Auth.css}">
     <title>AllUsers</title>
@@ -99,19 +99,21 @@
     </div>
     
     
-    <script src="../../static/Admin/AllUsers/AllUsers.js"></script>
+    <!-- <script src="../../static/Admin/AllUsers/AllUsers.js"></script> -->
     <script th:src="@{/Shared/ClientValidation.js}"></script>
     <script th:src="@{/Shared/LogOut.js}"></script>
+    <script th:src="@{/Shared/Blob.js}"></script>
     <script th:src="@{/Admin/AllUsers/AllUsers.js}"></script>
     <script>
         // Добавление класса при активации выпадающего списка
+        // у select с role
         document.addEventListener('DOMContentLoaded', function() {
             var selectElement = document.querySelector('select');
             selectElement.addEventListener('focus', function() {
-            selectElement.classList.add('custom-select');
+                selectElement.classList.add('custom-select');
             });
             selectElement.addEventListener('blur', function() {
-            selectElement.classList.remove('custom-select');
+                selectElement.classList.remove('custom-select');
             });
         });
     </script>

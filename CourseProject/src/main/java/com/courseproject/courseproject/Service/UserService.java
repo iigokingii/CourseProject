@@ -53,16 +53,15 @@ public class UserService {
 		var user = User
 				.builder()
 				.LOGIN(request.getLogin())
-				//TODO добавить дефолтный автар
 				.AVATAR(request.getAvatar())
 				.EMAIL(request.getEmail())
 				.PASSWORD(encodedPass)
-				//TODO заменить на юзера когда будет готов admin view
 				.USER_ROLE(request.getUser_ROLE())
 				.build();
 		AddUserResponse addUserResponse = new AddUserResponse();
 		try {
 			Long id = userRepository.SaveGetID(user);
+			addUserResponse.setAVATAR(user.getAVATAR());
 			addUserResponse.setID(id);
 			addUserResponse.setEncodedPass(encodedPass);
 		}
@@ -81,19 +80,23 @@ public class UserService {
 		
 		
 	}
-	public void UpdateUserData(@RequestBody UserModelRequest request){
+	public AddUserResponse UpdateUserData(@RequestBody UserModelRequest request){
+		String encodedPass = passwordEncoder.encode(request.getPassword());
+		AddUserResponse addUserResponse = new AddUserResponse();
+		addUserResponse.setAVATAR(request.getAvatar());
+		addUserResponse.setID(Long.parseLong(request.getUser_PROFILE_ID()));
+		addUserResponse.setEncodedPass(encodedPass);
 		var user = User
 				.builder()
 				.USER_PROFILE_ID(Long.parseLong(request.getUser_PROFILE_ID()))
 				.LOGIN(request.getLogin())
-				//TODO добавить дефолтный автар
 				.AVATAR(request.getAvatar())
 				.EMAIL(request.getEmail())
-				.PASSWORD(passwordEncoder.encode(request.getPassword()))
-				//TODO заменить на юзера когда будет готов admin view
+				.PASSWORD(encodedPass)
 				.USER_ROLE(request.getUser_ROLE())
 				.build();
 		userRepository.UpdateUser(user);
+		return addUserResponse;
 	}
 	
 }

@@ -35,9 +35,15 @@
                         <label>Add Poster</label>
                         <div class="poster" id="poster">
                             <div class="posterWrapper">
-                                <a class="AddPoster" id="AddPoster">
+                                <!-- <a class="AddPoster" id="AddPoster">
                                     <img th:src="@{/images/plus.png}"></img>
-                                </a>
+                                </a> -->
+                                <div class="file-input">
+                                    <label for="posterInput">
+                                        <img th:src="@{/images/plus.png}"></img>
+                                    </label>
+                                    <input id="posterInput" type="file">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -45,9 +51,15 @@
                         <label>Add Trailer</label>
                         <div class="trailer" id="trailer">
                             <div class="posterWrapper">
-                                <a class="AddPoster" id="AddPoster">
+                                <!-- <a class="AddPoster" id="AddPoster">
                                     <img th:src="@{/images/plus.png}"></img>
-                                </a>
+                                </a> -->
+                                <div class="file-input">
+                                    <label for="trailerInput">
+                                        <img th:src="@{/images/plus.png}"></img>
+                                    </label>
+                                    <input id="trailerInput" type="file">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -143,7 +155,7 @@
                                 <label>Directors></label>
                             </div>
                             <div id="Directors">
-                                <input id="Director0" type="text">
+                                <input id="Director0" type="text" class="generatedInput">
                             </div>
                             <div class="addNewInput">
                                 <button id="addNewDirectorInput">Add director...</button>
@@ -155,7 +167,7 @@
                                 <label>Actors></label>
                             </div>
                             <div id="Actors">
-                                <input id="Actor0" type="text">
+                                <input id="Actor0" type="text" class="generatedInput">
                             </div>
                             <div class="addNewInput">
                                 <button id="addNewActorInput">Add actor...</button>
@@ -187,15 +199,16 @@
                     </div>
                 </div>
             </div>
-            <div class="sendBtn">
+            <div class="sendBtn" id="SendToServer">
                 <button>Add Film</button>
             </div>
         </div>
     </div>
 
-    <!-- <script src="../../static/Admin/AddNewFilm/AddNewFilm.js"></script> -->
+    <script src="../../static/Admin/AddNewFilm/AddNewFilm.js"></script>
     <script th:src="@{/Admin/AddNewFilm/AddNewFilm.js}"></script>
     <script th:src="@{/Shared/JwtApi.js}"></script>
+    <script th:src="@{/Shared/Blob.js}"></script>
     <script th:src="@{/Shared/LogOut.js}"></script>
 </body>
 </html>

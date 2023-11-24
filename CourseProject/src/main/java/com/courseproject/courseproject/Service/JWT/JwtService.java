@@ -64,7 +64,7 @@ public class JwtService {
 		System.out.println("[JwtService]-isTokenExpired");
 		return extractExpiration(token).before(new Date());
 	}
-	
+
 	private Date extractExpiration(String token) {
 		System.out.println("[JwtService]-extractExpiration");
 		return extractClaim(token, Claims::getExpiration);

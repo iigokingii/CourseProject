@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Refresh" content="30" />
+    <link rel="stylesheet" href="../../static/MainPage/MainPage.css"/>
     <title>Document</title>
 </head>
 <body>
@@ -18,11 +19,12 @@
         <button id="admin">goto admin</button>
         <button id="logout">log out</button>
     </header>
-    <main>
-        <div>
-
-        </div>
-    </main>
+            <div class="file-input">
+                <label for="file-upload">
+                  <span class="plus-icon">+</span>
+                </label>
+                <input id="file-upload" type="file">
+            </div>
     <script>
         document.getElementById("user").addEventListener('click',async ()=>{
             let jwtToken = getCookie('jwt');

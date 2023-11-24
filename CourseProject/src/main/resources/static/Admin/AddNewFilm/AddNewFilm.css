@@ -61,6 +61,7 @@ a{
     width: 33.3%;
 }
 /*Poster*/
+
 .leftInfo div{
     width: 80%;
     margin: auto;
@@ -83,9 +84,28 @@ a{
     justify-content: center;
     align-items: center; 
 }
-.AddPoster img{
+.file-input img{
     width: 30px;
     height: 30px;
+    cursor: pointer;
+
+}
+
+.file-input {
+    position: relative;
+    display: inline-block;
+}
+  
+#posterInput {
+    display: none;
+}
+#trailerInput{
+    display: none;
+}
+  
+.upload-text {
+    margin-left: 8px;
+    cursor: pointer;
 }
 
 /*Trailer*/
@@ -158,9 +178,10 @@ textarea{
 label{
     margin-right: 6px;
 }
-input[type=text]{
-    border: 2px solid #cccccc;
-    border-radius: 3px;
+.row input[type=text]{
+    border: 0px;
+    border-bottom: 2px solid #cccccc;
+    border-radius: 0px;
     width: 100%;
     font-size: 11px;
     padding: 2px;
@@ -169,9 +190,9 @@ input[type=text]{
 .inputValue{
     height: 40px;
 }
-input[type=text]:focus {
+.row input[type=text]:focus {
     outline: none;
-    border: 2px solid rgb(91, 170, 117);
+    border-bottom: 2px solid #2982ff;
     
 }
 
@@ -180,15 +201,15 @@ input[type=text]:focus {
     width: 33.3%;
 }
 .generatedInput{
-    border: 2px solid #cccccc;
-    border-radius: 3px;
+    border: 0px;
+    border-bottom: 2px solid #cccccc;
     width: 100%;
     font-size: 11px;
     padding: 2px;
 }
 .generatedInput:focus{
     outline: none;
-    border: 2px solid rgb(91, 170, 117);
+    border-bottom: 2px solid rgb(91, 157, 170)
 }
 .rightInfoWrapper{
     padding-left:12%;

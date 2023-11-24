@@ -13,4 +13,5 @@ public class AddUserResponse {
 	Long ID;
 	String EncodedPass;
 	String exception="";
+	byte[] AVATAR;
 }

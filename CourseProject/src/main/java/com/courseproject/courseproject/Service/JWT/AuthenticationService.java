@@ -59,7 +59,7 @@ public class AuthenticationService {
 	
 	public JwtAuthenticationResponse signup(SignUpRequest request){
 		System.out.println("[AuthenticationService]-signup");
-		byte[] imageBytes = ConvertPathToByteArr("D:\\3k1s\\KP\\CourseProject\\src\\main\\resources\\static\\images\\DefAvatar.jpg");
+		byte[] imageBytes = ConvertPathToByteArr("D:\\3k1s\\KP\\CourseProject\\src\\main\\resources\\static\\images\\avatars\\DefAvatar.jpg");
 		
 		var user = User
 				.builder()
