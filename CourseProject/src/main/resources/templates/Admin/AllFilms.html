@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <!-- <meta http-equiv="Refresh" content="2" /> -->
     <title>AddNewFilm</title>
-    <link rel="stylesheet" href="../../static/Admin/AddNewFilm/AddNewFilm.css">
-    <link rel="stylesheet" th:href="@{Admin/AddNewFilm/AddNewFilm.css}">
+    <!-- <link rel="stylesheet" href="../../static/Shared/Auth.css"> -->
+    <!-- <link rel="stylesheet" href="../../static/Admin/AllFilms/AllFilmStyle.css"> -->
+
+    <link rel="stylesheet" th:href="@{Admin/AllFilms/AllFilmStyle.css}">
     <link rel="stylesheet" th:href="@{Shared/Auth.css}">
 
 </head>
@@ -26,8 +28,62 @@
         </div>
     </header>
     <body>
-        <div >
+        <div class="wrapper">
+            <div class="content-wrap">
+                <div class="content">
+                    <div class="nav">
+                        <div class="Find">
+                            <label>Найти по названию:</label>
+                            <input type="text">
+                        </div>
+                        <div class="sorting">
+                            <p>Сортировать по: </p>
+                            <div class="categories">
+                                <p id="alphabet">Названию</p>
+                                <p id="Genre">Жанру</p>
+                                <p id="viewingTime">Времени просмотра</p>
+                                <p id="date">Дате</p>
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="films">
+                        <div class="film" id="film0">
+                            <div class="film-id">
+                                <h3 id="film-id">1</h3>
+                            </div>
+                            <div class="poster" id="poster-film0">    
+                            </div>
+                            <div class="briefInformation">
+                                <h4 class="title">Зеленая Миля</h4>
+                                <div class="Row2">
+                                    <p id="OriginalName">The Green Mile,</p>
+                                    <p id="Date">1999,</p>
+                                    <p id="ViewingTime">189 мин.</p>
+                                </div>
+                                <div class="Row3">
+                                    <p id="Country">США • </p>
+                                    <p id="FilmGenre">драма</p>
+                                    <p id="Director">Режиссёр: Фрэнк Дарабонт</p>
+                                </div>
+                                <div class="Row4">
+                                    <p id="Actors">В ролях: Том Хэнкс, Дэвид Морс</p>
+                                </div>
+                            </div>
+                            <div class="otherActions">
+                                <div>
+                                    <div class="rating">
+                                        <p>8</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
+        <script th:src="@{/Admin/AllFilms/AllFilmJs.js}"></script>
     </body>
 </html>

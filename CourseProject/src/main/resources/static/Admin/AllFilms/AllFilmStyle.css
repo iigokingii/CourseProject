@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* background-color: #ccc; */
+}
+a{
+    cursor: pointer;
+}
+/*header*/
+.header{
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerWrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 67.5%;
+    padding-left: 3.9%;
+    padding-right: 3.1%;
+}
+.navElem{
+    display: flex;
+    align-items: center;
+}
+.headerWrapper a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+}
+
+/*Body*/
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+.content-wrap{
+    background-color: #fff;
+    min-height:94vh;
+    padding-top: 15px;
+    padding-bottom: 40px;
+    width: 64%;
+}
+.content{
+    display: flex;
+    margin-left:5px;
+    align-items: stretch;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.nav{
+    width: 45%;
+    
+}
+.sorting{
+    width: 100%;
+}
+.Find{
+    margin-bottom: 20px;
+}
+.Find input[type=text]{
+    border: 0px;
+    border-bottom: 2px solid #cccccc;
+    border-radius: 0px;
+    width: 43%;
+    font-size: 11px;
+    padding: 2px;
+    margin-left: 5px;
+}
+.Find input[type=text]:focus {
+    outline: none;
+    border-bottom: 2px solid #2982ff;   
+}
+
+.categories p{
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #dedddd;
+}
+
+/*Right*/
+.films{
+    width: 51%;
+}
+
+.film{
+    display: flex;
+    align-items: stretch;
+}
+.film-id{
+    width: 5%;
+}
+.film-id h3{
+    text-align: center;
+    margin-top: 5px;
+}
+.poster{
+    border: 2px solid #cccccc;
+    width: 13%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    height: 90px;
+}
+.title{
+    height: 20px;
+}
+.briefInformation{
+    padding-top: 8px;
+    width: 45%;
+}
+.Row2{
+    height: 20px;
+}
+.Row2 p{
+    display: inline-block;
+    font-size: 11px;
+    color: #232323;
+    
+}
+.Row3{
+    height: 20px;
+}
+.Row3 p{
+    display: inline-block;
+    font-size: 10px;
+    color: #adadad;
+    
+}
+.Row4{
+    height: 20px;
+}
+.Row4 p{
+    display: inline-block;
+    font-size: 10px;
+    color: #adadad;
+    
+}

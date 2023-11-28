@@ -1,5 +1,11 @@
 package com.courseproject.courseproject.Repository;
 
+import com.courseproject.courseproject.Entity.Film;
+import com.courseproject.courseproject.Entity.Role;
+import com.courseproject.courseproject.Entity.User;
+import com.courseproject.courseproject.Repository.nestedObjects.Actor;
+import com.courseproject.courseproject.Repository.nestedObjects.Director;
+import com.courseproject.courseproject.Repository.nestedObjects.Fact;
 import com.courseproject.courseproject.Repository.nestedObjects.Genre;
 import com.courseproject.courseproject.dto.AddNewFilmRequest;
 import lombok.AllArgsConstructor;
@@ -9,16 +15,20 @@ import oracle.jdbc.internal.OracleTypes;
 import oracle.sql.ORADataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -134,6 +144,99 @@ public class FilmRepository {
 			return a;
 		}
 	}
+	private List<Genre> ConvertOraArrayIntoListGenres(Array genreArr){
+		List<Genre> genres = new ArrayList();
+		try {
+			Object [] arr = (Object[])genreArr.getArray();
+			for (var elem:arr) {
+				if(elem instanceof oracle.sql.STRUCT){
+					oracle.sql.STRUCT struct = (oracle.sql.STRUCT) elem;
+					Object[] attributes = struct.getAttributes();
+					Genre genre = new Genre();
+					genre.setGenreId(((BigDecimal)attributes[0]).intValue());
+					genre.setGenreName((String) attributes[1]);
+					genres.add(genre);
+				}
+			}
+			
+		}
+		catch (Exception ex){
+			System.out.println(ex.getMessage());
+		}
+		finally {
+			return genres;
+		}
+	}
+	private List<Director> ConvertOraArrayIntoListDirectors(Array directorArr){
+		List<Director> genres = new ArrayList();
+		try {
+			Object [] arr = (Object[])directorArr.getArray();
+			for (var elem:arr) {
+				if(elem instanceof oracle.sql.STRUCT){
+					oracle.sql.STRUCT struct = (oracle.sql.STRUCT) elem;
+					Object[] attributes = struct.getAttributes();
+					Director director = new Director();
+					director.setDirectorId(((BigDecimal)attributes[0]).intValue());
+					director.setDirectorName((String) attributes[1]);
+					genres.add(director);
+				}
+			}
+			
+		}
+		catch (Exception ex){
+			System.out.println(ex.getMessage());
+		}
+		finally {
+			return genres;
+		}
+	}
+	
+	private List<Actor> ConvertOraArrayIntoListActors(Array actorArr){
+		List<Actor> actors = new ArrayList();
+		try {
+			Object [] arr = (Object[])actorArr.getArray();
+			for (var elem:arr) {
+				if(elem instanceof oracle.sql.STRUCT){
+					oracle.sql.STRUCT struct = (oracle.sql.STRUCT) elem;
+					Object[] attributes = struct.getAttributes();
+					Actor actor = new Actor();
+					actor.setActorId(((BigDecimal)attributes[0]).intValue());
+					actor.setActorName((String) attributes[1]);
+					actors.add(actor);
+				}
+			}
+			
+		}
+		catch (Exception ex){
+			System.out.println(ex.getMessage());
+		}
+		finally {
+			return actors;
+		}
+	}
+	private List<Fact> ConvertOraArrayIntoListFacts(Array factArr){
+		List<Fact> facts = new ArrayList();
+		try {
+			Object [] arr = (Object[])factArr.getArray();
+			for (var elem:arr) {
+				if(elem instanceof oracle.sql.STRUCT){
+					oracle.sql.STRUCT struct = (oracle.sql.STRUCT) elem;
+					Object[] attributes = struct.getAttributes();
+					Fact fact = new Fact();
+					fact.setFactId(((BigDecimal)attributes[0]).intValue());
+					fact.setFact((String) attributes[1]);
+					facts.add(fact);
+				}
+			}
+		}
+		catch (Exception ex){
+			System.out.println(ex.getMessage());
+		}
+		finally {
+			return facts;
+		}
+	}
+	
 	public void Save(AddNewFilmRequest request){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("ADD_FILM")
@@ -182,5 +285,50 @@ public class FilmRepository {
 		
 		jdbcCall.execute(inParams);
 	}
-	
+	public List<Film> getFilms(){
+		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withCatalogName("SharedFunctions")
+				.withFunctionName("GET_ALL_DATA_FROM_TABLE")
+				.declareParameters(
+						new SqlParameter("table_name",Types.VARCHAR),
+						new SqlOutParameter("RESULT",OracleTypes.CURSOR,
+								(rs,rownum)->{
+									Film film = new Film();
+									film.setALL_INFORMATION_ABOUT_FILM_ID(rs.getLong("ALL_INFORMATION_ABOUT_FILM_ID"));
+									film.setTITLE(rs.getString("TITLE"));
+									film.setORIGINAL_TITLE(rs.getString( "ORIGINAL_TITLE"));
+									film.setPOSTER(rs.getBytes("POSTER"));
+									film.setYEAR_OF_POSTING(rs.getString("YEAR_OF_POSTING"));
+									film.setCOUNTRY(rs.getString("COUNTRY"));
+									film.setDESCRIPTION(rs.getString("DESCRIPTION"));
+									film.setRATING_IMDb(rs.getFloat("RATING_IMDb"));
+									film.setRATING_KP(rs.getFloat("RATING_KP"));
+									film.setBOX_OFFICE_RECEIPTS(rs.getFloat("BOX_OFFICE_RECEIPTS"));
+									film.setAGE(rs.getLong("AGE"));
+									film.setVIEWING_TIME(rs.getString("VIEWING_TIME"));
+									film.setBUDGET(rs.getFloat("BUDGET"));
+									
+									var A = rs.getArray("GENRES");
+									Object[] arrayData = (Object[]) A.getArray();
+									List<Genre> genres = ConvertOraArrayIntoListGenres(A);
+//									film.setGENRES((rs.getArray("GENRES")).getArray());
+//									var b = A.getArray();
+//									var G = rs.getArray("GENRES");
+//									var c = G.getResultSet();
+									
+									film.setGENRES(genres);
+									film.setDIRECTORS(ConvertOraArrayIntoListDirectors(rs.getArray("DIRECTORS")));
+									film.setACTORS(ConvertOraArrayIntoListActors(rs.getArray("ACTORS")));
+									film.setINTERESTING_FACT(ConvertOraArrayIntoListFacts(rs.getArray("INTERESTING_FACT")));
+									
+									return film;
+								})
+				);
+		Map<String,Object>inParams = new HashMap<>();
+		inParams.put("table_name","ALL_INFORMATION_ABOUT_FILM");
+		Map<String,Object>outParams = jdbcCall.execute(inParams);
+		
+		List<Film> films = (List<Film>)outParams.get("RESULT");
+		return films;
+	}
 }

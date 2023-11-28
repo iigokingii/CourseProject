@@ -1,5 +1,6 @@
 package com.courseproject.courseproject.Service;
 
+import com.courseproject.courseproject.Entity.Film;
 import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Repository.FilmRepository;
 import com.courseproject.courseproject.Repository.UserRepository;
@@ -9,6 +10,8 @@ import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FilmService {
@@ -17,6 +20,9 @@ public class FilmService {
 	
 	public void Save(AddNewFilmRequest newFilm){
 		filmRepository.Save(newFilm);
+	}
+	public List<Film> getFilms(){
+		return filmRepository.getFilms();
 	}
 	
 }

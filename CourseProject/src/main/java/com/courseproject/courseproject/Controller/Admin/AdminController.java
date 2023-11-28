@@ -1,5 +1,6 @@
 package com.courseproject.courseproject.Controller.Admin;
 
+import com.courseproject.courseproject.Entity.Film;
 import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Service.FilmService;
 import com.courseproject.courseproject.Service.UserService;
@@ -63,9 +64,14 @@ public class AdminController {
 	}
 	//All films requests
 	@GetMapping("/AllFilms")
-	@PreAuthorize("hasAnyRole('Admin','User')")
+	@PreAuthorize("hasRole('Admin')")
 	public ModelAndView allFilms(){
 		return new ModelAndView("Admin/AllFilms");
+	}
+	@GetMapping("/getFilms")
+	@PreAuthorize("hasAnyRole('Admin','User')")
+	public List<Film> getFilms(){
+		return filmService.getFilms();
 	}
 	
 	

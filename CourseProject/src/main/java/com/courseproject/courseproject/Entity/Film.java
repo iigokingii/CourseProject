@@ -1,5 +1,8 @@
 package com.courseproject.courseproject.Entity;
 
+import com.courseproject.courseproject.Repository.nestedObjects.Actor;
+import com.courseproject.courseproject.Repository.nestedObjects.Director;
+import com.courseproject.courseproject.Repository.nestedObjects.Fact;
 import com.courseproject.courseproject.Repository.nestedObjects.Genre;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +16,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+//TODO entity не дает создать поле
+//@Entity
 @ToString
 @Table(name ="ALL_INFORMATION_ABOUT_FILM")
 public class Film {
@@ -31,10 +35,10 @@ public class Film {
 	Float BOX_OFFICE_RECEIPTS;
 	Float BUDGET;
 	Long AGE;
-	Long FRAME;
 	String VIEWING_TIME;
-	
-	//@OneToMany(cascade = CascadeType.ALL)
-	//Object[] genres;
+	List<Genre> GENRES;
+	List<Director> DIRECTORS;
+	List<Actor> ACTORS;
+	List<Fact> INTERESTING_FACT;
 	
 }
