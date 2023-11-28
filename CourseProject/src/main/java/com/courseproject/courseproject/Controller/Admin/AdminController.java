@@ -1,6 +1,7 @@
 package com.courseproject.courseproject.Controller.Admin;
 
 import com.courseproject.courseproject.Entity.User;
+import com.courseproject.courseproject.Service.FilmService;
 import com.courseproject.courseproject.Service.UserService;
 import com.courseproject.courseproject.dto.AddNewFilmRequest;
 import com.courseproject.courseproject.dto.AddUserResponse;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
 	private final UserService userService;
+	private final FilmService filmService;
 	//All users Page requests
 	@GetMapping("/AllUsersPage")
 	@PreAuthorize("hasRole('Admin')")
@@ -57,7 +59,13 @@ public class AdminController {
 	@PostMapping("/addNewFilm")
 	@PreAuthorize("hasRole('Admin')")
 	public void AddNewFilmToDb(@RequestBody AddNewFilmRequest request){
-		System.out.println("AddNewFilmToDb");
+		filmService.Save(request);
+	}
+	//All films requests
+	@GetMapping("/AllFilms")
+	@PreAuthorize("hasAnyRole('Admin','User')")
+	public ModelAndView allFilms(){
+		return new ModelAndView("Admin/AllFilms");
 	}
 	
 	

@@ -37,8 +37,8 @@ public class UserRepository{
 	
 	public User findByEMAIL(String email)throws UncategorizedSQLException{
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withCatalogName("UserProfileFunctions")
-				.withFunctionName("findByEMAIL")
+				.withCatalogName("ADMINPROFILEFUNCTIONS")
+				.withFunctionName("FIND_BY_EMAIL")
 				.declareParameters(
 						new SqlParameter("UEMAIL", Types.VARCHAR),
 						new SqlOutParameter("V_USER_CURSOR", OracleTypes.CURSOR,
@@ -67,8 +67,8 @@ public class UserRepository{
 	
 	public User findByEMAILandPASSWORD(String email,String password){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withCatalogName("UserProfileFunctions")
-				.withFunctionName("findByEMAILandPASSWORD")
+				.withCatalogName("ADMINPROFILEFUNCTIONS")
+				.withFunctionName("FIND_BY_EMAIL_AND_PASSWORD")
 				.declareParameters(
 						new SqlParameter("UEMAIL", Types.VARCHAR),
 						new SqlParameter("UPASSWORD", Types.VARCHAR),
@@ -99,7 +99,7 @@ public class UserRepository{
 		
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("DELETE_USER_BY_ID")
-				.withCatalogName("UserProfileFunctions");
+				.withCatalogName("ADMINPROFILEFUNCTIONS");
 		MapSqlParameterSource inParams = new MapSqlParameterSource()
 				.addValue("USER_ID",userID);
 		
@@ -108,8 +108,8 @@ public class UserRepository{
 	public User GetUserById(Long userID){
 		
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withFunctionName("findByID")
-				.withCatalogName("UserProfileFunctions")
+				.withFunctionName("FIND_BY_ID")
+				.withCatalogName("ADMINPROFILEFUNCTIONS")
 				.declareParameters(
 					new SqlParameter("USER_ID", Types.BIGINT),
 					new SqlOutParameter("V_USER_CURSOR", OracleTypes.CURSOR,
@@ -169,8 +169,8 @@ public class UserRepository{
 	
 	public void save(User user) throws UncategorizedSQLException {
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("ADDUSER")
-				.withCatalogName("UserProfileFunctions");
+				.withProcedureName("ADD_USER")
+				.withCatalogName("ADMINPROFILEFUNCTIONS");
 		
 		jdbcCall.declareParameters(
 				new SqlParameter("LOGIN", Types.VARCHAR),
@@ -192,7 +192,7 @@ public class UserRepository{
 	public Long SaveGetID(User user) throws UncategorizedSQLException{
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("ADDUSERGETID")
-				.withCatalogName("UserProfileFunctions");
+				.withCatalogName("ADMINPROFILEFUNCTIONS");
 		
 		jdbcCall.declareParameters(
 				new SqlParameter("LOGIN", Types.VARCHAR),
@@ -217,7 +217,7 @@ public class UserRepository{
 	public void UpdateUser(User user){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("UPDATE_USER")
-				.withCatalogName("UserProfileFunctions");
+				.withCatalogName("ADMINPROFILEFUNCTIONS");
 		
 		jdbcCall.declareParameters(
 				new SqlParameter("USER_ID", Types.NUMERIC),
@@ -236,21 +236,5 @@ public class UserRepository{
 		inParams.put("PASSWORD", user.getPassword());
 		inParams.put("USER_ROLE", user.getUSER_ROLE());
 		jdbcCall.execute(inParams);
-		
-		
-//		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-//				.withCatalogName("UserProfileFunctions")
-//				.withProcedureName("UPDATE_USER");
-//
-//		MapSqlParameterSource inParams = new MapSqlParameterSource()
-//				.addValue("USER_ID",user.getUSER_PROFILE_ID())
-//				.addValue("LOGIN",user.getLOGIN())
-//				.addValue("AVATAR",user.getAVATAR())
-//				.addValue("EMAIL",user.getEMAIL())
-//				.addValue("PASSWORD",user.getPassword())
-//				.addValue("USER_ROLE",user.getUSER_ROLE());
-//		jdbcCall.execute(inParams);
-		
-		
 	}
 }

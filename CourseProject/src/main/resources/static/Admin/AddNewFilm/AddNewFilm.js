@@ -9,6 +9,18 @@ document.getElementById("addNewDirectorInput").addEventListener('click',(e)=>{
     container.append(newInput);
 });
 
+document.getElementById("addNewGenreInput").addEventListener('click',(e)=>{
+    e.preventDefault();
+    let container = document.getElementById("Genres");
+    const inputs = container.querySelectorAll('input');
+    const count = inputs.length;
+    let newInput = document.createElement("input");
+    newInput.id=`Genre${count}`;
+    newInput.classList.add("generatedInput");
+    container.append(newInput);
+});
+
+
 document.getElementById("addNewActorInput").addEventListener('click',(e)=>{
     e.preventDefault();
     let container = document.getElementById("Actors");
@@ -42,6 +54,17 @@ document.getElementById("deleteNewDirectorInput").addEventListener('click',(e)=>
     }
 });
 
+document.getElementById("deleteNewGenreInput").addEventListener('click',(e)=>{
+    e.preventDefault();
+    let container = document.getElementById("Genres");
+    const inputs = container.querySelectorAll('input');
+    const count = inputs.length;
+    if(count!=1){
+        let inputToDelete = document.getElementById(`Genre${count-1}`);
+        container.removeChild(inputToDelete);
+    }
+});
+
 document.getElementById("deleteNewActorInput").addEventListener('click',(e)=>{
     e.preventDefault();
     let container = document.getElementById("Actors");
@@ -64,6 +87,20 @@ document.getElementById("deleteNewFactInput").addEventListener('click',(e)=>{
     }
 });
 
+document.getElementById("posterInput").addEventListener('change',(e)=>{
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.onload = (e)=>{
+        var imageUrl=e.target.result;
+        var posterSt = document.getElementById("poster").style;
+        posterSt.backgroundImage = 'url(' + imageUrl + ')'; 
+    };
+    reader.readAsDataURL(file);
+
+})
+
+
+
 document.getElementById("SendToServer").addEventListener('click',async (e)=>{
     e.preventDefault();
     let posterInput = document.getElementById("posterInput").files[0];
@@ -81,6 +118,9 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
     let AGE = document.getElementById("AGE").value;
     let VIEWING_TIME = document.getElementById("VIEWING_TIME").value;
     
+    let Genres = document.getElementById("Genres");
+    let GenresArray = ExtractTextArrayFromInputContainer(Genres);
+
     let Directors = document.getElementById("Directors");
     let DirectorsArray = ExtractTextArrayFromInputContainer(Directors);
 
@@ -98,8 +138,8 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
         let newFilm={
             "poster":posterInputBlob,
             "trailer":trailer,
-            "movieTitle":TITLE,
-            "movieOriginalTitle":ORIGINAL_TITLE,
+            "title":TITLE,
+            "originalTitle":ORIGINAL_TITLE,
             "yearOfPosting":YEAR_OF_POSTING,
             "country":COUNTRY,
             "ratingIMdB":RATING_IMDb,
@@ -109,6 +149,7 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
             "age":AGE,
             "viewingTime":VIEWING_TIME,
             "directors":DirectorsArray,
+            "genres":GenresArray,
             "actors":ActorsArray,
             "interestingFact":FactsArray,
             "description":Description
@@ -126,6 +167,7 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
         if(response.ok){
             let respJson = await response.json();
             console.log(respJson);
+            location.reload();
         }
         else{
             let error = await response.json();

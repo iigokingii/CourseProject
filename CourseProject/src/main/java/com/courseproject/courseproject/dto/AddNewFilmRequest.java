@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class AddNewFilmRequest {
 	byte[]poster;
 	String trailer;
-	String movieTitle;
-	String movieOriginalTitle;
+	String title;
+	String originalTitle;
 	String yearOfPosting;
 	String country;
 	String ratingIMdB;
@@ -22,6 +22,7 @@ public class AddNewFilmRequest {
 	String budget;
 	String age;
 	String viewingTime;
+	String[] genres;
 	String[] directors;
 	String[] actors;
 	String[] interestingFact;

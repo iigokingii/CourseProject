@@ -20,7 +20,7 @@
                 <a th:href="@{/AllUsersPage}">All Registrated Users</a>
             </div>
             <div class="navElem">
-                <a href="#">All Films</a>
+                <a th:href="@{/AllFilms}">All Films</a>
             </div>
             <div class="navElem" id="logout">
                 <a href="#">logout</a>
@@ -35,9 +35,7 @@
                         <label>Add Poster</label>
                         <div class="poster" id="poster">
                             <div class="posterWrapper">
-                                <!-- <a class="AddPoster" id="AddPoster">
-                                    <img th:src="@{/images/plus.png}"></img>
-                                </a> -->
+                               
                                 <div class="file-input">
                                     <label for="posterInput">
                                         <img th:src="@{/images/plus.png}"></img>
@@ -50,10 +48,7 @@
                     <div class="TrailerWrapper">
                         <label>Add Trailer</label>
                         <div class="trailer" id="trailer">
-                            <div class="posterWrapper">
-                                <!-- <a class="AddPoster" id="AddPoster">
-                                    <img th:src="@{/images/plus.png}"></img>
-                                </a> -->
+                            <div class="trailerWrapper">
                                 <div class="file-input">
                                     <label for="trailerInput">
                                         <img th:src="@{/images/plus.png}"></img>
@@ -150,6 +145,18 @@
                 </div>
                 <div class="rightInfo">
                     <div class="rightInfoWrapper">
+                        <div class="GenForm">
+                            <div class="type">
+                                <label>Genres></label>
+                            </div>
+                            <div id="Genres">
+                                <input id="Genre0" type="text" class="generatedInput">
+                            </div>
+                            <div class="addNewInput">
+                                <button id="addNewGenreInput">Add genre...</button>
+                                <button id="deleteNewGenreInput">delete</button>
+                            </div>
+                        </div>
                         <div class="GenForm">
                             <div class="type">
                                 <label>Directors></label>

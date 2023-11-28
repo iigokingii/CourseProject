@@ -78,8 +78,11 @@ a{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-size: cover;
+    background-position: center;
 }
-.posterWrapper{
+.posterWrapper,
+.trailerWrapper{
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -225,7 +228,8 @@ label{
 }
 .addNewInput button#addNewDirectorInput,
 .addNewInput button#addNewActorInput,
-.addNewInput button#addNewFactInput{
+.addNewInput button#addNewFactInput,
+.addNewInput button#addNewGenreInput{
     background-color: #0470aa;
     border: none;
     color: white;
@@ -240,7 +244,8 @@ label{
 }
 .addNewInput button#deleteNewDirectorInput,
 .addNewInput button#deleteNewActorInput,
-.addNewInput button#deleteNewFactInput{
+.addNewInput button#deleteNewFactInput,
+.addNewInput button#deleteNewGenreInput{
     background-color: red;
     border: none;
     color: white;
