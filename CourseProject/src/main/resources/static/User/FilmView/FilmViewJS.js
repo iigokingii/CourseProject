@@ -1,12 +1,13 @@
 var filmId;
 var filmBlob;
+var comments =[];
 document.addEventListener('DOMContentLoaded', async function() {
     var id = document.getElementById('filmID');
     filmId = id.value;
     if(filmId=='')
         return;
-    const response = await fetch(`/GetFilm?filmID=${filmId}`,{
-        method:"GET",
+    const response = await fetch(`/GetFilmAllInfo?filmID=${filmId}`,{
+        method:"POST",
         headers: {
             "Content-type": "application/json",
             "Accept": "application/json"
@@ -14,12 +15,93 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
     if(response.ok){
         var responseJson = await response.json();
-        FillDataToInputs(responseJson);
+        comments = responseJson;
+        FillDataToInputs(comments[0]);
     } 
     else{
         console.log('Error');
     }
 });
+
+document.getElementById("AddCommentButton").addEventListener('click',async ()=>{
+    let comment = document.getElementById('comment').value;
+    let filmId = document.getElementById('filmID').value;
+    let dateIso = new Date().toISOString();
+    var commentObj = {
+        "filmId":filmId,
+        "comment":comment,
+        "userId":'',
+        "date":dateIso
+    }
+    if(comment!==''){
+        const response = await fetch('/AddCommentToFilm',{
+            method:"POST",
+            headers:{
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            },
+            body:JSON.stringify(
+                commentObj
+            )
+        });
+        if(response.ok){
+            console.log('Comment Added');
+            document.getElementById('comment').innerHTML = "";
+            window.location.reload();
+        }
+        else{
+            console.log('error');
+        }
+    }
+})
+
+document.getElementById('AddToSaved').addEventListener('click',async ()=>{
+    let filmId = document.getElementById('filmID').value;
+    let request = {
+        "filmId":filmId,
+        "userId":'',
+    }
+    const response = await fetch('/AddToSaved',{
+        method:"POST",
+            headers:{
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            },
+            body:JSON.stringify(
+                request
+            )
+    })
+    if(response.ok){
+        alert('film saved to watch later category')
+    }
+    else{
+        console.log('error');
+    }
+})
+
+document.getElementById('AddToLiked').addEventListener('click',async ()=>{
+    let filmId = document.getElementById('filmID').value;
+    let request = {
+        "filmId":filmId,
+        "userId":'',
+    }
+    const response = await fetch('/AddToLiked',{
+        method:"POST",
+            headers:{
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            },
+            body:JSON.stringify(
+                request
+            )
+    })
+    if(response.ok){
+        alert('film saved to liked category')
+    }
+    else{
+        console.log('error');
+    }
+})
 
 
 function AddNewDirectorInput(director = {}){
@@ -139,31 +221,49 @@ async function FillDataToInputs(film){
     })
     film.actors.forEach(actor=>{
         AddNewActorInput(actor);
-    })
+    })  
+    if(film.date_OF_REVIEW!==null || date_OF_REVIEW!==''){
+        comments.forEach(comment=>{
+            genereteComment(comment.avatar,comment.login,comment.date_OF_REVIEW,comment.user_REVIEW_TEXT);
+        })
+    }   
 }
 
-document.getElementById("AddCommentButton").addEventListener('click',()=>{
-    let comment = document.getElementById('comment').value;
-    let filmId = document.getElementById('filmID').value;
-    let dateIso = new Date().toISOString();
-    var commentObj = {
-        "filmId":filmId,
-        "comment":comment,
-        "userId":'',
-        "date":dateIso
-    }
-    if(comment!==''){
-        const response = fetch('/AddCommentToFilm',{
-            method:"POST",
-            body:JSON.stringify(
-                commentObj
-            )
-        });
-        if(response.ok){
-            console.log('Comment Added');
-        }
-        else{
-            console.log('error');
-        }
-    }
-})
+async function genereteComment(avatar,login,reviewDate,commentText){
+    let comments = document.getElementById('comments');
+    let divs = comments.querySelectorAll('div');
+    let count = divs.length;
+    let divComment = document.createElement("div");
+    divComment.classList.add('comment');
+    divComment.id = `comment${count}`;
+        let divHead = document.createElement("div");
+        divHead.classList.add('headComment');
+            let divCred = document.createElement("div");
+            divCred.classList.add('userCredentials');
+                let divAvatar = document.createElement('div');
+                divAvatar.classList.add('avatar');
+                let imageUrl = await BlobToImageURL(avatar);
+                divAvatar.style.backgroundImage = 'url(' + imageUrl + ')';
+            divCred.append(divAvatar);
+                let labelLog = document.createElement('label');
+                labelLog.innerHTML = login;
+            divCred.append(labelLog);
+        divHead.append(divCred);
+            let divDate = document.createElement('div');
+                let dateLabel = document.createElement('label');
+                dateLabel.classList.add('date');
+                dateLabel.innerHTML = reviewDate;
+            divDate.append(dateLabel);
+        divHead.append(divDate);
+    divComment.append(divHead);
+        let divCommentText = document.createElement('div');
+        divCommentText.classList.add('CommentText');
+            let ReviewText = document.createElement('p');
+            ReviewText.innerHTML = commentText;
+        divCommentText.append(ReviewText);
+    divComment.append(divCommentText);
+    comments.append(divComment);
+
+
+}
+

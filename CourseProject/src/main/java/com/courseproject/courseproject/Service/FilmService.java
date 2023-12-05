@@ -4,13 +4,21 @@ import com.courseproject.courseproject.Entity.Comment;
 import com.courseproject.courseproject.Entity.Film;
 import com.courseproject.courseproject.Repository.FilmRepository;
 import com.courseproject.courseproject.dto.AddCommentRequest;
+import com.courseproject.courseproject.dto.AllInfoResponse;
 import com.courseproject.courseproject.dto.NewFilmRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @Service
 @RequiredArgsConstructor
@@ -32,20 +40,12 @@ public class FilmService {
 		int id = Integer.parseInt(filmID);
 		return filmRepository.GetFilmByID(id);
 	}
+	public List<AllInfoResponse> GetAllInfoAboutFilmByID(String filmID){
+		int id = Integer.parseInt(filmID);
+		return filmRepository.GetAllInfoAboutFilmByID(id);
+	}
 	public void Update(NewFilmRequest request){
 		filmRepository.Update(request);
 	}
-	public void AddComment(AddCommentRequest request){
-		Long userid = Long.parseLong(request.getUserId());
-		Long filmid = Long.parseLong(request.getFilmId());
-		var comment = Comment
-				.builder()
-				.USER_PROFILE_ID(userid)
-				.USER_REVIEW_TEXT(request.getComment())
-				.ALL_INFORMATION_ABOUT_FILM_ID(filmid)
-				.DATE_OF_REVIEW(request.getDate())
-				.build();
-	}
-	
 	
 }

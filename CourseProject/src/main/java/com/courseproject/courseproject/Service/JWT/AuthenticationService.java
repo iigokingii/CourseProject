@@ -104,7 +104,6 @@ public class AuthenticationService {
 		var user = userRepository.findByEMAIL(request.getEmail());
 		
 		var jwt = jwtService.generateToken(user);
-		User.Id = user.getUSER_PROFILE_ID();
 		return JwtAuthenticationResponse.builder().token(jwt).role(user.getUSER_ROLE()).build();
 	}
 }

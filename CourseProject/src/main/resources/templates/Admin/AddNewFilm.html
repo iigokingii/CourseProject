@@ -11,6 +11,7 @@
 </head>
 <body>
     <input type="hidden" id="filmID" name="filmID" th:value="${filmID != null ? filmID : ''}">
+    <!--TODO сделать валидацию данных, добавить больше символов в бд для комментария-->
     <header class="header">
         <div class="headerWrapper">
             <div class="navElem">
@@ -44,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="TrailerWrapper">
+                    <!-- <div class="TrailerWrapper">
                         <label>Add Trailer</label>
                         <div class="trailer" id="trailer">
                             <div class="trailerWrapper">
@@ -56,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="middleInfo">
                     <form>

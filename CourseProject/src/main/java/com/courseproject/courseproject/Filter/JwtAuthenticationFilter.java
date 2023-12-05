@@ -1,5 +1,6 @@
 package com.courseproject.courseproject.Filter;
 
+import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Service.JWT.JwtService;
 import com.courseproject.courseproject.Service.UserService;
 import jakarta.servlet.FilterChain;

@@ -1,10 +1,12 @@
 package com.courseproject.courseproject.Repository;
 
 import com.courseproject.courseproject.Entity.Film;
+import com.courseproject.courseproject.Entity.Role;
 import com.courseproject.courseproject.Repository.nestedObjects.Actor;
 import com.courseproject.courseproject.Repository.nestedObjects.Director;
 import com.courseproject.courseproject.Repository.nestedObjects.Fact;
 import com.courseproject.courseproject.Repository.nestedObjects.Genre;
+import com.courseproject.courseproject.dto.AllInfoResponse;
 import com.courseproject.courseproject.dto.NewFilmRequest;
 import lombok.AllArgsConstructor;
 import oracle.jdbc.OracleConnection;
@@ -421,8 +423,100 @@ public class FilmRepository {
 		inParams.put("DIRECTORS",D);
 		inParams.put("ACTORS",A);
 		inParams.put("INTERESTING_FACT",F);
-		
 		jdbcCall.execute(inParams);
+	}
+	
+	public List<AllInfoResponse> GetAllInfoAboutFilmByID(int id){
+		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withFunctionName("GET_ALL_BY_ID")
+				.withCatalogName("ADMINFILMFUNCTIONS")
+				.declareParameters(
+						new SqlParameter("FILM_ID", Types.NUMERIC),
+						new SqlOutParameter("V_FILM_CURSOR", OracleTypes.CURSOR,
+								(rs,rownum)->{
+									AllInfoResponse film = new AllInfoResponse();
+									film.setALL_INFORMATION_ABOUT_FILM_ID(rs.getLong("ALL_INFORMATION_ABOUT_FILM_ID"));
+									film.setTITLE(rs.getString("TITLE"));
+									film.setORIGINAL_TITLE(rs.getString( "ORIGINAL_TITLE"));
+									film.setPOSTER(rs.getBytes("POSTER"));
+									film.setYEAR_OF_POSTING(rs.getString("YEAR_OF_POSTING"));
+									film.setCOUNTRY(rs.getString("COUNTRY"));
+									film.setDESCRIPTION(rs.getString("DESCRIPTION"));
+									film.setRATING_IMDb(rs.getFloat("RATING_IMDb"));
+									film.setRATING_KP(rs.getFloat("RATING_KP"));
+									film.setBOX_OFFICE_RECEIPTS(rs.getFloat("BOX_OFFICE_RECEIPTS"));
+									film.setAGE(rs.getLong("AGE"));
+									film.setVIEWING_TIME(rs.getString("VIEWING_TIME"));
+									film.setBUDGET(rs.getFloat("BUDGET"));
+									film.setGENRES(ConvertOraArrayIntoListGenres(rs.getArray("GENRES")));
+									film.setDIRECTORS(ConvertOraArrayIntoListDirectors(rs.getArray("DIRECTORS")));
+									film.setACTORS(ConvertOraArrayIntoListActors(rs.getArray("ACTORS")));
+									film.setINTERESTING_FACT(ConvertOraArrayIntoListFacts(rs.getArray("INTERESTING_FACT")));
+									film.setUSER_REVIEW_TEXT(rs.getString("USER_REVIEW_TEXT"));
+									film.setDATE_OF_REVIEW(rs.getDate("DATE_OF_REVIEW"));
+									film.setLOGIN(rs.getString("LOGIN"));
+									film.setAVATAR(rs.getBytes("AVATAR"));
+									String role = rs.getString("USER_ROLE");
+									if(role!=null)
+										film.setUSER_ROLE(Role.valueOf(role));
+									return film;
+								})
+				);
+		Map<String,Object>inParams = new HashMap<>();
+		inParams.put("FILM_ID",id);
+		Map<String,Object>outParams;
+		List<AllInfoResponse>films = new ArrayList<>();
+		
+		outParams = jdbcCall.execute(inParams);
+		films = (List<AllInfoResponse>) outParams.get("V_FILM_CURSOR");
+		return films;
+		
+		
+		
+		
+		
+//		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+//				.withFunctionName("GET_ALL_INFORMATION_ABOUT_FILM_BY_ID")
+//				.withCatalogName("ADMINFILMFUNCTIONS")
+//				.declareParameters(
+//						new SqlParameter("FILM_ID", Types.BIGINT),
+//						new SqlOutParameter("V_FILM_CURSOR", OracleTypes.CURSOR,
+//								(rs,rownum)->{
+//									AllInfoResponse film = new AllInfoResponse();
+//									film.setALL_INFORMATION_ABOUT_FILM_ID(rs.getLong("ALL_INFORMATION_ABOUT_FILM_ID"));
+//									film.setTITLE(rs.getString("TITLE"));
+//									film.setORIGINAL_TITLE(rs.getString( "ORIGINAL_TITLE"));
+//									film.setPOSTER(rs.getBytes("POSTER"));
+//									film.setYEAR_OF_POSTING(rs.getString("YEAR_OF_POSTING"));
+//									film.setCOUNTRY(rs.getString("COUNTRY"));
+//									film.setDESCRIPTION(rs.getString("DESCRIPTION"));
+//									film.setRATING_IMDb(rs.getFloat("RATING_IMDb"));
+//									film.setRATING_KP(rs.getFloat("RATING_KP"));
+//									film.setBOX_OFFICE_RECEIPTS(rs.getFloat("BOX_OFFICE_RECEIPTS"));
+//									film.setAGE(rs.getLong("AGE"));
+//									film.setVIEWING_TIME(rs.getString("VIEWING_TIME"));
+//									film.setBUDGET(rs.getFloat("BUDGET"));
+//									film.setGENRES(ConvertOraArrayIntoListGenres(rs.getArray("GENRES")));
+//									film.setDIRECTORS(ConvertOraArrayIntoListDirectors(rs.getArray("DIRECTORS")));
+//									film.setACTORS(ConvertOraArrayIntoListActors(rs.getArray("ACTORS")));
+//									film.setINTERESTING_FACT(ConvertOraArrayIntoListFacts(rs.getArray("INTERESTING_FACT")));
+//									//film.setUSER_REVIEW_TEXT(rs.getString("USER_REVIEW_TEXT"));
+//									//film.setDATE_OF_REVIEW(rs.getDate("DATE_OF_REVIEW"));
+//									//film.setLOGIN(rs.getString("LOGIN"));
+//									//film.setAVATAR(rs.getBytes("AVATAR"));
+//									//String role = rs.getString("USER_ROLE");
+//									//film.setUSER_ROLE(Role.valueOf(role));
+//									return film;
+//								})
+//				);
+//		Map<String,Object>inParams = new HashMap<>();
+//		inParams.put("FILM_ID",id);
+//		Map<String,Object>outParams;
+//		List<AllInfoResponse>films = new ArrayList<>();
+//
+//		outParams = jdbcCall.execute(inParams);
+//		films = (List<AllInfoResponse>) outParams.get("V_FILM_CURSOR");
+//		return films.get(0);
 	}
 	
 	
