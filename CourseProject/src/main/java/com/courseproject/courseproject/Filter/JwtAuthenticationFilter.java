@@ -33,6 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 									@NonNull FilterChain filterChain) throws ServletException, IOException {
 		System.out.println("[JwtAuthenticationFilter]-doFilterInternal");
 		//final String authHeader = request.getHeader("Authorization");
+		//TODO Удаление недействительного куки;
 		final Cookie[] Cookies = request.getCookies();
 		String jwt="";
 		final String userEmail;
@@ -49,6 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			return;
 		}
 		System.out.println("[JwtAuthenticationFilter]-JWT - " + jwt.toString());
+		
 		userEmail = jwtService.extractUserName(jwt);
 		if(!StringUtils.isEmpty(userEmail)&& SecurityContextHolder.getContext().getAuthentication()==null){
 			UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userEmail);

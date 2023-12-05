@@ -18,7 +18,10 @@ document.getElementById('SignIn').addEventListener('submit',async function (e){
             let responseJson = await response.json();
             if(responseJson.exception===null){
                 JwtCookie('jwt',responseJson.token,2);
-                window.location.href = '/AdminMainPage';
+                if(responseJson.role==='ROLE_Admin')
+                    window.location.href = '/AllUsersPage';
+                else
+                    window.location.href = '/UserMainPage'
             }
             else{
                 console.log('Error');

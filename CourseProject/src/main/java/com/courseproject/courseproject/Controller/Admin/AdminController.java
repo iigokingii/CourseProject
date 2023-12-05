@@ -4,12 +4,12 @@ import com.courseproject.courseproject.Entity.Film;
 import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Service.FilmService;
 import com.courseproject.courseproject.Service.UserService;
-import com.courseproject.courseproject.dto.AddNewFilmRequest;
+import com.courseproject.courseproject.dto.NewFilmRequest;
 import com.courseproject.courseproject.dto.AddUserResponse;
 import com.courseproject.courseproject.dto.UserModelRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,7 +59,7 @@ public class AdminController {
 	}
 	@PostMapping("/addNewFilm")
 	@PreAuthorize("hasRole('Admin')")
-	public void AddNewFilmToDb(@RequestBody AddNewFilmRequest request){
+	public void AddNewFilmToDb(@RequestBody NewFilmRequest request){
 		filmService.Save(request);
 	}
 	//All films requests
@@ -68,13 +68,24 @@ public class AdminController {
 	public ModelAndView allFilms(){
 		return new ModelAndView("Admin/AllFilms");
 	}
-	@GetMapping("/getFilms")
-	@PreAuthorize("hasAnyRole('Admin','User')")
-	public List<Film> getFilms(){
-		return filmService.getFilms();
+	
+	@DeleteMapping("/deleteFilm")
+	@PreAuthorize("hasRole('Admin')")
+	public void DeleteFilm(@RequestParam("filmID") String filmID){
+		filmService.DeleteFilm(filmID);
 	}
-	
-	
+	@GetMapping("/UpdateFilm")
+	@PreAuthorize("hasRole('Admin')")
+	public ModelAndView GetFilmByID(@RequestParam("filmID") String filmID, Model model){
+		ModelAndView modelAndView = new ModelAndView("Admin/AddNewFilm");
+		model.addAttribute("filmID",filmID);
+		return modelAndView;
+	}
+	@PutMapping("/UpdateFilm")
+	@PreAuthorize("hasRole('Admin')")
+	public void UpdateFilm(@RequestBody NewFilmRequest request){
+		filmService.Update(request);
+	}
 	
 	//Admin main page requests
 	@GetMapping("/AdminMainPage")
@@ -82,5 +93,4 @@ public class AdminController {
 	public ModelAndView AdminMainPage(){
 		return new ModelAndView("Admin/AdminMainPage");
 	}
-	
 }

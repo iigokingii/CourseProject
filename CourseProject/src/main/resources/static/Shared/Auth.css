@@ -5,10 +5,7 @@
     padding:0;
     box-sizing: border-box;
 }
-.default-avatar{
-    width: 30px;
-    height: 30px;
-}
+
 
 .wrapper{
     background-size: cover;

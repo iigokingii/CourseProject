@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <!-- <meta http-equiv="Refresh" content="2" /> -->
     <title>AddNewFilm</title>
-    <!-- <link rel="stylesheet" href="../../static/Admin/AddNewFilm/AddNewFilm.css"> -->
-    <link rel="stylesheet" th:href="@{Admin/AddNewFilm/AddNewFilm.css}">
-    <!-- <link rel="stylesheet" href="../../static/Shared/Auth.css"> -->
+    <link rel="stylesheet" href="../../static/User/FilmView/FilmViewStyle.css">
+    <link rel="stylesheet" th:href="@{User/FilmView/FilmViewStyle.css}">
+    <link rel="stylesheet" href="../../static/Shared/Auth.css">
     <link rel="stylesheet" th:href="@{Shared/Auth.css}">
 </head>
 <body>
@@ -14,14 +14,18 @@
     <header class="header">
         <div class="headerWrapper">
             <div class="navElem">
-                <a th:href="@{/addNewFilm}">add New Film</a>
+                <a th:href="@{/UserMainPage}">Main Page</a>
             </div>
             <div class="navElem">
-                <a th:href="@{/AllUsersPage}">All Registrated Users</a>
+                <a th:href="@{/addNewFilm}">Liked</a>
             </div>
             <div class="navElem">
-                <a th:href="@{/AllFilms}">All Films</a>
+                <a th:href="@{/addNewFilm}">Saved</a>
             </div>
+            <div class="navElem">
+                <a th:href="@{/AllUsersPage}">Settings</a>
+            </div>
+            
             <div class="navElem" id="logout">
                 <a href="#">logout</a>
             </div>
@@ -32,27 +36,15 @@
             <div class="content">
                 <div class="leftInfo">
                     <div>
-                        <label>Add Poster</label>
                         <div class="poster" id="poster">
-                            <div class="posterWrapper">
-                                <div class="file-input">
-                                    <label for="posterInput">
-                                        <img th:src="@{/images/plus.png}"></img>
-                                    </label>
-                                    <input id="posterInput" type="file">
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="TrailerWrapper">
-                        <label>Add Trailer</label>
                         <div class="trailer" id="trailer">
                             <div class="trailerWrapper">
                                 <div class="file-input">
-                                    <label for="trailerInput">
-                                        <img th:src="@{/images/plus.png}"></img>
-                                    </label>
-                                    <input id="trailerInput" type="file">
+                                    
                                 </div>
                             </div>
                         </div>
@@ -65,7 +57,7 @@
                                 <label>Movie title:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="TITLE" type="text">
+                                <p id="TITLE"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -73,7 +65,7 @@
                                 <label>Movie original title:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="ORIGINAL_TITLE" type="text">
+                                <p id="ORIGINAL_TITLE"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -81,7 +73,7 @@
                                 <label>Year of posting:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="YEAR_OF_POSTING" type="text">
+                                <p id="YEAR_OF_POSTING"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -89,7 +81,7 @@
                                 <label>Country:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="COUNTRY" type="text">
+                                <p id="COUNTRY"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -97,7 +89,7 @@
                                 <label>Rating IMdB:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="RATING_IMDb" type="text">
+                                <p id="RATING_IMDb"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -105,7 +97,7 @@
                                 <label>Rating KP:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="RATING_KP" type="text">
+                                <p id="RATING_KP"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -113,7 +105,7 @@
                                 <label>Box office receipts:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="BOX_OFFICE_RECEIPTS" type="text">
+                                <p id="BOX_OFFICE_RECEIPTS"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -121,7 +113,7 @@
                                 <label>Budget:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="BUDGET" type="text">
+                                <p id="BUDGET"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -129,7 +121,7 @@
                                 <label>Age:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="AGE" type="text">
+                                <p id="AGE"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -137,61 +129,52 @@
                                 <label>Viewing time:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="VIEWING_TIME" type="text">
+                                <p id="VIEWING_TIME"></p>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="rightInfo">
                     <div class="rightInfoWrapper">
-                        <div class="GenForm">
-                            <div class="type">
-                                <label>Genres></label>
+                        <div class="buttons">
+                            <button>Will watch later</button>
+                            <button>Add to liked</button>
+                        </div>
+                        <div>
+                            <div class="GenForm">
+                                <div class="type">
+                                    <label>Genres></label>
+                                </div>
+                                <div id="Genres">
+                                    <p id="Genre0" class="generatedInput">4</p>
+                                </div>
                             </div>
-                            <div id="Genres">
-                                <input id="Genre0" type="text" class="generatedInput">
+                            <div class="GenForm">
+                                <div class="type">
+                                    <label>Directors></label>
+                                </div>
+                                <div id="Directors">
+                                    <p id="Director0" class="generatedInput">3</p>
+                                </div>
                             </div>
-                            <div class="addNewInput">
-                                <button id="addNewGenreInput">Add genre...</button>
-                                <button id="deleteNewGenreInput">delete</button>
+                            <div class="GenForm">
+                                <div class="type">
+                                    <label>Actors></label>
+                                </div>
+                                <div id="Actors">
+                                    <p id="Actor0" class="generatedInput">2</p>
+                                </div>
+                            </div>
+                            <div class="GenForm">
+                                <div class="type">
+                                    <label>Interesting facts></label>
+                                </div>
+                                <div id="Facts">
+                                    <p id="Fact0" class="generatedInput">14</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="GenForm">
-                            <div class="type">
-                                <label>Directors></label>
-                            </div>
-                            <div id="Directors">
-                                <input id="Director0" type="text" class="generatedInput">
-                            </div>
-                            <div class="addNewInput">
-                                <button id="addNewDirectorInput">Add director...</button>
-                                <button id="deleteNewDirectorInput">delete</button>
-                            </div>
-                        </div>
-                        <div class="GenForm">
-                            <div class="type">
-                                <label>Actors></label>
-                            </div>
-                            <div id="Actors">
-                                <input id="Actor0" type="text" class="generatedInput">
-                            </div>
-                            <div class="addNewInput">
-                                <button id="addNewActorInput">Add actor...</button>
-                                <button id="deleteNewActorInput">delete</button>
-                            </div>
-                        </div>
-                        <div class="GenForm">
-                            <div class="type">
-                                <label>Interesting facts></label>
-                            </div>
-                            <div id="Facts">
-                                <textarea id="Fact0" type="text"></textarea>
-                            </div>
-                            <div class="addNewInput">
-                                <button id="addNewFactInput">Add fact...</button>
-                                <button id="deleteNewFactInput">delete</button>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -201,17 +184,22 @@
                         <label>Description:</label>
                     </div>
                     <div class="textareaValue">
-                        <textarea id="Description"></textarea>
+                        <p id="Description"></p>
                     </div>
                 </div>
             </div>
-            <div class="sendBtn" id="SendToServer">
-                <button>Add Film</button>
+            <div class="AddComment">
+                <label>leave a comment:</label>
+                <textarea id="comment" class="commentArea"></textarea>
+                <button id="AddCommentButton">Send</button>
+            </div>
+            <div class="comments">
+                s
             </div>
         </div>
     </div>
-    <!-- <script src="../../static/Admin/AddNewFilm/AddNewFilm.js"></script> -->
-    <script th:src="@{/Admin/AddNewFilm/AddNewFilm.js}"></script>
+    <!-- <script src="../../static/User/FilmView/FilmViewJS.js"></script> -->
+    <script th:src="@{User/FilmView/FilmViewJS.js}"></script>
     <script th:src="@{/Shared/JwtApi.js}"></script>
     <script th:src="@{/Shared/Blob.js}"></script>
     <script th:src="@{/Shared/LogOut.js}"></script>

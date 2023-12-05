@@ -13,7 +13,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 //TODO Cookie удаляется по нажатию на кнопку, если не нажать остануться на 2 дня
 public class TestController {
-	
 	@GetMapping("/anon")
 	public String anonEndPoint() {
 		

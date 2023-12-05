@@ -17,6 +17,7 @@ import java.util.List;
 @ToString
 @Table(name ="USER_PROFILE")
 public class User implements UserDetails {
+	static public Long Id;
 	@Id
 	@GeneratedValue()
 	Long USER_PROFILE_ID;

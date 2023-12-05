@@ -16,7 +16,10 @@ a{
     align-items: center;
     justify-content: center;
 }
-
+.default-avatar{
+    width: 30px;
+    height: 30px;
+}
 .headerWrapper{
     display: flex;
     justify-content: space-between;

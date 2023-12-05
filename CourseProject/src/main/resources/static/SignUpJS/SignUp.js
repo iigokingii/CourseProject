@@ -20,7 +20,6 @@ document.getElementById('SignUp').addEventListener('submit',async function(e){
         if(response.ok){
             let responseJson = await response.json();
             if(responseJson.exception===""){
-                JwtCookie('jwt',responseJson.token,2);
                 window.location.href = '/SignIn';
             }
             else{

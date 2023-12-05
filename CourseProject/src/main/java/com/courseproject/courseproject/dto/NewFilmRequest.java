@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddNewFilmRequest {
+public class NewFilmRequest {
+	String filmID;
 	byte[]poster;
 	String trailer;
 	String title;

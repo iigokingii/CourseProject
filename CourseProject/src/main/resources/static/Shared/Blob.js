@@ -40,6 +40,29 @@ async function BlobToImage(blobDataString, container) {
     container.appendChild(imgElement);
 }
 
+async function BlobToImageURL(blobDataString, container) {
+    //const blobData = new Blob([blobDataString], { type : 'plain/text' });
+    const blobData = await fetch(`data:plain/text;base64,${blobDataString}`).then(res => res.blob());
+    var blob;
+    if (blobData instanceof Blob || blobData instanceof File) {
+      blob = blobData;
+    } else {
+      console.error('Invalid blobData: ' + blobData);
+      return;
+    }
+  
+    return URL.createObjectURL(blob);
+     
+    // var imgElement = document.createElement('img');
+    // imgElement.src = imageUrl;
+    // imgElement.classList.add("default-avatar");
+
+    // container.appendChild(imgElement);
+}
+
+
+
+
 async function BlobToInputFile(blobDataString, inputContainer){
     
     const blobData = await fetch(`data:plain/text;base64,${blobDataString}`).then(res => res.blob());

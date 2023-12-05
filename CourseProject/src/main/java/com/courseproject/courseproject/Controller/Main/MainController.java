@@ -26,7 +26,4 @@ public class MainController {
 		modelAndView.setViewName("SignInHTML/SignIn");
 		return modelAndView;
 	}
-	
-	
-	
 }

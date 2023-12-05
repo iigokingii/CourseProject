@@ -1,0 +1,258 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* background-color: #ccc; */
+}
+a{
+    cursor: pointer;
+}
+/*header*/
+.header{
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerWrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 64%;
+    padding-left: 3.9%;
+    padding-right: 3.1%;
+}
+
+
+.navElem{
+    display: flex;
+    align-items: center;
+}
+.headerWrapper a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+}
+
+
+/*body*/
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+.content-wrap{
+    padding-top: 15px;
+    padding-bottom: 40px;
+    width: 64%;
+    background-color: #ffffff;
+}
+.content{
+    display: flex;
+    margin-left: px;
+    align-items: stretch;
+}
+/*left column info*/
+.leftInfo{
+    width: 33.3%;
+}
+/*Poster*/
+
+.leftInfo div{
+    width: 80%;
+    margin: auto;
+   
+}
+.leftInfo div label{
+    display: block;
+    text-align: center;
+}
+.poster{
+    border: 2px solid #cccccc;
+    height: 400px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+}
+.posterWrapper,
+.trailerWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.file-input img{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+}
+
+.file-input {
+    position: relative;
+    display: inline-block;
+}
+  
+#posterInput {
+    display: none;
+}
+#trailerInput{
+    display: none;
+}
+  
+.upload-text {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/*Trailer*/
+
+.trailer{
+    border: 2px solid #cccccc;
+    height: 160px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.TrailerWrapper{
+    display: block;
+    padding-top: 15px;
+}
+
+
+/*middle column info*/
+.middleInfo{
+    width: 33.3%;
+}
+.middleFieldsView{
+    margin-top: 15px;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    font-size: 10px;
+}
+.DescriptionRow{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    margin-left: 6%;
+    min-height: 100px;
+    margin-bottom: 20px;
+}
+.titleOfRow{
+    width: 35%;
+    display: flex;
+    align-items: center;
+}
+.titleOfDescriptionRow{
+    width: 10%;
+    display: flex;
+    align-items: center;
+}
+.inputValue{
+    width: 65%;
+    display: flex;
+    align-items: center;
+}
+.textareaValue{
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+.row:first-child{
+    margin-top: -30px;
+    font-size: 17px;
+    font-weight: bold;
+
+}
+.row{
+    margin-top: 3px;
+}
+label{
+    margin-right: 6px;
+    
+}
+
+.inputValue{
+    height: 40px;
+}
+
+/*right column info*/
+.rightInfo{
+    width: 33.3%;
+}
+.generatedInput{
+    width: 100%;
+    font-size: 14px;
+    padding: 2px;
+}
+.generatedInput:focus{
+    outline: none;
+    border-bottom: 2px solid rgb(91, 157, 170)
+}
+.rightInfoWrapper{
+    padding-left:12%;
+    padding-right: 12%;
+}
+.GenForm{
+    margin: 4px;
+}
+.addNewInput{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+.type{
+    font-size: 13px;
+}
+.buttons button{
+    padding: 6px;
+    border: 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.6s ease;
+    margin: 5px;
+}
+.buttons button:hover{
+    transform: scale(1.1);
+}
+.AddComment{
+    margin-left: 6%;
+    margin-right: 6%;
+}
+.commentArea{
+    width: 100%;
+    border: 1px solid black;
+    resize: none;
+    height: 50px;
+
+}
+.commentArea:focus{
+    outline: none;
+}
+
+.AddComment button{
+    padding: 1px 25px 2px 25px;
+    border: 1px solid black;
+    border-radius: 10px;
+    transition: transform 0.6s ease;
+}
+.AddComment button:hover{
+    transform: scale(1.2);
+}
+.comments{
+    margin-top: 40px;
+    margin-left: 6%;
+    margin-right: 6%;
+    
+    background-color: red;
+}

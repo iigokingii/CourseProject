@@ -1,36 +1,114 @@
+var filmId;
+var filmBlob;
+document.addEventListener('DOMContentLoaded', async function() {
+    var id = document.getElementById('filmID');
+    filmId = id.value;
+    if(filmId=='')
+        return;
+    const response = await fetch(`/GetFilm?filmID=${filmId}`,{
+        method:"GET",
+        headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        },
+    });
+    if(response.ok){
+        var responseJson = await response.json();
+        let div = document.getElementById("SendToServer");
+        let button = div.querySelector('button');
+        button.innerHTML = "update";
+        console.log(responseJson);
+        FillDataToInputs(responseJson);
+    } 
+    else{
+        console.log('Error');
+    }
+});
+
 document.getElementById("addNewDirectorInput").addEventListener('click',(e)=>{
     e.preventDefault();
+    AddNewDirectorInput();
+});
+
+function AddNewDirectorInput(director = {}){
     let container = document.getElementById("Directors");
     const inputs = container.querySelectorAll('input');
     const count = inputs.length;
     let newInput = document.createElement("input");
-    newInput.id=`Director${count}`;
-    newInput.classList.add("generatedInput");
-    container.append(newInput);
-});
+    if(director=== null){
+        newInput.id=`Director${count}`;
+        newInput.classList.add("generatedInput");
+        container.append(newInput);
+    }
+    else{
+        if(count===1 && director.directorId===0){
+            document.getElementById("Director0").value = director.directorName;
+        }
+        else{
+            newInput.id=`Director${director.directorId}`;
+            newInput.value = director.directorName;
+            newInput.classList.add("generatedInput");
+            container.append(newInput);
+        }
+    }
+}
 
 document.getElementById("addNewGenreInput").addEventListener('click',(e)=>{
     e.preventDefault();
+    AddNewGenreInput();
+});
+
+function AddNewGenreInput(genre={}){
     let container = document.getElementById("Genres");
     const inputs = container.querySelectorAll('input');
     const count = inputs.length;
     let newInput = document.createElement("input");
-    newInput.id=`Genre${count}`;
-    newInput.classList.add("generatedInput");
-    container.append(newInput);
-});
+    if(genre=== null){
+        newInput.id=`Genre${count}`;
+        newInput.classList.add("generatedInput");
+        container.append(newInput);
+    }
+    else{
+        if(count===1 && genre.genreId===0){
+            document.getElementById("Genre0").value = genre.genreName;
+        }
+        else{
+            newInput.id=`Genre${count}`;
+            newInput.value = genre.genreName;
+            newInput.classList.add("generatedInput");
+            container.append(newInput);
+        }
+    }
+}
 
 
 document.getElementById("addNewActorInput").addEventListener('click',(e)=>{
     e.preventDefault();
+    AddNewActorInput();
+});
+
+function AddNewActorInput(actor={}){
     let container = document.getElementById("Actors");
     const inputs = container.querySelectorAll('input');
     const count = inputs.length;
     let newInput = document.createElement("input");
-    newInput.id=`Actor${count}`;
-    newInput.classList.add("generatedInput");
-    container.append(newInput);
-});
+    if(actor=== null){
+        newInput.id=`Actor${count}`;
+        newInput.classList.add("generatedInput");
+        container.append(newInput);
+    }
+    else{
+        if(count===1 && actor.actorId===0){
+            document.getElementById("Actor0").value = actor.actorName;
+        }
+        else{
+            newInput.id=`Actor${count}`;
+            newInput.value = actor.actorName;
+            newInput.classList.add("generatedInput");
+            container.append(newInput);
+        }
+    }
+}
 
 document.getElementById("addNewFactInput").addEventListener('click',(e)=>{
     e.preventDefault();
@@ -39,9 +117,29 @@ document.getElementById("addNewFactInput").addEventListener('click',(e)=>{
     const count = inputs.length;
     let newInput = document.createElement("textarea");
     newInput.id=`Fact${count}`;
-    
     container.append(newInput);
 });
+
+function AddNewFactInput(fact = {}){
+    let container = document.getElementById("Facts");
+    const inputs = container.querySelectorAll('textarea');
+    const count = inputs.length;
+    let newInput = document.createElement("textarea");
+    if(fact=== null){
+        newInput.id=`Fact${count}`;
+        container.append(newInput);
+    }
+    else{
+        if(count===1 && fact.factId===0){
+            document.getElementById("Fact0").value = fact.fact;
+        }
+        else{
+            newInput.id=`Fact${count}`;
+            newInput.value = fact.fact;
+            container.append(newInput);
+        }
+    }
+}
 
 document.getElementById("deleteNewDirectorInput").addEventListener('click',(e)=>{
     e.preventDefault();
@@ -104,7 +202,20 @@ document.getElementById("posterInput").addEventListener('change',(e)=>{
 document.getElementById("SendToServer").addEventListener('click',async (e)=>{
     e.preventDefault();
     let posterInput = document.getElementById("posterInput").files[0];
-    let posterInputBlob = await fileToByteArray(posterInput);
+    let posterInputBlob;
+    if(posterInput===undefined){
+        // let poster = document.getElementById("poster");
+        // var style = window.getComputedStyle(poster);
+        // styleUrl = style.getPropertyValue('background-image');
+        // var url = styleUrl.replace('url("', '').replace('")', '');
+        // url = url.replace('blob:', '');
+        // const response = await fetch(url);
+        // posterInputBlob = await response.blob();
+        // console.log(posterInputBlob);
+        posterInputBlob = filmBlob;
+    }
+    else
+        posterInputBlob = await fileToByteArray(posterInput);
     //let trailer = document.getElementById("trailerInput").files[0];
     let trailer = '';
     let TITLE = document.getElementById("TITLE").value;
@@ -132,10 +243,10 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
     
     let Description = document.getElementById("Description").value;
 
-
-
+    
     if(true){
         let newFilm={
+            "filmID":filmId ,
             "poster":posterInputBlob,
             "trailer":trailer,
             "title":TITLE,
@@ -154,26 +265,50 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
             "interestingFact":FactsArray,
             "description":Description
         }
-        let response = await fetch('/addNewFilm',{
-            method:"POST",
-            headers: {
-                "Content-type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(
-                newFilm
-            )
-        });
-        if(response.ok){
-            let respJson = await response.json();
-            console.log(respJson);
-            location.reload();
+        if(filmId===''){
+            let response = await fetch('/addNewFilm',{
+                method:"POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(
+                    newFilm
+                )
+            });
+            if(response.ok){
+                
+                window.location.reload();
+            }
+            else{
+                let error = await response.json();
+                console.log(error);
+            }
         }
         else{
-            let error = await response.json();
-            console.log(error);
+            let response = await fetch('/UpdateFilm',{
+                method:"PUT",
+                headers: {
+                    "Content-type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(
+                    newFilm
+                )
+            });
+            if(response.ok){
+                // let respJson = await response.json();
+                // console.log(respJson);
+                window.location.href = '/AllFilms';
+            }
+            else{
+                let error = await response.json();
+                console.log(error);
+            }
         }
     }
+
+    
 });
 
 function ExtractTextArrayFromInputContainer(container){
@@ -192,4 +327,35 @@ function ExtractTextArrayFromTextareaContainer(container){
         textArray.push(textareas[i].value);
     }
     return textArray;
+}
+
+async function FillDataToInputs(film){
+    const posterDivST = document.getElementById("poster").style;
+    let imageUrl = await BlobToImageURL(film.poster);
+    posterDivST.backgroundImage = 'url(' + imageUrl + ')';
+    filmBlob= film.poster;
+
+    document.getElementById("TITLE").value = film.title;
+    document.getElementById("ORIGINAL_TITLE").value = film.original_TITLE;
+    document.getElementById("YEAR_OF_POSTING").value = film.year_OF_POSTING;
+    document.getElementById("COUNTRY").value = film.country;
+    document.getElementById("RATING_IMDb").value = film.rating_IMDb;
+    document.getElementById("RATING_KP").value = film.rating_KP;
+    document.getElementById("BOX_OFFICE_RECEIPTS").value = film.box_OFFICE_RECEIPTS;
+    document.getElementById("BUDGET").value = film.budget;
+    document.getElementById("AGE").value = film.age;
+    document.getElementById("VIEWING_TIME").value = film.viewing_TIME;
+    document.getElementById("Description").value = film.description;
+    film.directors.forEach(director=>{
+        AddNewDirectorInput(director);
+    })
+    film.genres.forEach(genre=>{
+        AddNewGenreInput(genre);
+    })
+    film.interesting_FACT.forEach(fact=>{
+        AddNewFactInput(fact);
+    })
+    film.actors.forEach(actor=>{
+        AddNewActorInput(actor);
+    })
 }

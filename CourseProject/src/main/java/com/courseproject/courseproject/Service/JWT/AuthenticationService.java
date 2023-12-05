@@ -69,7 +69,7 @@ public class AuthenticationService {
 				.EMAIL(request.getEmail())
 				.PASSWORD(passwordEncoder.encode(request.getPassword()))
 				//TODO заменить на юзера когда будет готов admin view
-				.USER_ROLE(Role.ROLE_Admin)
+				.USER_ROLE(Role.ROLE_User)
 				.build();
 		
 		JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
@@ -91,24 +91,6 @@ public class AuthenticationService {
 		finally {
 			return jwtAuthenticationResponse;
 		}
-//		System.out.println("[AuthenticationController]-Sign up");
-//		JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-//		try {
-//			jwtAuthenticationResponse=authenticationService.signup(request);
-//			return jwtAuthenticationResponse;
-//		}
-//		catch (Exception ex){
-//			Pattern pattern = Pattern.compile("ORA-\\d+: [^\\r\\n]+");
-//			Matcher matcher = pattern.matcher(ex.getMessage());
-//			while (matcher.find()) {
-//				String errorSubstring = matcher.group();
-//				jwtAuthenticationResponse.setException(errorSubstring);
-//				break;
-//			}
-//		}
-//		finally {
-//			return jwtAuthenticationResponse;
-//		}
 	
 	}
 	
@@ -120,7 +102,9 @@ public class AuthenticationService {
 		//TODO заменить на findbyemailandpassword;переделать хэщирование пароля
 		
 		var user = userRepository.findByEMAIL(request.getEmail());
+		
 		var jwt = jwtService.generateToken(user);
-		return JwtAuthenticationResponse.builder().token(jwt).build();
+		User.Id = user.getUSER_PROFILE_ID();
+		return JwtAuthenticationResponse.builder().token(jwt).role(user.getUSER_ROLE()).build();
 	}
 }

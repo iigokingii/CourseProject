@@ -32,7 +32,7 @@ function CreateFilmView(film){
     let divFilm = document.createElement('div');
     divFilm.addEventListener('click',()=>{
         // console.log(film.all_INFORMATION_ABOUT_FILM_ID);
-        window.location.href = `/FilmView?filmID=${film.all_INFORMATION_ABOUT_FILM_ID}`;
+        window.location.href = `/UserFilmView?filmID=${film.all_INFORMATION_ABOUT_FILM_ID}`;
     })
     divFilm.id = `film-${film.all_INFORMATION_ABOUT_FILM_ID}`
     divFilm.classList.add('film');
@@ -140,51 +140,8 @@ function CreateFilmView(film){
                 divIMdB.append(LabelMark1);
             divRating.append(divIMdB);
         divOther.append(divRating);
-            let divButtons = document.createElement('div');
-            divButtons.classList.add("Buttons");
-                let EditButton = document.createElement('button');
-                EditButton.classList.add("EditButton");
-                EditButton.id = "EditFilm";
-                EditButton.innerHTML = "edit";
-                EditButton.addEventListener('click',()=>{
-                    EditFilm(film.all_INFORMATION_ABOUT_FILM_ID);
-                })
-            divButtons.append(EditButton);
-                let DeleteButton = document.createElement('button');
-                DeleteButton.classList.add("DeleteButton");
-                DeleteButton.id = "DeleteFilm";
-                DeleteButton.innerHTML = "delete";
-                DeleteButton.addEventListener('click',async()=>{
-                    DeleteFilm(film.all_INFORMATION_ABOUT_FILM_ID)
-                })
-            divButtons.append(DeleteButton);
-        divOther.append(divButtons);
     divFilm.append(divOther);
     return divFilm;
-}
-
-async function DeleteFilm(filmId){
-    console.log(`delete clicked id: ${filmId}`)
-    const response = await fetch(`/deleteFilm?filmID=${filmId}`,{
-        method:"DELETE",
-        headers:{
-            "Accept": "application/json"
-        },
-    });
-    if(response.ok){
-        console.log('deleted');
-        document.getElementById(`film-${filmId}`).remove();
-        document.getElementById(`hr-${filmId}`).remove();
-    }
-    else{
-        const error = await response.json();
-        console.log(error.message);
-    }
-}
-
-async function EditFilm(filmId){
-    console.log(`edit clicked id: ${filmId}`)
-    window.location.href = `/UpdateFilm?filmID=${filmId}`;
 }
 
 document.getElementById("Find").addEventListener('click',()=>{
@@ -343,4 +300,7 @@ document.getElementById("country").addEventListener('click',()=>{
     deleteFilmsFromDiv()
     DisplayAllFilms(sortedItems);
 })
+
+
+
 GetFilms();

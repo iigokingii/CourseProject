@@ -6,7 +6,13 @@ function JwtCookie(cname, cvalue, exdays){
         console.log('Jwt setted in cookie:"jwt".');
         jwtToken = getCookie(cname);
     }
-    console.log('Getted Jwt from cookie.');
+    else{
+      deleteCookie('jwt');
+      console.log('deleted Jwt from cookie.');
+      setCookie(cname, cvalue, exdays);
+      console.log('Jwt setted in cookie:"jwt".');
+      jwtToken = getCookie(cname);
+    }
     return jwtToken;
 }
 
