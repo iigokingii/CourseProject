@@ -64,11 +64,9 @@ public class AuthenticationService {
 		var user = User
 				.builder()
 				.LOGIN(request.getLogin())
-				//TODO добавить дефолтный автар
 				.AVATAR(imageBytes)
 				.EMAIL(request.getEmail())
 				.PASSWORD(passwordEncoder.encode(request.getPassword()))
-				//TODO заменить на юзера когда будет готов admin view
 				.USER_ROLE(Role.ROLE_User)
 				.build();
 		
@@ -99,8 +97,6 @@ public class AuthenticationService {
 		System.out.println("[AuthenticationService]-signin");
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-		//TODO заменить на findbyemailandpassword;переделать хэщирование пароля
-		
 		var user = userRepository.findByEMAIL(request.getEmail());
 		
 		var jwt = jwtService.generateToken(user);

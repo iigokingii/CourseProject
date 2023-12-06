@@ -25,7 +25,6 @@ public class SavedFilmsRepository {
 	public SavedFilmsRepository(JdbcTemplate jdbcTemplate) {
 		SavedFilmsRepository.jdbcTemplate= jdbcTemplate;
 	}
-	//TODO Когда второй раз добавляешь удалить данные.
 	public void AddFilmToSaved(WatchLater watchLater){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("ADD_TO_SAVED")

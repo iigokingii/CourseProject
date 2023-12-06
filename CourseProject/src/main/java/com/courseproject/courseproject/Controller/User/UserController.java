@@ -44,4 +44,16 @@ public class UserController {
 		likedFilmService.AddFilmToLiked(request);
 	}
 	
+	@GetMapping("/LikedFilms")
+	@PreAuthorize("hasAnyRole('User','Admin')")
+	public ModelAndView LikedFilms(){
+		return new ModelAndView("User/Liked");
+	}
+	
+	@GetMapping("/SavedFilms")
+	@PreAuthorize("hasAnyRole('User','Admin')")
+	public ModelAndView SavedFilms(){
+		return new ModelAndView("User/Saved");
+	}
+	
 }

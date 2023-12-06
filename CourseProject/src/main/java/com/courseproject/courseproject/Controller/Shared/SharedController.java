@@ -27,6 +27,18 @@ public class SharedController {
 		return filmService.getFilms();
 	}
 	
+	@GetMapping("/GetLikedFilms")
+	@PreAuthorize("hasAnyRole('Admin','User')")
+	public List<Film> getLikedFilms(){
+		
+		return filmService.getLikedFilms(User.Id);
+	}
+	@GetMapping("/GetSavedFilms")
+	@PreAuthorize("hasAnyRole('Admin','User')")
+	public List<Film> GetSavedFilms(){
+		return filmService.GetSavedFilms(User.Id);
+	}
+	
 	@GetMapping("/GetFilm")
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public Film GetFilmByID(@RequestParam("filmID") String filmID){

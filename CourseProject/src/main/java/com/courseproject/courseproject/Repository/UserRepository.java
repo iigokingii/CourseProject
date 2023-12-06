@@ -59,7 +59,6 @@ public class UserRepository{
 		inParams.put("UEMAIL",email);
 		Map<String,Object>outParams;
 		List<User>users = new ArrayList<>();
-		//todo обработка искл
 		outParams = jdbcCall.execute(inParams);
 		users = (List<User>) outParams.get("V_USER_CURSOR");
 		User.Id = users.get(0).getUSER_PROFILE_ID();

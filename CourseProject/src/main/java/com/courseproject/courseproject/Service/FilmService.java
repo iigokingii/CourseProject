@@ -32,6 +32,14 @@ public class FilmService {
 	public List<Film> getFilms(){
 		return filmRepository.getFilms();
 	}
+	public List<Film> getLikedFilms(Long userID){
+		return filmRepository.getLikedFilms(userID);
+	}
+	public List<Film> GetSavedFilms(Long userID){
+		return filmRepository.GetSavedFilms(userID);
+	}
+	
+	
 	public void DeleteFilm(String filmID){
 		int id = Integer.parseInt(filmID);
 		filmRepository.DeleteFilm(id);

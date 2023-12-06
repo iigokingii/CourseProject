@@ -328,6 +328,100 @@ public class FilmRepository {
 		List<Film> films = (List<Film>)outParams.get("RESULT");
 		return films;
 	}
+	
+	
+	public List<Film> getLikedFilms(Long userID){
+		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withCatalogName("SharedFunctions")
+				.withFunctionName("GET_ALL_LIKED_FILMS")
+				.declareParameters(
+						new SqlParameter("USER_PROFILE_ID",Types.NUMERIC),
+						new SqlOutParameter("RESULT",OracleTypes.CURSOR,
+								(rs,rownum)->{
+									Film film = new Film();
+									film.setALL_INFORMATION_ABOUT_FILM_ID(rs.getLong("ALL_INFORMATION_ABOUT_FILM_ID"));
+									film.setTITLE(rs.getString("TITLE"));
+									film.setORIGINAL_TITLE(rs.getString( "ORIGINAL_TITLE"));
+									film.setPOSTER(rs.getBytes("POSTER"));
+									film.setYEAR_OF_POSTING(rs.getString("YEAR_OF_POSTING"));
+									film.setCOUNTRY(rs.getString("COUNTRY"));
+									film.setDESCRIPTION(rs.getString("DESCRIPTION"));
+									film.setRATING_IMDb(rs.getFloat("RATING_IMDb"));
+									film.setRATING_KP(rs.getFloat("RATING_KP"));
+									film.setBOX_OFFICE_RECEIPTS(rs.getFloat("BOX_OFFICE_RECEIPTS"));
+									film.setAGE(rs.getLong("AGE"));
+									film.setVIEWING_TIME(rs.getString("VIEWING_TIME"));
+									film.setBUDGET(rs.getFloat("BUDGET"));
+
+//									var A = rs.getArray("GENRES");
+//									Object[] arrayData = (Object[]) A.getArray();
+//									List<Genre> genres = ConvertOraArrayIntoListGenres(A);
+									
+									film.setGENRES(ConvertOraArrayIntoListGenres(rs.getArray("GENRES")));
+									film.setDIRECTORS(ConvertOraArrayIntoListDirectors(rs.getArray("DIRECTORS")));
+									film.setACTORS(ConvertOraArrayIntoListActors(rs.getArray("ACTORS")));
+									film.setINTERESTING_FACT(ConvertOraArrayIntoListFacts(rs.getArray("INTERESTING_FACT")));
+									
+									return film;
+								})
+				);
+		Map<String,Object>inParams = new HashMap<>();
+		inParams.put("USER_PROFILE_ID",userID);
+		Map<String,Object>outParams = jdbcCall.execute(inParams);
+		
+		List<Film> films = (List<Film>)outParams.get("RESULT");
+		return films;
+	}
+	public List<Film> GetSavedFilms(Long userID){
+		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withCatalogName("SharedFunctions")
+				.withFunctionName("GET_ALL_SAVED_FILMS")
+				.declareParameters(
+						new SqlParameter("USER_PROFILE_ID",Types.NUMERIC),
+						new SqlOutParameter("RESULT",OracleTypes.CURSOR,
+								(rs,rownum)->{
+									Film film = new Film();
+									film.setALL_INFORMATION_ABOUT_FILM_ID(rs.getLong("ALL_INFORMATION_ABOUT_FILM_ID"));
+									film.setTITLE(rs.getString("TITLE"));
+									film.setORIGINAL_TITLE(rs.getString( "ORIGINAL_TITLE"));
+									film.setPOSTER(rs.getBytes("POSTER"));
+									film.setYEAR_OF_POSTING(rs.getString("YEAR_OF_POSTING"));
+									film.setCOUNTRY(rs.getString("COUNTRY"));
+									film.setDESCRIPTION(rs.getString("DESCRIPTION"));
+									film.setRATING_IMDb(rs.getFloat("RATING_IMDb"));
+									film.setRATING_KP(rs.getFloat("RATING_KP"));
+									film.setBOX_OFFICE_RECEIPTS(rs.getFloat("BOX_OFFICE_RECEIPTS"));
+									film.setAGE(rs.getLong("AGE"));
+									film.setVIEWING_TIME(rs.getString("VIEWING_TIME"));
+									film.setBUDGET(rs.getFloat("BUDGET"));
+
+//									var A = rs.getArray("GENRES");
+//									Object[] arrayData = (Object[]) A.getArray();
+//									List<Genre> genres = ConvertOraArrayIntoListGenres(A);
+									
+									film.setGENRES(ConvertOraArrayIntoListGenres(rs.getArray("GENRES")));
+									film.setDIRECTORS(ConvertOraArrayIntoListDirectors(rs.getArray("DIRECTORS")));
+									film.setACTORS(ConvertOraArrayIntoListActors(rs.getArray("ACTORS")));
+									film.setINTERESTING_FACT(ConvertOraArrayIntoListFacts(rs.getArray("INTERESTING_FACT")));
+									
+									return film;
+								})
+				);
+		Map<String,Object>inParams = new HashMap<>();
+		inParams.put("USER_PROFILE_ID",userID);
+		Map<String,Object>outParams = jdbcCall.execute(inParams);
+		
+		List<Film> films = (List<Film>)outParams.get("RESULT");
+		return films;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	public void DeleteFilm(int id){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("DELETE_FILM_BY_ID")
