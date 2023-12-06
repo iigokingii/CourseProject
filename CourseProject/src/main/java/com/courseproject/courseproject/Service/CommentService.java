@@ -28,4 +28,8 @@ public class CommentService {
 				.build();
 		commentRepository.AddComment(comment);
 	}
+	public void DeleteComment(String Stringid){
+		int id = Integer.parseInt(Stringid);
+		commentRepository.DeleteComment(id);
+	}
 }

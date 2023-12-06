@@ -2,5 +2,5 @@
 document.getElementById("logout").addEventListener("click", function() {
     deleteCookie('jwt');
     console.log('jwt cookie deleted');
-    window.location.href = '/SignUp';
+    window.location.href = '/SignIn';
 });

@@ -30,12 +30,7 @@ public class UserController {
 		model.addAttribute("filmID",filmID);
 		return modelAndView;
 	}
-	@PostMapping("/AddCommentToFilm")
-	@PreAuthorize("hasRole('User')")
-	public void AddComment(@RequestBody AddCommentRequest request, Model model){
-		request.setUserId(User.Id.toString());
-		commentService.AddComment(request);
-	}
+	
 	@PostMapping("/AddToSaved")
 	@PreAuthorize("hasRole('User')")
 	public void AddFilmToSaved(@RequestBody AddToSaved request, Model model){

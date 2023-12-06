@@ -14,13 +14,16 @@
     <header class="header">
         <div class="headerWrapper">
             <div class="navElem">
-                <a th:href="@{/addNewFilm}">add New Film</a>
+                <a th:href="@{/UserMainPage}">Main Page</a>
             </div>
             <div class="navElem">
-                <a th:href="@{/AllUsersPage}">All Registrated Users</a>
+                <a th:href="@{/addNewFilm}">Liked</a>
             </div>
             <div class="navElem">
-                <a th:href="@{/AllFilms}">All Films</a>
+                <a th:href="@{/addNewFilm}">Saved</a>
+            </div>
+            <div class="navElem">
+                <a th:href="@{/AllUsersPage}">Settings</a>
             </div>
             <div class="navElem" id="logout">
                 <a href="#">logout</a>
@@ -96,6 +99,6 @@
         <script th:src="@{User/MainPage/MainPageJS.js}"></script>
         <script th:src="@{/Shared/Blob.js}"></script>
         <script th:src="@{/Shared/LogOut.js}"></script>
-
+        <script th:src="@{/Shared/JwtApi.js}"></script>
     </body>
 </html>

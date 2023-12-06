@@ -1,0 +1,11 @@
+.delBut{
+    text-align: right;
+}
+.delBut button{
+    margin-top: 4px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    background-color: red;
+    cursor:pointer;
+}

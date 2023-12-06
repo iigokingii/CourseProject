@@ -5,8 +5,11 @@
     <!-- <meta http-equiv="Refresh" content="2" /> -->
     <title>AddNewFilm</title>
     <link rel="stylesheet" href="../../static/User/FilmView/FilmViewStyle.css">
-    <link rel="stylesheet" th:href="@{User/FilmView/FilmViewStyle.css}">
+    <link rel="stylesheet" href="../../static/Admin/FilmView/FilmViewStyle.css">
     <link rel="stylesheet" href="../../static/Shared/Auth.css">
+
+    <link rel="stylesheet" th:href="@{User/FilmView/FilmViewStyle.css}">
+    <link rel="stylesheet" th:href="@{Admin/FilmView/FilmViewStyle.css}">
     <link rel="stylesheet" th:href="@{Shared/Auth.css}">
 </head>
 <body>
@@ -14,18 +17,14 @@
     <header class="header">
         <div class="headerWrapper">
             <div class="navElem">
-                <a th:href="@{/UserMainPage}">Main Page</a>
+                <a th:href="@{/addNewFilm}">add New Film</a>
             </div>
             <div class="navElem">
-                <a th:href="@{/addNewFilm}">Liked</a>
+                <a th:href="@{/AllUsersPage}">All Registrated Users</a>
             </div>
             <div class="navElem">
-                <a th:href="@{/addNewFilm}">Saved</a>
+                <a th:href="@{/AllFilms}">All Films</a>
             </div>
-            <div class="navElem">
-                <a th:href="@{/AllUsersPage}">Settings</a>
-            </div>
-            
             <div class="navElem" id="logout">
                 <a href="#">logout</a>
             </div>
@@ -136,10 +135,6 @@
                 </div>
                 <div class="rightInfo">
                     <div class="rightInfoWrapper">
-                        <div class="buttons">
-                            <button id="AddToSaved">Will watch later</button>
-                            <button id="AddToLiked">Add to liked</button>
-                        </div>
                         <div>
                             <div class="GenForm">
                                 <div class="type">
@@ -224,10 +219,9 @@
         </div>
     </div>
     <!-- <script src="../../static/User/FilmView/FilmViewJS.js"></script> -->
-    <script th:src="@{User/FilmView/FilmViewJS.js}"></script>
+    <script th:src="@{Admin/FilmView/FilmViewJS.js}"></script>
     <script th:src="@{/Shared/JwtApi.js}"></script>
     <script th:src="@{/Shared/Blob.js}"></script>
     <script th:src="@{/Shared/LogOut.js}"></script>
-    
 </body>
 </html>

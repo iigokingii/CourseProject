@@ -42,5 +42,6 @@ public class AllInfoResponse {
 	Role USER_ROLE;
 	String USER_REVIEW_TEXT;
 	Date DATE_OF_REVIEW;
+	Long USERS_REVIEWS_ON_MOVIE_ID;
 	
 }

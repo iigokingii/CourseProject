@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
@@ -46,4 +47,13 @@ public class CommentRepository {
 		
 		jdbcCall.execute(inParams);
 	}
+	public void DeleteComment(int id){
+		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("DELETE_COMMENT")
+				.withCatalogName("ADMINFILMFUNCTIONS");
+		MapSqlParameterSource inParams = new MapSqlParameterSource()
+				.addValue("COMMENT_ID",id);
+		jdbcCall.execute(inParams);
+	}
+	
 }

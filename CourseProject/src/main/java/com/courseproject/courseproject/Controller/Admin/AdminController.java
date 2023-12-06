@@ -2,6 +2,7 @@ package com.courseproject.courseproject.Controller.Admin;
 
 import com.courseproject.courseproject.Entity.Film;
 import com.courseproject.courseproject.Entity.User;
+import com.courseproject.courseproject.Service.CommentService;
 import com.courseproject.courseproject.Service.FilmService;
 import com.courseproject.courseproject.Service.UserService;
 import com.courseproject.courseproject.dto.NewFilmRequest;
@@ -20,6 +21,7 @@ import java.util.List;
 public class AdminController {
 	private final UserService userService;
 	private final FilmService filmService;
+	private final CommentService commentService;
 	//All users Page requests
 	@GetMapping("/AllUsersPage")
 	@PreAuthorize("hasRole('Admin')")
@@ -74,6 +76,11 @@ public class AdminController {
 	public void DeleteFilm(@RequestParam("filmID") String filmID){
 		filmService.DeleteFilm(filmID);
 	}
+	@DeleteMapping("/DeleteComment")
+	@PreAuthorize("hasRole('Admin')")
+	public void DeleteComment(@RequestParam("commentID") String commentID){
+		commentService.DeleteComment(commentID);
+	}
 	@GetMapping("/UpdateFilm")
 	@PreAuthorize("hasRole('Admin')")
 	public ModelAndView GetFilmByID(@RequestParam("filmID") String filmID, Model model){
@@ -86,6 +93,15 @@ public class AdminController {
 	public void UpdateFilm(@RequestBody NewFilmRequest request){
 		filmService.Update(request);
 	}
+	@GetMapping("/AdminFilmView")
+	@PreAuthorize("hasRole('Admin')")
+	public ModelAndView UpdateFilm(@RequestParam("filmID") String filmID, Model model){
+		ModelAndView modelAndView = new ModelAndView("Admin/AdminFilmView");
+		model.addAttribute("filmID",filmID);
+		return modelAndView;
+	}
+	
+	
 	
 	//Admin main page requests
 	@GetMapping("/AdminMainPage")

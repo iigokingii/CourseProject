@@ -459,6 +459,7 @@ public class FilmRepository {
 									String role = rs.getString("USER_ROLE");
 									if(role!=null)
 										film.setUSER_ROLE(Role.valueOf(role));
+									film.setUSERS_REVIEWS_ON_MOVIE_ID(rs.getLong("USERS_REVIEWS_ON_MOVIE_ID"));
 									return film;
 								})
 				);

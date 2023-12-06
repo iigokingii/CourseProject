@@ -32,7 +32,7 @@ function CreateFilmView(film){
     let divFilm = document.createElement('div');
     divFilm.addEventListener('click',()=>{
         // console.log(film.all_INFORMATION_ABOUT_FILM_ID);
-        window.location.href = `/FilmView?filmID=${film.all_INFORMATION_ABOUT_FILM_ID}`;
+        window.location.href = `/AdminFilmView?filmID=${film.all_INFORMATION_ABOUT_FILM_ID}`;
     })
     divFilm.id = `film-${film.all_INFORMATION_ABOUT_FILM_ID}`
     divFilm.classList.add('film');
@@ -146,16 +146,18 @@ function CreateFilmView(film){
                 EditButton.classList.add("EditButton");
                 EditButton.id = "EditFilm";
                 EditButton.innerHTML = "edit";
-                EditButton.addEventListener('click',()=>{
+                EditButton.addEventListener('click',(e)=>{
                     EditFilm(film.all_INFORMATION_ABOUT_FILM_ID);
+                    e.stopPropagation();
                 })
             divButtons.append(EditButton);
                 let DeleteButton = document.createElement('button');
                 DeleteButton.classList.add("DeleteButton");
                 DeleteButton.id = "DeleteFilm";
                 DeleteButton.innerHTML = "delete";
-                DeleteButton.addEventListener('click',async()=>{
-                    DeleteFilm(film.all_INFORMATION_ABOUT_FILM_ID)
+                DeleteButton.addEventListener('click',async(e)=>{
+                    DeleteFilm(film.all_INFORMATION_ABOUT_FILM_ID);
+                    e.stopPropagation();
                 })
             divButtons.append(DeleteButton);
         divOther.append(divButtons);

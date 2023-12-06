@@ -1,8 +1,11 @@
 package com.courseproject.courseproject.Controller.Shared;
 
 import com.courseproject.courseproject.Entity.Film;
+import com.courseproject.courseproject.Entity.User;
+import com.courseproject.courseproject.Service.CommentService;
 import com.courseproject.courseproject.Service.FilmService;
 import com.courseproject.courseproject.Service.UserService;
+import com.courseproject.courseproject.dto.AddCommentRequest;
 import com.courseproject.courseproject.dto.AllInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,13 +20,14 @@ import java.util.List;
 public class SharedController {
 	private final UserService userService;
 	private final FilmService filmService;
+	private final CommentService commentService;
 	@GetMapping("/getFilms")
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public List<Film> getFilms(){
 		return filmService.getFilms();
 	}
 	
-	@PostMapping("/GetFilm")
+	@GetMapping("/GetFilm")
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public Film GetFilmByID(@RequestParam("filmID") String filmID){
 		return filmService.GetFilmByID(filmID);
@@ -34,6 +38,11 @@ public class SharedController {
 	public List<AllInfoResponse> GetFilmAllInfoById(@RequestParam("filmID") String filmID){
 		return filmService.GetAllInfoAboutFilmByID(filmID);
 	}
-	
+	@PostMapping("/AddCommentToFilm")
+	@PreAuthorize("hasAnyRole('User','Admin')")
+	public void AddComment(@RequestBody AddCommentRequest request, Model model){
+		request.setUserId(User.Id.toString());
+		commentService.AddComment(request);
+	}
 	
 }
