@@ -5,6 +5,7 @@ import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Service.CommentService;
 import com.courseproject.courseproject.Service.FilmService;
 import com.courseproject.courseproject.Service.UserService;
+import com.courseproject.courseproject.Service.VisitService;
 import com.courseproject.courseproject.dto.AddCommentRequest;
 import com.courseproject.courseproject.dto.AllInfoResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class SharedController {
-	private final UserService userService;
 	private final FilmService filmService;
 	private final CommentService commentService;
+	private final VisitService visitService;
 	@GetMapping("/getFilms")
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public List<Film> getFilms(){
@@ -57,4 +58,9 @@ public class SharedController {
 		commentService.AddComment(request);
 	}
 	
+	@PatchMapping("/NewVisit")
+	@PreAuthorize("hasAnyRole('User','Admin')")
+	public void AddVisit(){
+	 	visitService.AddNewVisit();
+	}
 }

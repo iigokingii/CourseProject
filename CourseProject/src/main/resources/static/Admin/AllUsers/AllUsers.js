@@ -113,11 +113,12 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
     const Email = document.getElementById("Email").value;
     const Password = document.getElementById("Password").value;
     const User_Role = document.getElementById("User_Role").value;
-    var avatarBlob = await fileToByteArray(Avatar);
-    console.log(`avatarBlob:${avatarBlob}`);
+    
     //input name = "id" empty, so add new contact
     if (id == '') {
         if (ValidateLogin(Login)&&ValidateEmail(Email) && ValidatePassword(Password) && ValidateUserRole(User_Role) && ValidateUserAvatar(Avatar)) {
+            var avatarBlob = await fileToByteArray(Avatar);
+            //console.log(`avatarBlob:${avatarBlob}`);
             let newUser = {
                 "user_PROFILE_ID":'',
                 "login":Login,
@@ -139,7 +140,7 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
             if (response.ok === true) {
                 console.log("Created");
                 let respJson = await response.json();
-                if(respJson.exception===""){
+                if(respJson.exception===""||respJson.exception===null){
                     newUser.user_PROFILE_ID=respJson.id;
                     newUser.password = respJson.encodedPass;
                     newUser.avatar = respJson.avatar;
@@ -162,6 +163,7 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
     //input name = "id" has number value, update
     else if(IsValidId(id)){
         if (ValidateLogin(Login)&&ValidateEmail(Email) && ValidateUserRole(User_Role)) {
+            var avatarBlob = await fileToByteArray(Avatar);
             let newUser = {
                 "user_PROFILE_ID":id,
                 "login":Login,
@@ -182,16 +184,19 @@ document.getElementById('PopUpForm').addEventListener('submit', async function (
             });
             if (response.ok === true) {
                 console.log("Updated");
-                
                 let respJson = await response.json();
-                newUser.user_PROFILE_ID=respJson.id;
-                newUser.password = respJson.encodedPass;
-                newUser.avatar = respJson.avatar;
-
-                document.querySelector(`tr[data-rowid='${newUser.user_PROFILE_ID}']`).replaceWith(CreateRow(newUser));
-                AddPopUp();
-                ClearInputs();
-                ClearError();
+                if(respJson.exception===''||respJson.exception===null){
+                    newUser.user_PROFILE_ID=respJson.id;
+                    newUser.password = respJson.encodedPass;
+                    newUser.avatar = respJson.avatar;
+                    document.querySelector(`tr[data-rowid='${newUser.user_PROFILE_ID}']`).replaceWith(CreateRow(newUser));
+                    AddPopUp();
+                    ClearInputs();
+                    ClearError();
+                }
+                else{
+                    HandleError(respJson.exception);
+                }   
             }
             else {
                 const error = await response.json();

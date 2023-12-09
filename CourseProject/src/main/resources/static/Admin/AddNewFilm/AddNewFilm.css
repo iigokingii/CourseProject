@@ -180,7 +180,8 @@ textarea{
 label{
     margin-right: 6px;
 }
-.row input[type=text]{
+.row input[type=text],
+.row input[type=date]{
     border: 0px;
     border-bottom: 2px solid #cccccc;
     border-radius: 0px;
@@ -192,10 +193,10 @@ label{
 .inputValue{
     height: 40px;
 }
-.row input[type=text]:focus {
+.row input[type=text]:focus,
+.row input[type=date]:focus {
     outline: none;
     border-bottom: 2px solid #2982ff;
-    
 }
 
 /*right column info*/

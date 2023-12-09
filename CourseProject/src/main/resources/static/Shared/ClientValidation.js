@@ -21,10 +21,10 @@ function ValidateUserRole(role){
 }
 
 function ValidateUserAvatar(avatar){
-    if (avatar !== '')
+    if (avatar !== undefined )
         return true;
     else {
-        HandleError('Avatar dont setted')
+        HandleError('no avatar installed')
         return false;
     }
 }

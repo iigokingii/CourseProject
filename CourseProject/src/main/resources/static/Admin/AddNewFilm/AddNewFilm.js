@@ -35,7 +35,7 @@ function AddNewDirectorInput(director = {}){
     const inputs = container.querySelectorAll('input');
     const count = inputs.length;
     let newInput = document.createElement("input");
-    if(director=== null){
+    if(Object.keys(director).length === 0){
         newInput.id=`Director${count}`;
         newInput.classList.add("generatedInput");
         container.append(newInput);
@@ -63,7 +63,7 @@ function AddNewGenreInput(genre={}){
     const inputs = container.querySelectorAll('input');
     const count = inputs.length;
     let newInput = document.createElement("input");
-    if(genre=== null){
+    if(Object.keys(genre).length === 0){
         newInput.id=`Genre${count}`;
         newInput.classList.add("generatedInput");
         container.append(newInput);
@@ -92,7 +92,7 @@ function AddNewActorInput(actor={}){
     const inputs = container.querySelectorAll('input');
     const count = inputs.length;
     let newInput = document.createElement("input");
-    if(actor=== null){
+    if(Object.keys(actor).length === 0){
         newInput.id=`Actor${count}`;
         newInput.classList.add("generatedInput");
         container.append(newInput);
@@ -125,7 +125,7 @@ function AddNewFactInput(fact = {}){
     const inputs = container.querySelectorAll('textarea');
     const count = inputs.length;
     let newInput = document.createElement("textarea");
-    if(fact=== null){
+    if(Object.keys(fact).length === 0){
         newInput.id=`Fact${count}`;
         container.append(newInput);
     }
@@ -220,7 +220,7 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
     let trailer = '';
     let TITLE = document.getElementById("TITLE").value;
     let ORIGINAL_TITLE = document.getElementById("ORIGINAL_TITLE").value;
-    let YEAR_OF_POSTING = document.getElementById("YEAR_OF_POSTING").value;
+    let YEAR_OF_POSTING = document.getElementById("YEAR_OF_POSTING").value.toString();
     let COUNTRY = document.getElementById("COUNTRY").value;
     let RATING_IMDb = document.getElementById("RATING_IMDb").value;
     let RATING_KP = document.getElementById("RATING_KP").value;
@@ -243,8 +243,8 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
     
     let Description = document.getElementById("Description").value;
 
-    
-    if(true){
+    if(ValidateFilmData(posterInputBlob)){
+        var VIEWING_TIME_IN_MIN = convertTimeToMinutes(VIEWING_TIME);
         let newFilm={
             "filmID":filmId ,
             "poster":posterInputBlob,
@@ -258,7 +258,7 @@ document.getElementById("SendToServer").addEventListener('click',async (e)=>{
             "boxOfficeReceipts":BOX_OFFICE_RECEIPTS,
             "budget":BUDGET,
             "age":AGE,
-            "viewingTime":VIEWING_TIME,
+            "viewingTime":VIEWING_TIME_IN_MIN,
             "directors":DirectorsArray,
             "genres":GenresArray,
             "actors":ActorsArray,
@@ -359,3 +359,9 @@ async function FillDataToInputs(film){
         AddNewActorInput(actor);
     })
 }
+
+function convertTimeToMinutes(timeString) {
+    const [hours, minutes] = timeString.split(':');
+    const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
+    return totalMinutes;
+  }

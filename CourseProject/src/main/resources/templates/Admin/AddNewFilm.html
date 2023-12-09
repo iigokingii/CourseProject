@@ -79,10 +79,10 @@
                         </div>
                         <div class="row">
                             <div class="titleOfRow">
-                                <label>Year of posting:</label>
+                                <label>date of release:</label>
                             </div>
                             <div class="inputValue">
-                                <input id="YEAR_OF_POSTING" type="text">
+                                <input id="YEAR_OF_POSTING" type="date" max="" value="${currentDate}">
                             </div>
                         </div>
                         <div class="row">
@@ -206,14 +206,24 @@
                     </div>
                 </div>
             </div>
+
+            <div>
+                <p style="color: red; margin-top: 10px; text-transform: uppercase; margin-right: 4.4%; text-align: right;" id="ErrorMsg"></p>
+            </div>
+            
             <div class="sendBtn" id="SendToServer">
                 <button>Add Film</button>
             </div>
         </div>
     </div>
     <!-- <script src="../../static/Admin/AddNewFilm/AddNewFilm.js"></script> -->
+    <script>
+        var currentDate = new Date().toISOString().split("T")[0];
+        document.getElementById("YEAR_OF_POSTING").max = currentDate;
+    </script>
     <script th:src="@{/Admin/AddNewFilm/AddNewFilm.js}"></script>
     <script th:src="@{/Shared/JwtApi.js}"></script>
+    <script th:src="@{Shared/AddValidation.js}"></script>
     <script th:src="@{/Shared/Blob.js}"></script>
     <script th:src="@{/Shared/LogOut.js}"></script>
 </body>

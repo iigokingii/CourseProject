@@ -95,8 +95,21 @@ public class UserService {
 				.PASSWORD(encodedPass)
 				.USER_ROLE(request.getUser_ROLE())
 				.build();
-		userRepository.UpdateUser(user);
-		return addUserResponse;
+		try {
+			userRepository.UpdateUser(user);
+		}
+		catch (UncategorizedSQLException ex){
+			Pattern pattern = Pattern.compile("ORA-\\d+: [^\\r\\n]+");
+			Matcher matcher = pattern.matcher(ex.getMessage());
+			while (matcher.find()) {
+				String errorSubstring = matcher.group();
+				addUserResponse.setException(errorSubstring);
+				return addUserResponse;
+			}
+		}
+		finally {
+			return addUserResponse;
+		}
 	}
 	
 }

@@ -301,6 +301,7 @@ label{
 } */
 .comment{
     background-color: rgb(218, 232, 223);
+    border-radius: 5px;
     margin-left: 2%;
     margin-right: 2%;
     margin-top: 40px;

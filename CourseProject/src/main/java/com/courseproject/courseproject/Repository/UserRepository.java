@@ -191,7 +191,7 @@ public class UserRepository{
 	};
 	public Long SaveGetID(User user) throws UncategorizedSQLException{
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("ADDUSERGETID")
+				.withProcedureName("ADD_USER_GET_ID")
 				.withCatalogName("ADMINPROFILEFUNCTIONS");
 		
 		jdbcCall.declareParameters(
@@ -214,7 +214,7 @@ public class UserRepository{
 		BigDecimal id = (BigDecimal)outParams.get("USER_ID");
 		return id.longValue();
 	}
-	public void UpdateUser(User user){
+	public void UpdateUser(User user) throws UncategorizedSQLException{
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("UPDATE_USER")
 				.withCatalogName("ADMINPROFILEFUNCTIONS");

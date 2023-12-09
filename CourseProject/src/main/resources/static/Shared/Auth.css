@@ -86,3 +86,9 @@ form .field{
     cursor:pointer;
     padding:5px;
 }
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
+}
