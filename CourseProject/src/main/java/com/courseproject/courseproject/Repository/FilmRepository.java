@@ -434,7 +434,7 @@ public class FilmRepository {
 	public Film GetFilmByID(int id){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withFunctionName("FIND_BY_ID")
-				.withCatalogName("ADMINFILMFUNCTIONS")
+				.withCatalogName("SHAREDFUNCTIONS")
 				.declareParameters(
 						new SqlParameter("FILM_ID", Types.BIGINT),
 						new SqlOutParameter("V_FILM_CURSOR", OracleTypes.CURSOR,
@@ -522,8 +522,8 @@ public class FilmRepository {
 	
 	public List<AllInfoResponse> GetAllInfoAboutFilmByID(int id){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withFunctionName("GET_ALL_BY_ID")
-				.withCatalogName("ADMINFILMFUNCTIONS")
+				.withFunctionName("GET_ALL_BY_Id")
+				.withCatalogName("SHAREDFUNCTIONS")
 				.declareParameters(
 						new SqlParameter("FILM_ID", Types.NUMERIC),
 						new SqlOutParameter("V_FILM_CURSOR", OracleTypes.CURSOR,

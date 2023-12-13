@@ -22,7 +22,7 @@ a{
     justify-content: space-between;
     width: 64%;
     padding-left: 3.9%;
-    padding-right: 3.1%;
+    padding-right: 6.3%;
 }
 
 
@@ -43,6 +43,7 @@ a{
     align-items: center;
     justify-content: center;
     background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
 }
 .content-wrap{
     padding-top: 15px;
@@ -62,7 +63,7 @@ a{
 /*Poster*/
 
 .leftInfo div{
-    width: 80%;
+    width: 90%;
     margin: auto;
    
 }
@@ -73,7 +74,7 @@ a{
 .poster{
     border: 2px solid #cccccc;
     height: 400px;
-    width: 100px;
+    width: 240px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,7 +193,7 @@ label{
 }
 .generatedInput{
     width: 100%;
-    font-size: 14px;
+    font-size: 13px;
     padding: 2px;
 }
 .generatedInput:focus{
@@ -213,6 +214,7 @@ label{
 }
 .type{
     font-size: 13px;
+    color: #989696;
 }
 .buttons button{
     padding: 6px;

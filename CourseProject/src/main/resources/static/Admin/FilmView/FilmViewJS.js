@@ -34,7 +34,7 @@ document.getElementById("AddCommentButton").addEventListener('click',async ()=>{
         "userId":'',
         "date":dateIso
     }
-    if(comment!==''){
+    if(comment!==''&&comment.length<2000){
         const response = await fetch('/AddCommentToFilm',{
             method:"POST",
             headers:{
@@ -54,6 +54,8 @@ document.getElementById("AddCommentButton").addEventListener('click',async ()=>{
             console.log('error');
         }
     }
+    else
+        alert(`comment's length should be in range (1,2000)`);
 })
 
 
@@ -62,9 +64,9 @@ function AddNewDirectorInput(director = {}){
     const inputs = container.querySelectorAll('p');
     const count = inputs.length;
     let newInput = document.createElement("p");
+    newInput.classList.add("generatedInput");
     if(director=== null){
         newInput.id=`Director${count}`;
-        newInput.classList.add("generatedInput");
         container.append(newInput);
     }
     else{
@@ -74,7 +76,6 @@ function AddNewDirectorInput(director = {}){
         else{
             newInput.id=`Director${director.directorId}`;
             newInput.innerHTML = director.directorName;
-            newInput.classList.add("generatedInput");
             container.append(newInput);
         }
     }
@@ -85,9 +86,9 @@ function AddNewGenreInput(genre={}){
     const inputs = container.querySelectorAll('p');
     const count = inputs.length;
     let newInput = document.createElement("p");
+    newInput.classList.add("generatedInput");
     if(genre=== null){
         newInput.id=`Genre${count}`;
-        newInput.classList.add("generatedInput");
         container.append(newInput);
     }
     else{
@@ -97,7 +98,6 @@ function AddNewGenreInput(genre={}){
         else{
             newInput.id=`Genre${count}`;
             newInput.innerHTML = genre.genreName;
-            newInput.classList.add("generatedInput");
             container.append(newInput);
         }
     }
@@ -107,9 +107,9 @@ function AddNewActorInput(actor={}){
     const inputs = container.querySelectorAll('p');
     const count = inputs.length;
     let newInput = document.createElement("p");
+    newInput.classList.add("generatedInput");
     if(actor=== null){
         newInput.id=`Actor${count}`;
-        newInput.classList.add("generatedInput");
         container.append(newInput);
     }
     else{
@@ -119,7 +119,6 @@ function AddNewActorInput(actor={}){
         else{
             newInput.id=`Actor${count}`;
             newInput.innerHTML = actor.actorName;
-            newInput.classList.add("generatedInput");
             container.append(newInput);
         }
     }
@@ -130,6 +129,7 @@ function AddNewFactInput(fact = {}){
     const inputs = container.querySelectorAll('p');
     const count = inputs.length;
     let newInput = document.createElement("p");
+    newInput.classList.add("generatedInput");
     if(fact=== null){
         newInput.id=`Fact${count}`;
         container.append(newInput);
@@ -158,9 +158,9 @@ async function FillDataToInputs(film){
     document.getElementById("COUNTRY").innerHTML = film.country;
     document.getElementById("RATING_IMDb").innerHTML = film.rating_IMDb;
     document.getElementById("RATING_KP").innerHTML = film.rating_KP;
-    document.getElementById("BOX_OFFICE_RECEIPTS").innerHTML = film.box_OFFICE_RECEIPTS;
-    document.getElementById("BUDGET").innerHTML = film.budget;
-    document.getElementById("AGE").innerHTML = film.age;
+    document.getElementById("BOX_OFFICE_RECEIPTS").innerHTML = `$ ${film.box_OFFICE_RECEIPTS}`;
+    document.getElementById("BUDGET").innerHTML = `$ ${film.budget}`;
+    document.getElementById("AGE").innerHTML =`${film.age}+`;
     document.getElementById("VIEWING_TIME").innerHTML = film.viewing_TIME;
     document.getElementById("Description").innerHTML = film.description;
     film.directors.forEach(director=>{

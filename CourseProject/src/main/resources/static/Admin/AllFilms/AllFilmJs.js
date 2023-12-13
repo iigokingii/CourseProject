@@ -194,7 +194,17 @@ document.getElementById("Find").addEventListener('click',()=>{
     let ReqName = name.trim();
     ReqName = ReqName.trimEnd();
     ReqName = ReqName.toLowerCase();
-    const findFilm = films.find(film=>film.title.toLowerCase() === ReqName || film.original_TITLE.toLowerCase() === ReqName);
+    const findFilm = films.find(film=>{
+        let temp = film.title.toLowerCase();
+        let tempOrig = film.original_TITLE.toLowerCase();
+        temp = temp.trim();
+        temp = temp.trimEnd();
+        tempOrig = tempOrig.trimEnd();
+        tempOrig = tempOrig.trim();
+        if(tempOrig===ReqName || temp===ReqName){
+            return film;
+        }
+    });
     if(findFilm !== undefined){
         deleteFilmsFromDiv();
 

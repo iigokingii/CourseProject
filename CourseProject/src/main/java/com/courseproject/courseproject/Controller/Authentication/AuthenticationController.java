@@ -67,21 +67,19 @@ public class AuthenticationController {
 			jwtAuthenticationResponse = authenticationService.signin(request);
 		}
 		catch (Exception ex){
-			Pattern pattern = Pattern.compile("ORA-\\d+: [^\\r\\n]+");
+			/*Pattern pattern = Pattern.compile("ORA-\\d+: [^\\r\\n]+");
+			Matcher matcher = pattern.matcher(ex.getMessage());*/
+			String regex = "ORA-20002: USER DO NOT FIND,CHECK CREDENTIALS";
+			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(ex.getMessage());
 			if(matcher.find()){
-				while (matcher.find()) {
-					String errorSubstring = matcher.group();
-					jwtAuthenticationResponse.setException(errorSubstring);
-					break;
-				}
+				String errorSubstring = matcher.group();
+				jwtAuthenticationResponse.setException(errorSubstring);
 			}
 			else{
 				String badCredentials = ex.getMessage().substring(ex.getMessage().lastIndexOf(":") + 1);
 				jwtAuthenticationResponse.setException(badCredentials);
 			}
-			
-			
 		}
 		finally {
 			return jwtAuthenticationResponse;

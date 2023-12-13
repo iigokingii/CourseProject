@@ -1,6 +1,6 @@
 --Import/export in JSON format
 CREATE OR REPLACE DIRECTORY MY_DIRECTORY AS 'C:\JSON';
-CREATE OR REPLACE PROCEDURE ExportUsersReviewsToJson(
+CREATE OR REPLACE PROCEDURE ExportVisitsTableToJson(
     p_directory VARCHAR2,
     p_file_name VARCHAR2
 ) AS
@@ -12,13 +12,11 @@ BEGIN
   
   OPEN cursor_data FOR
     SELECT JSON_OBJECT(
-             'USERS_REVIEWS_ON_MOVIE_ID' VALUE USERS_REVIEWS_ON_MOVIE_ID,
-             'USER_REVIEW_TEXT' VALUE USER_REVIEW_TEXT,
-             'DATE_OF_REVIEW' VALUE TO_CHAR(DATE_OF_REVIEW, 'YYYY-MM-DD'),
-             'USER_PROFILE_ID' VALUE USER_PROFILE_ID,
-             'ALL_INFORMATION_ABOUT_FILM_ID' VALUE ALL_INFORMATION_ABOUT_FILM_ID
+             'VISITS_TABLE_ID' VALUE VISITS_TABLE_ID,
+             'DATE_OF_VISITS' VALUE TO_CHAR(DATE_OF_VISITS, 'YYYY-MM-DD'),
+             'VISITS_NUMBER' VALUE VISITS_NUMBER
            ) AS json_object
-    FROM USERS_REVIEWS_ON_MOVIE;
+    FROM VISITS_TABLE;
   
   LOOP
     FETCH cursor_data INTO json_data;
@@ -36,7 +34,7 @@ EXCEPTION
 END;
 /
 
-CREATE OR REPLACE FUNCTION IMPORT_DATA_FROM_JSON_TO_USERS_REVIEWS(
+CREATE OR REPLACE FUNCTION ImportDataFromJsonToVisitsTable(
     p_directory VARCHAR2,
     p_file_name VARCHAR2
 ) RETURN NUMBER IS
@@ -44,82 +42,67 @@ CREATE OR REPLACE FUNCTION IMPORT_DATA_FROM_JSON_TO_USERS_REVIEWS(
    file_handle UTL_FILE.FILE_TYPE;
    total_rows NUMBER := 0;
 BEGIN
-   -- Открытие файла для чтения
    file_handle := UTL_FILE.FOPEN(p_directory, p_file_name, 'R');
    
-   -- Обработка каждой строки в файле
    LOOP
-      -- Чтение строки из файла
       BEGIN
          UTL_FILE.GET_LINE(file_handle, json_data);
       EXCEPTION
          WHEN NO_DATA_FOUND THEN
-            -- Выход из цикла, если достигнут конец файла
             EXIT;
       END;
 
-      -- Вставка данных из JSON в таблицу
-      INSERT INTO USERS_REVIEWS_ON_MOVIE (
-          USERS_REVIEWS_ON_MOVIE_ID,
-          USER_REVIEW_TEXT,
-          DATE_OF_REVIEW,
-          USER_PROFILE_ID,
-          ALL_INFORMATION_ABOUT_FILM_ID
+      INSERT INTO VISITS_TABLE (
+          VISITS_TABLE_ID,
+          DATE_OF_VISITS,
+          VISITS_NUMBER
       )
       SELECT
-          jt.USERS_REVIEWS_ON_MOVIE_ID,
-          jt.USER_REVIEW_TEXT,
-          TO_DATE(jt.DATE_OF_REVIEW, 'YYYY-MM-DD') AS DATE_OF_REVIEW,
-          jt.USER_PROFILE_ID,
-          jt.ALL_INFORMATION_ABOUT_FILM_ID
+          jt.VISITS_TABLE_ID,
+          TO_DATE(jt.DATE_OF_VISITS, 'YYYY-MM-DD') AS DATE_OF_VISITS,
+          jt.VISITS_NUMBER
       FROM
           JSON_TABLE(json_data, '$'
               COLUMNS (
-                  USERS_REVIEWS_ON_MOVIE_ID NUMBER PATH '$.USERS_REVIEWS_ON_MOVIE_ID',
-                  USER_REVIEW_TEXT VARCHAR2(1000) PATH '$.USER_REVIEW_TEXT',
-                  DATE_OF_REVIEW VARCHAR2(10) PATH '$.DATE_OF_REVIEW',
-                  USER_PROFILE_ID NUMBER PATH '$.USER_PROFILE_ID',
-                  ALL_INFORMATION_ABOUT_FILM_ID NUMBER PATH '$.ALL_INFORMATION_ABOUT_FILM_ID'
+                  VISITS_TABLE_ID NUMBER PATH '$.VISITS_TABLE_ID',
+                  DATE_OF_VISITS VARCHAR2(10) PATH '$.DATE_OF_VISITS',
+                  VISITS_NUMBER NUMBER PATH '$.VISITS_NUMBER'
               )
           ) jt;
       
-      -- Увеличение счетчика строк
       total_rows := total_rows + 1;
    END LOOP;
 
-   -- Закрытие файла
    UTL_FILE.FCLOSE(file_handle);
-   
-   -- Фиксация транзакции
    COMMIT;
 
-   -- Возвращение общего числа вставленных строк
    RETURN total_rows;
 EXCEPTION
-   -- Обработка исключений
    WHEN OTHERS THEN
-      -- Откат транзакции в случае ошибки
       ROLLBACK;
-      -- Повторное возбуждение исключения
       RAISE;
 END;
 /
 
-
+SELECT * FROM VISITS_TABLE;
 
 BEGIN
-  ExportUsersReviewsToJson('MY_DIRECTORY', 'users_reviews_data.json');
+  ExportVisitsTableToJson('MY_DIRECTORY', 'visits_data.json');
 END;
 /
-
+------------------------------------------------------
+ALTER TRIGGER TR_VISITS_TABLE DISABLE;
 DECLARE
    rows_inserted NUMBER;
 BEGIN
-    rows_inserted := IMPORT_DATA_FROM_JSON_TO_USERS_REVIEWS('MY_DIRECTORY', 'users_reviews_data.json');
+    rows_inserted := ImportDataFromJsonToVisitsTable('MY_DIRECTORY', 'visits_data.json');
    DBMS_OUTPUT.PUT_LINE('Total rows inserted: ' || rows_inserted);
 END;
 /
---SELECT * FROM USERS_REVIEWS_ON_MOVIE;
---DROP TABLE USERS_REVIEWS_ON_MOVIE PURGE;
+ALTER TRIGGER TR_VISITS_TABLE ENABLE;
+-------------------------------------------------------
+COMMIT;
+--SELECT * FROM VISITS_TABLE;
+--DROP TABLE VISITS_TABLE PURGE;
 
 

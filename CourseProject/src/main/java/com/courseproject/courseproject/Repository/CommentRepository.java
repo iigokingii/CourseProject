@@ -31,7 +31,7 @@ public class CommentRepository {
 	public void AddComment(Comment comment){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("ADD_COMMENT")
-				.withCatalogName("ADMINFILMFUNCTIONS");
+				.withCatalogName("SHAREDFUNCTIONS");
 		jdbcCall.declareParameters(
 				new SqlParameter("USER_REVIEW_TEXT", Types.VARCHAR),
 				new SqlParameter("DATE_OF_REVIEW", Types.DATE),

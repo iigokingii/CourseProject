@@ -52,7 +52,7 @@ a{
 }
 .content{
     display: flex;
-    margin-left: px;
+    /*margin-left: px;*/
     align-items: stretch;
 }
 /*left column info*/
@@ -62,7 +62,7 @@ a{
 /*Poster*/
 
 .leftInfo div{
-    width: 80%;
+    width: 90%;
     margin: auto;
    
 }
@@ -73,7 +73,7 @@ a{
 .poster{
     border: 2px solid #cccccc;
     height: 400px;
-    width: 100px;
+    width: 240px;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -25,10 +25,10 @@ function ValidateFilmData(posterInputBlob){
     let FactsArray = ExtractTextArrayFromTextareaContainer(Facts);
     
     let Description = document.getElementById("Description").value;
-    if(CheckEmptyValue(TITLE,"Title")&&CheckEmptyValue(ORIGINAL_TITLE,"original title")&&compareDate(YEAR_OF_POSTING)&&CheckEmptyValue(COUNTRY,"country")&&
-    CheckNumberValue(RATING_IMDb,"Rating IMdB")&&CheckNumberValue(RATING_KP,"Rating KP")&&CheckNumberValue(BOX_OFFICE_RECEIPTS,"Box office receipts")&&
-    CheckNumberValue(BUDGET,"Budget")&&CheckAgeValue(AGE,"Age")&&CheckTime(VIEWING_TIME,"Viewving time")&&CheckArray(GenresArray,"genres")&&
-    CheckArray(DirectorsArray,"directors")&&CheckArray(ActorsArray,"actors")&&CheckArray(FactsArray,"facts")&&CheckEmptyValue(Description,"Desciption")&&CheckPoster(posterInputBlob))
+    if(CheckEmptyValue(TITLE,"Title")&&checkLength(TITLE,"Title",100)&&CheckEmptyValue(ORIGINAL_TITLE,"original title")&&checkLength(ORIGINAL_TITLE,"original title",100)&&compareDate(YEAR_OF_POSTING)&&CheckEmptyValue(COUNTRY,"country")&&
+    checkLength(COUNTRY,"country",50)&&CheckNumberValue(RATING_IMDb,"Rating IMdB")&&CheckNumberValue(RATING_KP,"Rating KP")&&CheckNumberValue(BOX_OFFICE_RECEIPTS,"Box office receipts")&&
+    CheckNumberValue(BUDGET,"Budget")&&CheckAgeValue(AGE,"Age")&&CheckTime(VIEWING_TIME,"Viewving time")&&CheckArray(GenresArray,"genres",50)&&
+    CheckArray(DirectorsArray,"directors",90)&&CheckArray(ActorsArray,"actors",100)&&CheckArray(FactsArray,"facts",700)&&CheckEmptyValue(Description,"Desciption")&&checkLength(Description,"Desciption",1000)&&CheckPoster(posterInputBlob))
         return true;
     return false;
 }
@@ -43,10 +43,19 @@ function CheckPoster(posterBlob){
     }
 }
 
-function CheckArray(array,name){
+function checkLength(data,name,maxLength){
+    if(data.length<=maxLength){
+        ClearError();
+        return true;
+    }
+    HandleError(`${name} field should be in range(1,${maxLength})`)
+    return false;
+}
+
+function CheckArray(array,name,length){
     if (array.length>=1){
         for(let j =0;j<array.length;j++){
-            if(!CheckEmptyValue(array[j],name)){
+            if(!CheckEmptyValue(array[j],name)||!checkLength(array[j],name,length)){
                 return false;
             }
         }
@@ -126,7 +135,7 @@ function CheckAgeValue(data,name){
         if (!isNaN(parseFloat(data)) && isFinite(data)) {
             let age = parseFloat(data);
             if(age>100||age<0){
-                HandleError(`${name} should be in range (0,100)`)
+                HandleError(`${name} should be in range (1,100)`)
                 return false;
             }
             else{
