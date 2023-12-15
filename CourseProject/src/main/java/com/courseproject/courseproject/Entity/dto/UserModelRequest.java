@@ -1,4 +1,4 @@
-package com.courseproject.courseproject.dto;
+package com.courseproject.courseproject.Entity.dto;
 
 import com.courseproject.courseproject.Entity.Role;
 import lombok.AllArgsConstructor;
@@ -10,8 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtAuthenticationResponse {
-	String token;
-	String exception="";
-	Role role;
+public class UserModelRequest {
+	String user_PROFILE_ID;
+	String login;
+	String email;
+	Role user_ROLE;
+	byte[] avatar;
+	String password;
 }

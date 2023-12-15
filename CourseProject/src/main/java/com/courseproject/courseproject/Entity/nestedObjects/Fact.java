@@ -1,4 +1,4 @@
-package com.courseproject.courseproject.Repository.nestedObjects;
+package com.courseproject.courseproject.Entity.nestedObjects;
 
 import oracle.sql.*;
 

@@ -4,15 +4,13 @@ import com.courseproject.courseproject.Entity.Film;
 import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Service.CommentService;
 import com.courseproject.courseproject.Service.FilmService;
-import com.courseproject.courseproject.Service.UserService;
 import com.courseproject.courseproject.Service.VisitService;
-import com.courseproject.courseproject.dto.AddCommentRequest;
-import com.courseproject.courseproject.dto.AllInfoResponse;
+import com.courseproject.courseproject.Entity.dto.AddCommentRequest;
+import com.courseproject.courseproject.Entity.dto.AllInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 

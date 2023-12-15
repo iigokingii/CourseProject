@@ -1,21 +1,19 @@
 package com.courseproject.courseproject.Controller.Admin;
 
-import com.courseproject.courseproject.Entity.Film;
 import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Service.CommentService;
 import com.courseproject.courseproject.Service.FilmService;
 import com.courseproject.courseproject.Service.UserService;
-import com.courseproject.courseproject.dto.NewFilmRequest;
-import com.courseproject.courseproject.dto.AddUserResponse;
-import com.courseproject.courseproject.dto.UserModelRequest;
+import com.courseproject.courseproject.Entity.dto.ExceptionDelete;
+import com.courseproject.courseproject.Entity.dto.NewFilmRequest;
+import com.courseproject.courseproject.Entity.dto.AddUserResponse;
+import com.courseproject.courseproject.Entity.dto.UserModelRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -37,8 +35,8 @@ public class AdminController {
 	}
 	@DeleteMapping("/DeleteUser")
 	@PreAuthorize("hasRole('Admin')")
-	public void DeleteUser(@RequestParam("userID") String userID){
-		userService.DeleteUserByID(userID);
+	public ExceptionDelete DeleteUser(@RequestParam("userID") String userID){
+		return userService.DeleteUserByID(userID);
 	}
 	@PostMapping("/AddUser")
 	@PreAuthorize("hasRole('Admin')")

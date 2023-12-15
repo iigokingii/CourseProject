@@ -1,10 +1,10 @@
 package com.courseproject.courseproject.Service;
 
-import com.courseproject.courseproject.Entity.Role;
 import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Repository.UserRepository;
-import com.courseproject.courseproject.dto.AddUserResponse;
-import com.courseproject.courseproject.dto.UserModelRequest;
+import com.courseproject.courseproject.Entity.dto.AddUserResponse;
+import com.courseproject.courseproject.Entity.dto.ExceptionDelete;
+import com.courseproject.courseproject.Entity.dto.UserModelRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,8 +41,18 @@ public class UserService {
 		return userRepository.GetAllUsers();
 	}
 	
-	public void DeleteUserByID(String UserID){
-		userRepository.DeleteUserByID(Long.parseLong(UserID));
+	public ExceptionDelete DeleteUserByID(String UserID){
+		ExceptionDelete response = new ExceptionDelete();
+		try {
+			userRepository.DeleteUserByID(Long.parseLong(UserID));
+		}
+		catch (Exception ex){
+			response = new ExceptionDelete();
+			response.setException("Клиент активен!");
+		}
+		finally {
+			return response;
+		}
 	}
 	public User GetUserById(String UserID){
 		return userRepository.GetUserById(Long.parseLong(UserID));

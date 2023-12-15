@@ -25,10 +25,10 @@ function ValidateFilmData(posterInputBlob){
     let FactsArray = ExtractTextArrayFromTextareaContainer(Facts);
     
     let Description = document.getElementById("Description").value;
-    if(CheckEmptyValue(TITLE,"Title")&&checkLength(TITLE,"Title",100)&&CheckEmptyValue(ORIGINAL_TITLE,"original title")&&checkLength(ORIGINAL_TITLE,"original title",100)&&compareDate(YEAR_OF_POSTING)&&CheckEmptyValue(COUNTRY,"country")&&
-    checkLength(COUNTRY,"country",50)&&CheckNumberValue(RATING_IMDb,"Rating IMdB")&&CheckNumberValue(RATING_KP,"Rating KP")&&CheckNumberValue(BOX_OFFICE_RECEIPTS,"Box office receipts")&&
-    CheckNumberValue(BUDGET,"Budget")&&CheckAgeValue(AGE,"Age")&&CheckTime(VIEWING_TIME,"Viewving time")&&CheckArray(GenresArray,"genres",50)&&
-    CheckArray(DirectorsArray,"directors",90)&&CheckArray(ActorsArray,"actors",100)&&CheckArray(FactsArray,"facts",700)&&CheckEmptyValue(Description,"Desciption")&&checkLength(Description,"Desciption",1000)&&CheckPoster(posterInputBlob))
+    if(CheckEmptyValue(TITLE,"Title")&&checkLength(TITLE,"Title",50)&&CheckEmptyValue(ORIGINAL_TITLE,"original title")&&checkLength(ORIGINAL_TITLE,"original title",50)&&compareDate(YEAR_OF_POSTING)&&CheckEmptyValue(COUNTRY,"country")&&
+    checkLength(COUNTRY,"country",25)&&CheckNumberValue(RATING_IMDb,"Rating IMdB")&&CheckNumberValue(RATING_KP,"Rating KP")&&CheckNumberValue(BOX_OFFICE_RECEIPTS,"Box office receipts")&&
+    CheckNumberValue(BUDGET,"Budget")&&CheckAgeValue(AGE,"Age")&&CheckTime(VIEWING_TIME,"Viewving time")&&CheckArray(GenresArray,"genres",25)&&
+    CheckArray(DirectorsArray,"directors",45)&&CheckArray(ActorsArray,"actors",50)&&CheckArray(FactsArray,"facts",350)&&CheckEmptyValue(Description,"Desciption")&&checkLength(Description,"Desciption",500)&&CheckPoster(posterInputBlob))
         return true;
     return false;
 }

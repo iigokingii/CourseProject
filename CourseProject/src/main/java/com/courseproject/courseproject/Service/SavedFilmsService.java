@@ -1,9 +1,8 @@
 package com.courseproject.courseproject.Service;
 
 import com.courseproject.courseproject.Entity.WatchLater;
-import com.courseproject.courseproject.Repository.CommentRepository;
 import com.courseproject.courseproject.Repository.SavedFilmsRepository;
-import com.courseproject.courseproject.dto.AddToSaved;
+import com.courseproject.courseproject.Entity.dto.AddToSaved;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

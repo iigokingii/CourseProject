@@ -1,21 +1,17 @@
 package com.courseproject.courseproject.Controller.Authentication;
 
 import com.courseproject.courseproject.Service.JWT.AuthenticationService;
-import com.courseproject.courseproject.dto.JwtAuthenticationResponse;
-import com.courseproject.courseproject.dto.SignInRequest;
-import com.courseproject.courseproject.dto.SignUpRequest;
-import io.jsonwebtoken.Jwt;
+import com.courseproject.courseproject.Entity.dto.JwtAuthenticationResponse;
+import com.courseproject.courseproject.Entity.dto.SignInRequest;
+import com.courseproject.courseproject.Entity.dto.SignUpRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

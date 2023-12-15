@@ -8,7 +8,6 @@ CREATE SEQUENCE SEQ_GENRE
  INCREMENT BY   1
  NOCACHE
  NOCYCLE;
-
 --ПРОТОТИП
 CREATE TYPE GENRE_TYPE_CONSTRUCTOR AS OBJECT(
     GENRE_ID INT,                                                                             --атрибут

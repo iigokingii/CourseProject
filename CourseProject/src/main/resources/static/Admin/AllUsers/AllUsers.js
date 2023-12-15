@@ -28,7 +28,13 @@ async function DeleteUser(id) {
         },
     });
     if (response.ok) {
-        document.querySelector(`tr[data-rowid='${id}']`).remove();
+        let respJson = await response.json();
+        if (respJson.exception===""||respJson.exception===null){
+            document.querySelector(`tr[data-rowid='${id}']`).remove();
+            document.getElementById("ActiveClient").innerHTML = "";
+        }
+        else
+            document.getElementById("ActiveClient").innerHTML = respJson.exception;
     }
     else {
         const error = await response.json();

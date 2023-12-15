@@ -13,6 +13,10 @@ import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
+import java.sql.Clob;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,19 +37,33 @@ public class CommentRepository {
 				.withProcedureName("ADD_COMMENT")
 				.withCatalogName("SHAREDFUNCTIONS");
 		jdbcCall.declareParameters(
-				new SqlParameter("USER_REVIEW_TEXT", Types.VARCHAR),
+				new SqlParameter("USER_REVIEW_TEXT", Types.CLOB),
 				new SqlParameter("DATE_OF_REVIEW", Types.DATE),
 				new SqlParameter("USER_PROFILE_ID", Types.NUMERIC),
 				new SqlParameter("ALL_INFORMATION_ABOUT_FILM_ID", Types.NUMERIC)
 		);
-		java.sql.Date oracleDate = new java.sql.Date(comment.getDATE_OF_REVIEW().getTime());
-		Map<String, Object> inParams = new HashMap<>();
-		inParams.put("USER_REVIEW_TEXT", comment.getUSER_REVIEW_TEXT());
-		inParams.put("DATE_OF_REVIEW", oracleDate);
-		inParams.put("USER_PROFILE_ID", comment.getUSER_PROFILE_ID());
-		inParams.put("ALL_INFORMATION_ABOUT_FILM_ID", comment.getALL_INFORMATION_ABOUT_FILM_ID());
+		DataSource dataSource = jdbcTemplate.getDataSource();
+		Clob clob = null;
+		try (Connection connection = dataSource.getConnection()) {
+			clob = connection.createClob();
+			clob.setString(1, comment.getUSER_REVIEW_TEXT());
+		} catch (SQLException e) {
+			// Обработка ошибок
+			e.printStackTrace();
+		}
 		
-		jdbcCall.execute(inParams);
+		if(clob!=null){
+			java.sql.Date oracleDate = new java.sql.Date(comment.getDATE_OF_REVIEW().getTime());
+			Map<String, Object> inParams = new HashMap<>();
+			
+			inParams.put("USER_REVIEW_TEXT", clob);
+			inParams.put("DATE_OF_REVIEW", oracleDate);
+			inParams.put("USER_PROFILE_ID", comment.getUSER_PROFILE_ID());
+			inParams.put("ALL_INFORMATION_ABOUT_FILM_ID", comment.getALL_INFORMATION_ABOUT_FILM_ID());
+			
+			jdbcCall.execute(inParams);
+		}
+		
 	}
 	public void DeleteComment(int id){
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)

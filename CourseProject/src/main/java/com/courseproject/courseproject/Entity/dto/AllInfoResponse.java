@@ -1,13 +1,10 @@
-package com.courseproject.courseproject.dto;
+package com.courseproject.courseproject.Entity.dto;
 
 import com.courseproject.courseproject.Entity.Role;
-import com.courseproject.courseproject.Repository.nestedObjects.Actor;
-import com.courseproject.courseproject.Repository.nestedObjects.Director;
-import com.courseproject.courseproject.Repository.nestedObjects.Fact;
-import com.courseproject.courseproject.Repository.nestedObjects.Genre;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.courseproject.courseproject.Entity.nestedObjects.Actor;
+import com.courseproject.courseproject.Entity.nestedObjects.Director;
+import com.courseproject.courseproject.Entity.nestedObjects.Fact;
+import com.courseproject.courseproject.Entity.nestedObjects.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

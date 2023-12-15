@@ -1,20 +1,17 @@
-package com.courseproject.courseproject.dto;
+package com.courseproject.courseproject.Entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.awt.*;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddCommentRequest {
+public class AddToSaved {
 	String filmId;
-	String comment;
 	String userId;
-	Date date;
-	
 }

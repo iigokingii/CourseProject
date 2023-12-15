@@ -4,18 +4,16 @@ import com.courseproject.courseproject.Entity.Role;
 import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Repository.UserRepository;
 import com.courseproject.courseproject.Service.UserService;
-import com.courseproject.courseproject.dto.JwtAuthenticationResponse;
-import com.courseproject.courseproject.dto.SignInRequest;
-import com.courseproject.courseproject.dto.SignUpRequest;
+import com.courseproject.courseproject.Entity.dto.JwtAuthenticationResponse;
+import com.courseproject.courseproject.Entity.dto.SignInRequest;
+import com.courseproject.courseproject.Entity.dto.SignUpRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

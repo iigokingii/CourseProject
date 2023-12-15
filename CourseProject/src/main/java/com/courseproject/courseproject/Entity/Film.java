@@ -1,16 +1,13 @@
 package com.courseproject.courseproject.Entity;
 
-import com.courseproject.courseproject.Repository.nestedObjects.Actor;
-import com.courseproject.courseproject.Repository.nestedObjects.Director;
-import com.courseproject.courseproject.Repository.nestedObjects.Fact;
-import com.courseproject.courseproject.Repository.nestedObjects.Genre;
+import com.courseproject.courseproject.Entity.nestedObjects.Actor;
+import com.courseproject.courseproject.Entity.nestedObjects.Director;
+import com.courseproject.courseproject.Entity.nestedObjects.Fact;
+import com.courseproject.courseproject.Entity.nestedObjects.Genre;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Array;
-import java.sql.Types;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder

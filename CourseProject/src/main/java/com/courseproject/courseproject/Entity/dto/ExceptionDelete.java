@@ -1,4 +1,4 @@
-package com.courseproject.courseproject.dto;
+package com.courseproject.courseproject.Entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInRequest {
-	String email;
-	String password;
+public class ExceptionDelete {
+	String exception="";
 }

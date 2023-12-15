@@ -2,12 +2,12 @@ package com.courseproject.courseproject.Repository;
 
 import com.courseproject.courseproject.Entity.Film;
 import com.courseproject.courseproject.Entity.Role;
-import com.courseproject.courseproject.Repository.nestedObjects.Actor;
-import com.courseproject.courseproject.Repository.nestedObjects.Director;
-import com.courseproject.courseproject.Repository.nestedObjects.Fact;
-import com.courseproject.courseproject.Repository.nestedObjects.Genre;
-import com.courseproject.courseproject.dto.AllInfoResponse;
-import com.courseproject.courseproject.dto.NewFilmRequest;
+import com.courseproject.courseproject.Entity.nestedObjects.Actor;
+import com.courseproject.courseproject.Entity.nestedObjects.Director;
+import com.courseproject.courseproject.Entity.nestedObjects.Fact;
+import com.courseproject.courseproject.Entity.nestedObjects.Genre;
+import com.courseproject.courseproject.Entity.dto.AllInfoResponse;
+import com.courseproject.courseproject.Entity.dto.NewFilmRequest;
 import lombok.AllArgsConstructor;
 import oracle.jdbc.OracleConnection;
 import oracle.jdbc.OracleDataFactory;
@@ -51,8 +51,8 @@ public class FilmRepository {
 			if (connection.isWrapperFor(OracleConnection.class)) {
 				oracleConnection = connection.unwrap(OracleConnection.class);
 				Map<String, Class<?>> typeMap = oracleConnection.getTypeMap();
-				typeMap.put("ORAData", ORADataFactory.class);
-				typeMap.put("OracleData", OracleDataFactory.class);
+				typeMap.put("ORAData", ORADataFactory.class);//интерфейс, который позволяет связать пользовательский Java-класс с соответствующим типом данных Oracle
+				typeMap.put("OracleData", OracleDataFactory.class);//"OracleData" предоставляет дополнительные возможности для работы с расширенными типами данных Oracle, такими как пользовательские типы объектов (object types) и коллекции
 				oracleConnection.setTypeMap(typeMap);
 				Object[] objs = new Object[genres.length];
 				for (int i =0;i<genres.length;i++){

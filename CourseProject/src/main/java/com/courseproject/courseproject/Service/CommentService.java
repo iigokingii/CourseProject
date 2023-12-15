@@ -2,16 +2,10 @@ package com.courseproject.courseproject.Service;
 
 import com.courseproject.courseproject.Entity.Comment;
 import com.courseproject.courseproject.Repository.CommentRepository;
-import com.courseproject.courseproject.Repository.FilmRepository;
-import com.courseproject.courseproject.dto.AddCommentRequest;
+import com.courseproject.courseproject.Entity.dto.AddCommentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 @Service
 @RequiredArgsConstructor
 public class CommentService {

@@ -1,4 +1,4 @@
-package com.courseproject.courseproject.dto;
+package com.courseproject.courseproject.Entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

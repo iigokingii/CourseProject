@@ -22,7 +22,7 @@ a{
     justify-content: space-between;
     width: 67.5%;
     padding-left: 3.9%;
-    padding-right: 3.1%;
+    padding-right: 6.3%;
 }
 .navElem{
     display: flex;
@@ -58,7 +58,7 @@ a{
 }
 
 .nav{
-    width: 35%;
+    width: 25%;
     margin-top: 20px;
 }
 .sorting{
@@ -95,7 +95,8 @@ a{
 
 /*Right*/
 .films{
-    width: 61%;
+    width: 69%;
+    margin-left: 2%;
 }
 
 .film{
@@ -106,7 +107,7 @@ a{
     cursor: pointer;
 }
 .film-id{
-    width: 5%;
+    width: 28px;
 }
 .film-id h3{
     text-align: center;
@@ -114,7 +115,7 @@ a{
 }
 .poster{
     border: 2px solid #cccccc;
-    width: 12%;
+    width: 67px;
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 15px;
@@ -128,7 +129,7 @@ a{
 }
 .briefInformation{
     padding-top: 8px;
-    width: 57%;
+    width: 67%;
 }
 .Row2{
     height: 20px;
@@ -167,7 +168,7 @@ a{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 26%;
+    width: 16%;
 }
 .rating{
     align-self: flex-start;
@@ -177,15 +178,15 @@ a{
 }
 
 .IMdB{
-    margin-left: 40px;
+    margin-left: 20px;
 }
 .editorial{
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 10px;
     color: #474747;
 }
 .mark{
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     color: rgb(89, 183, 76);
 }
@@ -194,6 +195,7 @@ a{
     align-self: flex-end;
     margin-bottom:11px;
     width: 100%;
+    margin-bottom: 15px;
 }
 
 .EditButton{
@@ -201,9 +203,10 @@ a{
     width: 55%;
     border: 1px solid black;
     border-radius: 3px;
-    padding: 3px;
+    padding: 2px;
     background-color: #0171d3;
     cursor: pointer;
+    font-size: 10px;
 }
 .DeleteButton{
     text-transform: uppercase;
@@ -211,7 +214,8 @@ a{
     border: 1px solid black;
     border-radius: 3px;
     background-color: red;
-    padding: 3px;
-    margin-left: 5px;
+    padding: 2px;
+    margin-left: 3px;
     cursor: pointer;
+    font-size: 10px;
 }

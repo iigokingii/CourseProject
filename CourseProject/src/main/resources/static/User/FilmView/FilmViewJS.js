@@ -33,7 +33,7 @@ document.getElementById("AddCommentButton").addEventListener('click',async ()=>{
         "userId":'',
         "date":dateIso
     }
-    if(comment!==''&&comment.length<2000){
+    if(comment!==''){
         const response = await fetch('/AddCommentToFilm',{
             method:"POST",
             headers:{

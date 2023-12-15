@@ -2,7 +2,7 @@ package com.courseproject.courseproject.Service;
 
 import com.courseproject.courseproject.Entity.LikedFilm;
 import com.courseproject.courseproject.Repository.LikedFilmsRepository;
-import com.courseproject.courseproject.dto.AddToLiked;
+import com.courseproject.courseproject.Entity.dto.AddToLiked;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

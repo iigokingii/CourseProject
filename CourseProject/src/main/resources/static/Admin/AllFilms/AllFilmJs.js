@@ -10,6 +10,15 @@ async function GetFilms(){
     if(response.ok){
         let respJson = await response.json();
         films = respJson;
+        films.sort((a, b)=>{
+            if (a.all_INFORMATION_ABOUT_FILM_ID < b.all_INFORMATION_ABOUT_FILM_ID) {
+                return -1;
+            }
+            if (a.all_INFORMATION_ABOUT_FILM_ID > b.all_INFORMATION_ABOUT_FILM_ID) {
+                return 1;
+            }
+            return 0;
+        })
         console.log(respJson);
         DisplayAllFilms(films)
     }
@@ -51,6 +60,7 @@ function CreateFilmView(film){
         let briefDiv = document.createElement('div');
         briefDiv.classList.add('briefInformation');
             let h4Tittle = document.createElement('h4');
+            h4Tittle.style.fontSize="12px";
             h4Tittle.classList.add('title')
             h4Tittle.innerHTML = film.title;
         briefDiv.append(h4Tittle);
@@ -194,29 +204,35 @@ document.getElementById("Find").addEventListener('click',()=>{
     let ReqName = name.trim();
     ReqName = ReqName.trimEnd();
     ReqName = ReqName.toLowerCase();
-    const findFilm = films.find(film=>{
+    const findFilm = films.filter(film=>{
         let temp = film.title.toLowerCase();
         let tempOrig = film.original_TITLE.toLowerCase();
         temp = temp.trim();
         temp = temp.trimEnd();
         tempOrig = tempOrig.trimEnd();
         tempOrig = tempOrig.trim();
-        if(tempOrig===ReqName || temp===ReqName){
+
+        if (tempOrig.includes(ReqName.toLowerCase()) && ReqName!==' '&& ReqName!=='' || temp.includes(ReqName.toLowerCase())&& ReqName!==' '&& ReqName!=='') {
             return film;
         }
-    });
-    if(findFilm !== undefined){
+    });    
+    if(findFilm.length!==0){
         deleteFilmsFromDiv();
-
         let filmsDiv = document.getElementById('films');
-        let hr = document.createElement('hr');
-        hr.id = `hr-${findFilm.all_INFORMATION_ABOUT_FILM_ID}`
-        filmsDiv.append(hr);
-        filmsDiv.append(CreateFilmView(findFilm));
+        findFilm.forEach(elem=>{
+            let hr = document.createElement('hr');
+            hr.id = `hr-${findFilm.all_INFORMATION_ABOUT_FILM_ID}`
+            filmsDiv.append(hr);
+            filmsDiv.append(CreateFilmView(elem));
+        })
+        
+    }
+    else if(ReqName===''){
+        deleteFilmsFromDiv();
+        DisplayAllFilms(films);
     }
     else{
         deleteFilmsFromDiv();
-        DisplayAllFilms(films);
     }
 })
 
@@ -236,9 +252,9 @@ document.getElementById("alphabet").addEventListener('click',()=>{
     const sortedItems = [...films];
     if(click1%2==0){
         sortedItems.sort((a, b) => {
-            if (a.title < b.title) {
+            if (a.title.trim() < b.title.trim()) {
             return -1; // a должен быть перед b
-            } else if (a.title > b.title) {
+            } else if (a.title.trim() > b.title.trim()) {
             return 1; // a должен быть после b
             } else {
             return 0; // a и b равны
@@ -248,9 +264,9 @@ document.getElementById("alphabet").addEventListener('click',()=>{
     }
     else{
         sortedItems.sort((a, b) => {
-            if (a.title < b.title) {
+            if (a.title.trim() < b.title.trim()) {
             return 1; // a должен быть перед b
-            } else if (a.title > b.title) {
+            } else if (a.title.trim() > b.title.trim()) {
             return -1; // a должен быть после b
             } else {
             return 0; // a и b равны
@@ -267,9 +283,9 @@ document.getElementById("Genre").addEventListener('click',()=>{
     const sortedItems = [...films];
     if(click2%2==0){
         sortedItems.sort((a, b) => {
-            if (a.genres[0].genreName < b.genres[0].genreName) {
+            if (a.genres[0].genreName.trim() < b.genres[0].genreName.trim()) {
             return -1; // a должен быть перед b
-            } else if (a.genres[0].genreName > b.genres[0].genreName) {
+            } else if (a.genres[0].genreName.trim() > b.genres[0].genreName.trim()) {
             return 1; // a должен быть после b
             } else {
             return 0; // a и b равны
@@ -279,9 +295,9 @@ document.getElementById("Genre").addEventListener('click',()=>{
     }
     else{
         sortedItems.sort((a, b) => {
-            if (a.genres[0].genreName < b.genres[0].genreName) {
+            if (a.genres[0].genreName.trim() < b.genres[0].genreName.trim()) {
             return 1; // a должен быть перед b
-            } else if (a.genres[0].genreName > b.genres[0].genreName) {
+            } else if (a.genres[0].genreName.trim() > b.genres[0].genreName.trim()) {
             return -1; // a должен быть после b
             } else {
             return 0; // a и b равны
@@ -299,9 +315,9 @@ document.getElementById("viewingTime").addEventListener('click',()=>{
     const sortedItems = [...films];
     if(click3%2==0){
         sortedItems.sort((a, b) => {
-            if (a.viewing_TIME < b.viewing_TIME) {
+            if (a.viewing_TIME.trim() < b.viewing_TIME.trim()) {
             return -1; // a должен быть перед b
-            } else if (a.viewing_TIME > b.viewing_TIME) {
+            } else if (a.viewing_TIME.trim() > b.viewing_TIME.trim()) {
             return 1; // a должен быть после b
             } else {
             return 0; // a и b равны
@@ -311,9 +327,9 @@ document.getElementById("viewingTime").addEventListener('click',()=>{
     }
     else{
         sortedItems.sort((a, b) => {
-            if (a.viewing_TIME < b.viewing_TIME) {
+            if (a.viewing_TIME.trim() < b.viewing_TIME.trim()) {
             return 1; // a должен быть перед b
-            } else if (a.viewing_TIME > b.viewing_TIME) {
+            } else if (a.viewing_TIME.trim() > b.viewing_TIME.trim()) {
             return -1; // a должен быть после b
             } else {
             return 0; // a и b равны
@@ -330,9 +346,9 @@ document.getElementById("country").addEventListener('click',()=>{
     const sortedItems = [...films];
     if(click4%2==0){
         sortedItems.sort((a, b) => {
-            if (a.country < b.country) {
+            if (a.country.trim() < b.country.trim()) {
             return -1; // a должен быть перед b
-            } else if (a.country > b.country) {
+            } else if (a.country.trim() > b.country.trim()) {
             return 1; // a должен быть после b
             } else {
             return 0; // a и b равны
@@ -342,9 +358,9 @@ document.getElementById("country").addEventListener('click',()=>{
     }
     else{
         sortedItems.sort((a, b) => {
-            if (a.country < b.country) {
+            if (a.country.trim() < b.country.trim()) {
             return 1; // a должен быть перед b
-            } else if (a.country > b.country) {
+            } else if (a.country.trim() > b.country.trim()) {
             return -1; // a должен быть после b
             } else {
             return 0; // a и b равны

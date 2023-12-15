@@ -2,9 +2,8 @@ package com.courseproject.courseproject.Controller.User;
 
 import com.courseproject.courseproject.Entity.User;
 import com.courseproject.courseproject.Service.*;
-import com.courseproject.courseproject.dto.AddCommentRequest;
-import com.courseproject.courseproject.dto.AddToLiked;
-import com.courseproject.courseproject.dto.AddToSaved;
+import com.courseproject.courseproject.Entity.dto.AddToLiked;
+import com.courseproject.courseproject.Entity.dto.AddToSaved;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;

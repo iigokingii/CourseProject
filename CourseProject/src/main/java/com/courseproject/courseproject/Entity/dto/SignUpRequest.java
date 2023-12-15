@@ -1,4 +1,4 @@
-package com.courseproject.courseproject.dto;
+package com.courseproject.courseproject.Entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddToLiked {
-	String filmId;
-	String userId;
+public class SignUpRequest {
+	String login;
+	String email;
+	String password;
 }
